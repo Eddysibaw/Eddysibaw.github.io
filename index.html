@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDDYSIBAW — AI Filmmaker · Portfolio</title>
+<meta name="description" content="EDDYSIBAW — AI filmmaker. 34 projects, 60+ AI-generated films and series: epic fantasy, action, sci-fi and comedy. Available for brand partnerships and creator programs.">
+<meta property="og:title" content="EDDYSIBAW — AI Filmmaker">
+<meta property="og:description" content="34 projects · 60+ AI-generated films · 2 full-season series. Solo-produced with generative AI.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Kanit:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0c;
+    --bg2:#101014;
+    --card:#141419;
+    --line:rgba(255,255,255,.08);
+    --txt:#f2f2f0;
+    --dim:#8a8a93;
+    --accent:#e8ff47;
+    --ease:cubic-bezier(.22,.9,.28,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--txt);
+    font-family:'Space Grotesk','Kanit',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--accent);color:#000}
+
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:2;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:20px 40px;
+    background:linear-gradient(to bottom,rgba(10,10,12,.9),transparent);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+  }
+  .logo{font-weight:700;letter-spacing:.18em;font-size:14px}
+  .logo span{color:var(--accent)}
+  nav .links{display:flex;gap:24px;align-items:center;font-size:12px;letter-spacing:.12em;color:var(--dim)}
+  nav .links a{color:inherit;text-decoration:none;transition:color .3s}
+  nav .links a:hover{color:var(--txt)}
+  .lang-toggle{
+    display:flex;border:1px solid var(--line);border-radius:100px;overflow:hidden;
+  }
+  .lang-toggle button{
+    background:transparent;border:0;color:var(--dim);cursor:pointer;
+    padding:6px 14px;font-size:11px;letter-spacing:.1em;
+    font-family:'Space Grotesk','Kanit',sans-serif;transition:all .25s;
+  }
+  .lang-toggle button.on{background:var(--accent);color:#000;font-weight:600}
+
+  /* ---------- HERO ---------- */
+  header{
+    min-height:92vh;display:flex;flex-direction:column;justify-content:flex-end;
+    padding:0 40px 70px;position:relative;
+  }
+  header::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse 60% 45% at 75% 20%,rgba(232,255,71,.06),transparent 60%),
+      radial-gradient(ellipse 50% 40% at 15% 80%,rgba(90,120,255,.05),transparent 60%);
+  }
+  .kicker{
+    font-size:12px;letter-spacing:.35em;color:var(--accent);
+    text-transform:uppercase;margin-bottom:22px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .kicker::before{content:"";width:44px;height:1px;background:var(--accent)}
+  h1{
+    font-size:clamp(48px,9.5vw,140px);
+    line-height:.92;font-weight:700;letter-spacing:-.02em;
+    text-transform:uppercase;
+  }
+  h1 .outline{
+    color:transparent;-webkit-text-stroke:1.5px rgba(242,242,240,.75);
+  }
+  .hero-sub{
+    display:flex;flex-wrap:wrap;gap:40px;margin-top:36px;
+    color:var(--dim);font-family:'Kanit';font-weight:300;font-size:15px;max-width:960px;
+  }
+  .hero-sub .stat b{
+    display:block;color:var(--txt);font-family:'Space Grotesk';
+    font-size:30px;font-weight:700;
+  }
+  .hero-sub .stat b i{color:var(--accent);font-style:normal}
+
+  /* ---------- SECTION HEADINGS ---------- */
+  .sec-head{
+    padding:90px 40px 34px;display:flex;align-items:baseline;gap:20px;flex-wrap:wrap;
+  }
+  .sec-head h2{
+    font-size:clamp(28px,4.4vw,52px);font-weight:700;text-transform:uppercase;letter-spacing:-.01em;
+  }
+  .sec-head .no{color:var(--accent);font-size:13px;letter-spacing:.3em}
+  .sec-head p{color:var(--dim);font-family:'Kanit';font-weight:300;font-size:14px;flex-basis:100%;max-width:640px}
+
+  /* ---------- FILTER ---------- */
+  .toolbar{
+    position:sticky;top:0;z-index:40;
+    display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+    padding:18px 40px;
+    background:rgba(10,10,12,.85);backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .chip{
+    font-family:'Space Grotesk','Kanit',sans-serif;font-weight:400;
+    background:transparent;border:1px solid var(--line);color:var(--dim);
+    padding:8px 20px;border-radius:100px;font-size:13px;cursor:pointer;
+    transition:all .3s var(--ease);
+  }
+  .chip:hover{border-color:rgba(255,255,255,.3);color:var(--txt)}
+  .chip.active{background:var(--accent);border-color:var(--accent);color:#000;font-weight:600}
+  .count{margin-left:auto;font-size:12px;color:var(--dim);letter-spacing:.1em}
+
+  /* ---------- GRID ---------- */
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));
+    gap:1px;background:var(--line);border-bottom:1px solid var(--line);
+  }
+  .card{
+    background:var(--bg);cursor:pointer;position:relative;
+    padding:0 0 22px;overflow:hidden;
+    transition:background .4s;
+    animation:fadeUp .6s var(--ease) both;
+  }
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  .card:hover{background:var(--bg2)}
+  .thumb{
+    aspect-ratio:16/9;overflow:hidden;position:relative;background:#0e0e12;
+  }
+  .thumb img{
+    width:100%;height:100%;object-fit:cover;display:block;
+    filter:saturate(.85) contrast(1.05);
+    transition:transform .8s var(--ease),filter .5s;
+  }
+  .card:hover .thumb img{transform:scale(1.06);filter:saturate(1.1) contrast(1.08)}
+  .thumb .play{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    opacity:0;transition:opacity .35s;background:rgba(0,0,0,.35);
+  }
+  .card:hover .thumb .play{opacity:1}
+  .play span{
+    width:64px;height:64px;border-radius:50%;background:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .play svg{width:20px;height:20px;fill:#000;margin-left:3px}
+  .badge{
+    position:absolute;top:14px;left:14px;z-index:3;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    background:rgba(0,0,0,.55);backdrop-filter:blur(4px);
+    padding:5px 12px;border-radius:100px;border:1px solid rgba(255,255,255,.15);
+    color:rgba(255,255,255,.85);
+  }
+  .badge.ep{left:auto;right:14px;background:var(--accent);color:#000;border:none;font-weight:600}
+  .card h3{
+    padding:18px 20px 4px;font-size:17px;font-weight:500;letter-spacing:.01em;
+    text-transform:uppercase;line-height:1.3;
+  }
+  .card p{
+    padding:0 20px;color:var(--dim);font-size:13px;
+    font-family:'Kanit';font-weight:300;
+  }
+  .card .meta{
+    padding:10px 20px 0;font-size:11px;color:var(--dim);letter-spacing:.15em;
+    display:flex;gap:14px;text-transform:uppercase;flex-wrap:wrap;
+  }
+  .card .meta em{font-style:normal;color:rgba(232,255,71,.8)}
+
+  /* ---------- ABOUT ---------- */
+  .about{
+    display:grid;grid-template-columns:1.2fr .8fr;gap:60px;
+    padding:0 40px 90px;max-width:1200px;
+  }
+  .about .lead{
+    font-size:clamp(20px,2.6vw,30px);line-height:1.45;font-weight:400;
+  }
+  .about .lead b{color:var(--accent);font-weight:500}
+  .about .facts{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+  .about .facts div{
+    display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+    padding:16px 0;border-bottom:1px solid var(--line);
+  }
+  .about .facts span{color:var(--dim);font-family:'Kanit';font-weight:300;font-size:13px}
+  .about .facts strong{font-size:15px;font-weight:500;text-align:right}
+  @media(max-width:800px){.about{grid-template-columns:1fr;gap:36px}}
+
+  /* ---------- FOR BRANDS ---------- */
+  .brands{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .offer-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:1px;background:var(--line);border-top:1px solid var(--line);
+  }
+  .offer{
+    background:var(--bg2);padding:36px 30px 40px;position:relative;
+    transition:background .4s;
+  }
+  .offer:hover{background:var(--card)}
+  .offer .num{
+    font-size:12px;color:var(--accent);letter-spacing:.25em;margin-bottom:18px;display:block;
+  }
+  .offer h3{font-size:17px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:12px}
+  .offer p{color:var(--dim);font-family:'Kanit';font-weight:300;font-size:13.5px;line-height:1.7}
+  .brand-cta{
+    display:flex;flex-wrap:wrap;align-items:center;gap:24px;
+    padding:44px 40px;border-top:1px solid var(--line);
+  }
+  .brand-cta p{color:var(--dim);font-family:'Kanit';font-weight:300;font-size:14px;max-width:520px}
+  .btn-accent{
+    margin-left:auto;background:var(--accent);color:#000;text-decoration:none;
+    padding:15px 34px;border-radius:100px;font-weight:600;font-size:14px;letter-spacing:.05em;
+    transition:transform .3s var(--ease),box-shadow .3s;
+  }
+  .btn-accent:hover{transform:translateY(-3px);box-shadow:0 10px 34px rgba(232,255,71,.25)}
+  @media(max-width:700px){.btn-accent{margin-left:0}}
+
+  /* ---------- MODAL ---------- */
+  .modal{
+    position:fixed;inset:0;z-index:100;display:none;
+    align-items:center;justify-content:center;padding:24px;
+  }
+  .modal.open{display:flex}
+  .modal .backdrop{
+    position:absolute;inset:0;background:rgba(5,5,7,.92);backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+  }
+  .sheet{
+    position:relative;z-index:2;width:min(1060px,100%);max-height:94vh;
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    overflow:hidden auto;animation:pop .4s var(--ease);
+  }
+  @keyframes pop{from{opacity:0;transform:translateY(26px) scale(.98)}to{opacity:1;transform:none}}
+  .sheet.vertical{width:min(460px,100%)}
+  .player{position:relative;width:100%;aspect-ratio:16/9;background:#000}
+  .sheet.vertical .player{aspect-ratio:9/16;max-height:74vh;margin:0 auto}
+  .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .sheet-body{padding:24px 28px 28px}
+  .sheet-body h2{font-size:22px;text-transform:uppercase;letter-spacing:.02em}
+  .sheet-body .desc{color:var(--dim);font-family:'Kanit';font-weight:300;font-size:14px;margin-top:6px}
+  .eps{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .eps button{
+    background:transparent;border:1px solid var(--line);color:var(--dim);
+    padding:7px 16px;border-radius:8px;font-size:12px;cursor:pointer;
+    font-family:'Space Grotesk','Kanit',sans-serif;letter-spacing:.05em;transition:all .25s;
+  }
+  .eps button:hover{color:var(--txt);border-color:rgba(255,255,255,.35)}
+  .eps button.on{background:var(--accent);color:#000;border-color:var(--accent);font-weight:600}
+  .close{
+    position:absolute;top:14px;right:14px;z-index:5;
+    width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.2);
+    background:rgba(0,0,0,.5);color:#fff;font-size:17px;cursor:pointer;
+    transition:all .3s;
+  }
+  .close:hover{background:var(--accent);color:#000;border-color:var(--accent)}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding:90px 40px 50px;text-align:center;position:relative;
+  }
+  footer .big{
+    font-size:clamp(34px,6vw,72px);font-weight:700;text-transform:uppercase;
+    letter-spacing:-.01em;line-height:1;
+  }
+  footer .big span{color:transparent;-webkit-text-stroke:1px rgba(242,242,240,.6)}
+  .socials{
+    display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:38px;
+  }
+  .socials a{
+    display:flex;align-items:center;gap:10px;
+    color:var(--txt);text-decoration:none;font-size:13px;letter-spacing:.06em;
+    border:1px solid var(--line);border-radius:100px;padding:12px 22px;
+    transition:all .3s var(--ease);
+  }
+  .socials a svg{width:17px;height:17px;fill:var(--dim);transition:fill .3s}
+  .socials a span{color:var(--dim);font-family:'Kanit';font-weight:300;transition:color .3s}
+  .socials a:hover{border-color:var(--accent);transform:translateY(-3px)}
+  .socials a:hover svg{fill:var(--accent)}
+  .socials a:hover span{color:var(--txt)}
+  footer .fine{margin-top:56px;color:var(--dim);font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+
+  /* ---------- LINE QR ---------- */
+  .qr-modal{
+    position:fixed;inset:0;z-index:120;display:none;
+    align-items:center;justify-content:center;padding:24px;
+  }
+  .qr-modal.open{display:flex}
+  .qr-modal .backdrop{
+    position:absolute;inset:0;background:rgba(5,5,7,.92);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  }
+  .qr-box{
+    position:relative;z-index:2;text-align:center;
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:34px 38px 30px;animation:pop .4s var(--ease);
+  }
+  .qr-box h3{
+    font-size:15px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:6px;
+  }
+  .qr-box h3 b{color:#06C755}
+  .qr-box p{
+    color:var(--dim);font-family:'Kanit';font-weight:300;font-size:13px;margin-bottom:18px;
+  }
+  .qr-box img{
+    width:min(260px,70vw);border-radius:12px;display:block;margin:0 auto;
+  }
+
+  @media(max-width:640px){
+    nav{padding:16px 20px}
+    nav .links a{display:none}
+    header{padding:0 20px 50px}
+    .toolbar{padding:14px 20px}
+    .grid{grid-template-columns:1fr}
+    .sec-head{padding:70px 20px 26px}
+    .about{padding:0 20px 70px}
+    .brand-cta{padding:36px 20px}
+    footer{padding:70px 20px 40px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">EDDY<span>SIBAW</span></div>
+  <div class="links">
+    <a href="#works" data-i="nav_works"></a>
+    <a href="#about" data-i="nav_about"></a>
+    <a href="#brands" data-i="nav_brands"></a>
+    <a href="#contact" data-i="nav_contact"></a>
+    <div class="lang-toggle">
+      <button id="btnEN" onclick="setLang('en')">EN</button>
+      <button id="btnTH" onclick="setLang('th')">ไทย</button>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="kicker" data-i="kicker"></div>
+  <h1>EDDY<span style="color:var(--accent)">SIBAW</span><br><span class="outline" data-i="hero_line2"></span></h1>
+  <div class="hero-sub">
+    <div class="stat"><b id="statProjects">0</b><span data-i="st_projects"></span></div>
+    <div class="stat"><b id="statVideos">0</b><span data-i="st_videos"></span></div>
+    <div class="stat"><b>2<i>+</i></b><span data-i="st_seasons"></span></div>
+    <div style="max-width:440px;align-self:center" data-i="hero_desc"></div>
+  </div>
+</header>
+
+<div class="toolbar" id="works">
+  <button class="chip active" data-f="all" data-i="f_all"></button>
+  <button class="chip" data-f="series" data-i="f_series"></button>
+  <button class="chip" data-f="film" data-i="f_film"></button>
+  <button class="chip" data-f="clip" data-i="f_clip"></button>
+  <span class="count" id="count"></span>
+</div>
+
+<main class="grid" id="grid"></main>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-head">
+    <span class="no">01</span><h2 data-i="ab_title"></h2>
+  </div>
+  <div class="about">
+    <div class="lead" data-i="ab_lead"></div>
+    <div class="facts">
+      <div><span data-i="ab_f1k"></span><strong data-i="ab_f1v"></strong></div>
+      <div><span data-i="ab_f2k"></span><strong data-i="ab_f2v"></strong></div>
+      <div><span data-i="ab_f3k"></span><strong data-i="ab_f3v"></strong></div>
+      <div><span data-i="ab_f4k"></span><strong data-i="ab_f4v"></strong></div>
+      <div><span data-i="ab_f5k"></span><strong data-i="ab_f5v"></strong></div>
+      <div><span data-i="ab_f6k"></span><strong data-i="ab_f6v"></strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR BRANDS -->
+<section class="brands" id="brands">
+  <div class="sec-head">
+    <span class="no">02</span><h2 data-i="br_title"></h2>
+    <p data-i="br_sub"></p>
+  </div>
+  <div class="offer-grid">
+    <div class="offer">
+      <span class="num">/ 01</span>
+      <h3 data-i="of1t"></h3><p data-i="of1d"></p>
+    </div>
+    <div class="offer">
+      <span class="num">/ 02</span>
+      <h3 data-i="of2t"></h3><p data-i="of2d"></p>
+    </div>
+    <div class="offer">
+      <span class="num">/ 03</span>
+      <h3 data-i="of3t"></h3><p data-i="of3d"></p>
+    </div>
+    <div class="offer">
+      <span class="num">/ 04</span>
+      <h3 data-i="of4t"></h3><p data-i="of4d"></p>
+    </div>
+  </div>
+  <div class="brand-cta">
+    <p data-i="cta_p"></p>
+    <a class="btn-accent" id="ctaMail" href="mailto:tanaponploenjit@gmail.com?subject=Partnership%20with%20EDDYSIBAW" data-i="cta_btn"></a>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="big" data-i="ft_big"></div>
+  <div class="socials">
+    <a href="mailto:tanaponploenjit@gmail.com" title="Email">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.24-8 5.01-8-5.01V6.3l8 5.01 8-5.01v1.94z"/></svg>
+      Email <span>tanaponploenjit@gmail.com</span>
+    </a>
+    <a href="https://www.instagram.com/eddy_sibaw/" target="_blank" rel="noopener" title="Instagram">
+      <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1zm0 2c-3.1 0-3.5 0-4.8.1-1.1.1-1.4.2-1.7.3-.4.2-.7.4-1 .7-.3.3-.5.6-.7 1-.1.3-.3.6-.3 1.7-.1 1.3-.1 1.7-.1 4.8s0 3.5.1 4.8c.1 1.1.2 1.4.3 1.7.2.4.4.7.7 1 .3.3.6.5 1 .7.3.1.6.3 1.7.3 1.3.1 1.7.1 4.8.1s3.5 0 4.8-.1c1.1-.1 1.4-.2 1.7-.3.4-.2.7-.4 1-.7.3-.3.5-.6.7-1 .1-.3.3-.6.3-1.7.1-1.3.1-1.7.1-4.8s0-3.5-.1-4.8c-.1-1.1-.2-1.4-.3-1.7-.2-.4-.4-.7-.7-1-.3-.3-.6-.5-1-.7-.3-.1-.6-.3-1.7-.3-1.3-.1-1.7-.1-4.8-.1zm0 3.4a5.1 5.1 0 1 1 0 10.2 5.1 5.1 0 0 1 0-10.2zm0 2a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2zm5.3-3.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg>
+      Instagram <span>@eddy_sibaw</span>
+    </a>
+    <a href="https://www.youtube.com/@Eddysibaw" target="_blank" rel="noopener" title="YouTube">
+      <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
+      YouTube <span>@Eddysibaw</span>
+    </a>
+    <a href="https://facebook.com/eddysibaw" target="_blank" rel="noopener" title="Facebook">
+      <svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg>
+      Facebook <span>EDDYSIBAW</span>
+    </a>
+    <a href="javascript:void(0)" onclick="openQR()" title="LINE">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 5.7 2 10.2c0 4 3.4 7.4 8.1 8.1.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.6 1.1-.5 5.8-3.4 7.9-5.9 1.5-1.6 2.3-3.2 2.3-5.2C22 5.7 17.5 2 12 2zM7.4 12.9H5.5c-.3 0-.5-.2-.5-.5V8.6c0-.3.2-.5.5-.5s.5.2.5.5v3.3h1.4c.3 0 .5.2.5.5s-.2.5-.5.5zm1.8-.5c0 .3-.2.5-.5.5s-.5-.2-.5-.5V8.6c0-.3.2-.5.5-.5s.5.2.5.5v3.8zm4.7 0c0 .2-.1.4-.3.5h-.2c-.2 0-.3-.1-.4-.2l-2-2.7v2.4c0 .3-.2.5-.5.5s-.5-.2-.5-.5V8.6c0-.2.1-.4.3-.5h.2c.2 0 .3.1.4.2l2 2.7V8.6c0-.3.2-.5.5-.5s.5.2.5.5v3.8zm3.1-2.4c.3 0 .5.2.5.5s-.2.5-.5.5h-1.4v.9H17c.3 0 .5.2.5.5s-.2.5-.5.5h-1.9c-.3 0-.5-.2-.5-.5V8.6c0-.3.2-.5.5-.5H17c.3 0 .5.2.5.5s-.2.5-.5.5h-1.4v.9H17z"/></svg>
+      LINE <span data-i="line_lbl"></span>
+    </a>
+  </div>
+  <div class="fine" data-i="fine"></div>
+</footer>
+
+<div class="qr-modal" id="qrModal">
+  <div class="backdrop" onclick="closeQR()"></div>
+  <div class="qr-box">
+    <button class="close" onclick="closeQR()">✕</button>
+    <h3><b>LINE</b> — EDDYSIBAW</h3>
+    <p data-i="qr_p"></p>
+    <img alt="LINE QR Code" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAJYCAIAAAAxBA+LAAANBUlEQVR42u3dT4hVVRzA8ff0lZr0R7PMaiyEFhVD2KYoWhQUBRJERP9WFi2CoqhdusiiINq0idq5iISEsE3/iBZJUERBYVkUuDCNhnJmyBtp/msxYGElzp075/7OOZ/PaiKc9965952vZx7jb9g0zQAAarXAEgAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAQy6irb7Rs2TKr2Yupqalkj5XyKsd/Xe2eYfw1TLka8dnZatjZnAgBqJoQAiCEACCEACCEACCEACCEACCEACCEACCEACCEACCEACCEACCEACCEACCEACCEAJCfYdM0nXwjU637WsP4zEmv4SqXekelfIZ2tr7W0IkQgKoJIQBCCABCCABCCABCCABCCABCCABCCABCCABCCABCCABCCABCCABCCABCCABCCAD5GeX4pOPP+E45Wzn+/PeU1yv+6yp1unr8KeR2trx2NidCABBCABBCABBCABBCABBCABBCABBCABBCABBCABBCABBCABBCABBCABBCABBCAPgfI0uQO3PS+3qG8cVfQ3PtcSIEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEgFkyoT57pU5yTzm73Jz0vl5Xu5WPf2/gRAgAQggAQggAQggAQggAQggAQggAQggAQggAQggAQggAQggAQggAQggAQggAQggAQggA8ybLCfWlTgZvp9Rp3WbN18DKWw0nQgAQQgAQQgAQQgAQQgAQQgAQQgAQQgAQQgAQQgAQQgAQQgAQQgAQQgAQQgAQQgCYpZ4n1KeceE5fSp273e7ubbca7f6U95edDSdCABBCABBCABBCABBCABBCABBCABBCAIQQAIQQAIQQAIQQAIQQAIQQAIQQAIQQAIQQAIrT2YT6+FPIU84TT/lYKVcj/mPFv17x742USn1d8SfUl7rbOBECgBACgBACgBACgBACgBACgBACgBACgBACgBACgBACIISWAAAhBAAhBAAhBAAhBAAhBIAKDJum6eQbmbudFzPZ3b0R1jCl+Ner1HdK/OvlRAhA1YQQACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEgPyMcnzSpqvP/RmS18rHv6NKvedTroar7EQIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAKdg2DRNjw9vFnZfryv+VY6v3fWKf0eZXV7DvhH/XZnyjnIiBKBqQgiAEAKAEAKAEAKAEAKAEAKAEAKAEAKAEAKAEAKAEAKAEAKAEAKAEAKAEAKAEAJAfkb9PrwZ3zW8LndUDaxhDTtbqfeGEyEAVRNCAIQQAIQQAIQQAIQQAIQQAIQQAAo3sgSQ8peLUz5Wt8/Qr8wjhIC/LigiBfKjUWDWRYx/rgUhpOojC1YbhBD7MtYchBA7MlYehBB7MdYfhBC7MK4CCCH2X1wL+Jdh0zSdfKN2v1oU/81T6sxoV5kId0ipc9JLvedL3QGcCAGomhACTkIIIQAIIQBUyD+6DSdavmN92S9wcnzz/H3zqakp/yo3Qgj6l8crndcighCC/ikiZMBnhKgg1gEnQrD1W5Ad6x0NcSIEFbQyVgYhBHu99QEhBLu8VQIhBPu7tQIhBDu7FQMhBAAhBIcb6wZCCHZzqwdlyfIX6uNPmk75DOP/A8edP0ND74pR6ns5/rvSm8iJEACEkDr4yZ41BCEEACEEACGkNn6mZyVBCAFACAFACAFACAFACAFACAFACAEQQgAQQgAQQgAQQgAQQgCoRGcT6lPOOy51tnK7qdYmTRPNfN+T8ee/p1y3lKtR6m7jRAhA1YQQACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEgPx0NqE+/szolNOf40+aTvm6On+GKZ/Gwxfc+tKlDxz/z51//Lj2qyfn+KdO+L+DweCD6a/WfffcCd/kkkXnfb/25eP/uevAxOVfPnqSRzmJz5ofbvh6Q/C7K+Z9GOSez1r83caJEPp38zlX3Xj2uHWAXgghhPD86vuHg6F1ACGESl29dM1d515nHSC9kSWAIDaN3bNt8tNDx460++On+Pkl4EQIQa1ZvPKhlbdYBxBCqMuuAxPHv37qojvPXLjEmoAQQkXemf7i0/3fz3x93mlnPXHh7dYEUvIZIfRvw+7XP7xy08zXj61a9+rP708cmp7tN7liydjBa7f+5/+6eeem7b99Y53BiRCC+nj/t29PfTHz9dIFizZefJc1ASGEumzcveXIsaMzXz9w/k2XLV5lTUAIoSI7//jxtV8+mvl6NFz47Or7rAmk4TNCiOKZPVvvXnH9kgWnDwaDO5Zf8+a+T2abUr9HCE6EkLG9f+57+ed3/+7i2L3WBIQQ6vLiT29NHm5mvl6zeKUFASGEukwf/v2FvdusA6TkM0KYhZP8rt5gMLjo8wd/Pbx/jg/xysR7j1xw29iiFQGfGzgRAvPu4NFDT+95wzpAfifClNOE24k//z3+Y5X6DKPZ8sv2x1etGz/jkuJfabt9I+XE85SPFX8XLbUOToQQztHBsQ27t1gHSGPYNE0lL9W5JK+/v3fyNJbvWO+qdWVyfHPnV9yJECdCABBCABBCABBCABBCABBCABBCABBCABBCABBCABBCABBCABBCABBCAGitswn1Kaf9mfXV1xqa6Ui+d29KJibm9QydCAGomhACIIQAIIQAIIQAIIQAIIQAIISQt8nxzRbBSoIQAoAQAoAQUiE/07OGIIQAIIQAIITUyU/2rB4IIXZzu7l1AyEEACHE4QYrBv806vfhS53I3E7K+e8pHyvOyk+Ob16+Y723vQqWtLOl3AHi76JOhGB/t0oghGCXtz4ghGCvtzJwikaWgJp3fB8ZSiA4EWL3xzrgRAgaUOXpUP9ACKHGIuofCCHoxHxJ+ctw0AmfEQIghAAghABz5OeiCCEACCHgOAhCCKggCCEACCEACCEAxNTZvyyTcnJxyseKP8k95aTpdo+VbA1LHZ+dhfiL71NMnAgpn50OEEIAEEIAOGWmT0AGn7O240NTcCIEACEEACEEACEEACEEACEEACEEACEEQAgBQAgBQAgBQAgBQAgBoArDpmk6+UalTnKP/wxTThjwDPN6rJRc5Rp2tvj3hhMhAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAEJoCQAQQgAQQgAQQgAQQgAQQgCowKjfh085ubjU6c/tlPq6zPjGfVjG60p5zzsRAlA1IQRACAFACAFACAFACAFACAFACAFACAFACAFACAFACAFACAFACAFACAFACAFACAEgP51NqI8/uTj+lOR2Uk61TrkaKa9X/Hni8WeXp7yjUt6H8XeA+HevEyEACCEACCEACCEACCEACCEACCEACCEACCEACCEACCEACCEACCEACCEACCEACCEACCEAdKqzCfWlTuuOP8c5/gTtlLPmU14vz5Da3l9OhAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAQwKjfhzcl+Z9STgY3J919mO/1in/Pk9f7y4kQgKoJIQBCCABCCABCCABCCABCCABCCABCCABCCABCCABCCABCCABCCABCCABCCABCCAD5GeX4pONPmk45kdlkcCuf7+uKf2+UevemvF4m1AOAEAKAEAKAEAKAEAKAEAKAEAKAEAKAEAKAEAKAEAKAEAKAEAKAEAKAEAKAEAKAEAJAp0aWoE7xZ0anVOrc7ZTT1enr3kh5ldu9rvjvLydCAKomhAAIIQAIIQAIIQAIIQAIIQAIIQAIIQAIIQAIIQAIIQAIIQAIIQAIIQAIIQAIIQDkx4T67MWfhV3qVGt31Nyvl/eXHcCJEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEACEEABmKcsJ9aaQz53573N/XfHXsNRZ8/Ffl3dKXu8UJ0IAqiaEAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAAghAOSn5wn18WdhQ773fPw56WbNz/11WUMnQgAQQgAQQgAQQgAQQgAQQgAQQgAQQgAQQgAQQgAQQgAQQgAQQgAQQgCEEACEEACEEAAqM2yaxioA4EQIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAEIIAN35C566iP0nmB2WAAAAAElFTkSuQmCC">
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="backdrop" onclick="closeModal()"></div>
+  <div class="sheet" id="sheet">
+    <button class="close" onclick="closeModal()">✕</button>
+    <div class="player" id="player"></div>
+    <div class="sheet-body">
+      <h2 id="mTitle"></h2>
+      <div class="desc" id="mDesc"></div>
+      <div class="eps" id="mEps"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------------- I18N ---------------- */
+const I = {
+ en:{
+  nav_works:"WORKS", nav_about:"ABOUT", nav_brands:"FOR BRANDS", nav_contact:"CONTACT",
+  kicker:"AI Filmmaker · Generative Video · Storyteller",
+  hero_line2:"AI FILM PORTFOLIO",
+  st_projects:"Projects", st_videos:"Videos", st_seasons:"Full-season series",
+  hero_desc:"AI-generated films and series — from action shorts and epic fantasy to complete multi-episode seasons. Written, directed, generated and edited by one creator.",
+  f_all:"All", f_series:"Series", f_film:"Short Films", f_clip:"Clips",
+  works_lbl:"WORKS",
+  ab_title:"ABOUT",
+  ab_lead:"I'm <b>EDDYSIBAW</b> — an AI filmmaker from Thailand. I use generative AI as a full production studio: writing, directing, generating, editing and scoring entire films solo. The result is <b>34 projects and 60+ finished videos</b>, including two complete multi-episode seasons — proof that one creator with the right AI tools can ship studio-scale stories.",
+  ab_f1k:"Name", ab_f1v:"EDDYSIBAW",
+  ab_f2k:"Base", ab_f2v:"Thailand (working worldwide)",
+  ab_f3k:"Output", ab_f3v:"34 projects · 60+ videos",
+  ab_f4k:"Formats", ab_f4v:"Series · Short films · 16:9 + 9:16",
+  ab_f5k:"Genres", ab_f5v:"Fantasy · Action · Sci-fi · Comedy",
+  ab_f6k:"Primary tool", ab_f6v:"Seedance 2.0 (ByteDance)",
+  br_title:"FOR BRANDS & AI COMPANIES",
+  br_sub:"I partner with AI companies and brands to show what their tools can really do — through finished, cinematic work, not tech demos.",
+  of1t:"Sponsored Films",
+  of1d:"Original short films or full series built around your tool — a story audiences actually want to watch, powered by your product.",
+  of2t:"Tool Showcases",
+  of2d:"Cinematic showcase pieces that push your model to its limits. The kind of content that sells capability better than any spec sheet.",
+  of3t:"Tutorials & Breakdowns",
+  of3d:"Workflow breakdowns and behind-the-scenes showing exactly how your tool fits into a real production pipeline.",
+  of4t:"Speed & Volume",
+  of4d:"Full seasons shipped solo. Fast turnaround, consistent quality, and both horizontal and vertical formats from one creator.",
+  cta_p:"Creator program, product launch, or a one-off collaboration — tell me what you're building and I'll show you what it can make.",
+  cta_btn:"Let's talk →",
+  ft_big:"LET'S CREATE<br><span>SOMETHING EPIC</span>",
+  line_lbl:"Scan QR to add",
+  qr_p:"Scan the QR code to add me on LINE",
+  fine:"© 2026 EDDYSIBAW — All films generated & directed with AI",
+  cat:{series:"Series",film:"Short Film",clip:"Clip"},
+  works_count:" WORKS",
+ },
+ th:{
+  nav_works:"ผลงาน", nav_about:"เกี่ยวกับ", nav_brands:"สำหรับแบรนด์", nav_contact:"ติดต่อ",
+  kicker:"AI Filmmaker · Generative Video · Storyteller",
+  hero_line2:"AI FILM PORTFOLIO",
+  st_projects:"โปรเจกต์", st_videos:"วิดีโอ", st_seasons:"ซีรีส์เต็มซีซัน",
+  hero_desc:"รวมผลงานภาพยนตร์และวิดีโอที่สร้างด้วย Generative AI — ตั้งแต่หนังสั้นแอ็กชัน แฟนตาซีมหากาพย์ ไปจนถึงซีรีส์เต็มซีซัน เขียนบท กำกับ และตัดต่อด้วยตัวคนเดียว",
+  f_all:"ทั้งหมด", f_series:"ซีรีส์", f_film:"หนังสั้น", f_clip:"คลิปสั้น",
+  works_lbl:"ผลงาน",
+  ab_title:"เกี่ยวกับผม",
+  ab_lead:"ผมคือ <b>EDDYSIBAW</b> — AI Filmmaker จากประเทศไทย ผมใช้ Generative AI เป็นสตูดิโอผลิตเต็มรูปแบบ ทั้งเขียนบท กำกับ เจนภาพ ตัดต่อ และทำเสียงด้วยตัวคนเดียว ผลลัพธ์คือ <b>34 โปรเจกต์ กว่า 60 วิดีโอ</b> รวมถึงซีรีส์เต็มซีซัน 2 เรื่อง — พิสูจน์ว่าครีเอเตอร์คนเดียว + เครื่องมือ AI ที่ใช่ สร้างงานสเกลสตูดิโอได้จริง",
+  ab_f1k:"ชื่อ", ab_f1v:"EDDYSIBAW",
+  ab_f2k:"ฐานที่ตั้ง", ab_f2v:"ประเทศไทย (รับงานทั่วโลก)",
+  ab_f3k:"ผลงาน", ab_f3v:"34 โปรเจกต์ · 60+ วิดีโอ",
+  ab_f4k:"ฟอร์แมต", ab_f4v:"ซีรีส์ · หนังสั้น · 16:9 + 9:16",
+  ab_f5k:"แนวถนัด", ab_f5v:"แฟนตาซี · แอ็กชัน · ไซไฟ · คอมเมดี้",
+  ab_f6k:"เครื่องมือหลัก", ab_f6v:"Seedance 2.0 (ByteDance)",
+  br_title:"สำหรับแบรนด์ & บริษัท AI",
+  br_sub:"ผมร่วมงานกับบริษัท AI และแบรนด์ เพื่อโชว์ศักยภาพจริงของเครื่องมือ — ผ่านผลงานภาพยนตร์ที่เสร็จสมบูรณ์ ไม่ใช่แค่เดโมเทคโนโลยี",
+  of1t:"Sponsored Films",
+  of1d:"หนังสั้นหรือซีรีส์ออริจินัลที่สร้างด้วยเครื่องมือของคุณ — เรื่องราวที่คนอยากดูจริงๆ ขับเคลื่อนด้วยโปรดักต์ของคุณ",
+  of2t:"Tool Showcases",
+  of2d:"งานโชว์เคสระดับ Cinematic ที่รีดศักยภาพโมเดลของคุณจนสุด — คอนเทนต์ที่ขายความสามารถได้ดีกว่าสเปกชีทไหนๆ",
+  of3t:"Tutorials & Breakdowns",
+  of3d:"คอนเทนต์เบื้องหลังและ workflow breakdown โชว์ว่าเครื่องมือของคุณเข้าไปอยู่ใน pipeline การผลิตจริงยังไง",
+  of4t:"Speed & Volume",
+  of4d:"ส่งงานซีรีส์เต็มซีซันด้วยตัวคนเดียว — เร็ว คุณภาพสม่ำเสมอ ครบทั้งแนวนอนและแนวตั้ง",
+  cta_p:"Creator program, เปิดตัวโปรดักต์ หรือ collab ครั้งเดียว — บอกมาว่าคุณกำลังสร้างอะไร แล้วผมจะโชว์ให้ดูว่ามันสร้างอะไรได้",
+  cta_btn:"คุยกันเลย →",
+  ft_big:"LET'S CREATE<br><span>SOMETHING EPIC</span>",
+  line_lbl:"สแกน QR แอดเพื่อน",
+  qr_p:"สแกน QR Code เพื่อเพิ่มเพื่อน",
+  fine:"© 2026 EDDYSIBAW — All films generated & directed with AI",
+  cat:{series:"ซีรีส์",film:"หนังสั้น",clip:"คลิปสั้น"},
+  works_count:" ผลงาน",
+ }
+};
+let lang = localStorage.getItem('lang') || 'en';
+
+/* ---------------- DATA ----------------
+   d = Thai description · de = English description
+   tools = AI tools used (fill in per project) */
+const P = [
+ {t:"FRACTURED GOD: THE DARK ASCENT",d:"ซีรีส์มหากาพย์ดาร์กแฟนตาซี 8 ตอนจบ",de:"Epic dark-fantasy series — 8 episodes",c:"series",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"EP 01",id:"1qzUwf9W5vr60Mscqub2FPYzMzHIy5yHK"},{l:"EP 02",id:"10WESchb6E1e7AiI6_G4bz9uqA1u6EedJ"},{l:"EP 03",id:"1qs8UzmV4PZOC3P6R5bEFgYBbcNu6GSdN"},{l:"EP 04",id:"1R35-nprwzS2KrBxb7ZzGW9hmsEJeNGib"},{l:"EP 05",id:"1FpFi_iAEFmmLOvmaUDku-nrgul4cO9ZY"},{l:"EP 06",id:"127xVlDSgR4nht5w4WkykJqupaODzk4LZ"},{l:"EP 07",id:"1tP4T-OCspMWdzdAMqM_6KI0L5G9b4kDG"},{l:"EP 08",id:"1LXpV0X10F2JecGoRBO5GbHnP7-ZAgX0S"}]},
+ {t:"CELESTIAL ASCENT & THE VESSEL HUNT",d:"ภาพยนตร์เต็มเรื่อง — 10 Years Later",de:"Feature-length film — 10 Years Later",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"FULL MOVIE",id:"1ovN-kkgcujiFyylFSbvidjTLaX_VPJlR"},{l:"TEASER",id:"1B9tl7zl41AfSo6NVTk3dnnCaPj_UjGVS"}]},
+ {t:"EDDY & MORTY: ACROSS THE FRAY",d:"ซีรีส์ผจญภัยข้ามมิติ Season 1 — 9 ตอนจบ (SUB TH/ENG)",de:"Interdimensional adventure series, Season 1 — 9 episodes (TH/ENG subs)",c:"series",y:"2026",a:"9:16",tools:["SEEDANCE 2.0"],
+  v:[{l:"EP 1",id:"1BymIOrJdfa1y6cpCOaS7r8siLuccnfWL"},{l:"EP 2",id:"1n5R9qwvyM8LI2cHDQ47AHTtHxNHVeTnr"},{l:"EP 3",id:"1ymKR3E1qhzUeZuUZLLMHU_CQLEb_ZzYV"},{l:"EP 4",id:"1UoWo-5Z1XbTtXd1_29yaVXll9CO5A_Ij"},{l:"EP 5",id:"1KRy48pMSctFO_7g9i2jalk5PSrkynOkl"},{l:"EP 6",id:"1jjEGpAwy9QUGiL3ofxqRqHeB4ULItvbH"},{l:"EP 7",id:"1cd4Rz2WtjbPtuwsx4zzBtxIYDVQi5ynV"},{l:"EP 8",id:"1u08uM6WEvYwyiuHs5tpFQBAKTYUykilo"},{l:"EP 9 FINALE",id:"1WMWBLPDlSoY97WBVaqiJiye1VklXLVjX"}]},
+ {t:"WAR OF GODS",d:"สงครามเทพเจ้า — Stage 01-02",de:"War of the gods — Stage 01-02",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"STAGE 01-02",id:"1IMu1twfF5CmlyjrCV8scbzvTHb5hX8RS"}]},
+ {t:"WAR Z: THE FALLEN HEROES",d:"ซีรีส์ซอมบี้แอ็กชัน 3 ตอน — Outbreak Z",de:"Zombie-action mini-series — 3 episodes",c:"series",y:"2026",a:"9:16",tools:["SEEDANCE 2.0"],
+  v:[{l:"EP 1",id:"1SvYgPEs2paCfyD5Rj7bymcUuYPThlmF2"},{l:"EP 2 BLOODLINE",id:"1BsnAn5b1Ic44KR3jdXv40MMoNXmKJVW7"},{l:"EP 3 THE FOUR",id:"16DXEgEWv7jTa4MbOuGd2xNAF4rsQnGcy"}]},
+ {t:"IMAGE & DIAR: THE GIANT'S BACKPACK",d:"แอนิเมชันแฟนตาซีผจญภัย",de:"Fantasy-adventure animation",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"12AsgBrZ8r8z_mBDvHuDZN6PJg58ipJyX"}]},
+ {t:"IMAGE DIAR & THE DREAMSCAPE DRAGON",d:"การผจญภัยในดินแดนแห่งความฝัน",de:"An adventure through the land of dreams",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"1bSZ_aOTTRQ632h6qh2QN0AvSWasTojBH"}]},
+ {t:"LAST PACE: RUN FOR YOUR LIFE",d:"หนังสั้นแอ็กชันระทึกขวัญ",de:"Action-thriller short film",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"1IknOHetR2BYNsCeiNTZzIP0TsfY-k0C3"}]},
+ {t:"THE LAST ROUTE",d:"รถบัสสายสุดท้ายข้ามมิติ",de:"The last bus across dimensions",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"1V3K3GucQOVUzjURR7l_qTOclU8z7M7Hi"}]},
+ {t:"DEAD MONEY",d:"หนังสั้นอาชญากรรมระทึกขวัญ",de:"Crime-thriller short film",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"1Gqv1D5sK1OKe0s4bwy-p7u4N1JgJvrEH"}]},
+ {t:"AFTERLIGHT",d:"หนังสั้นไซไฟดราม่า",de:"Sci-fi drama short film",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"1t5L9afOjS3khQMIJcS84E2_QVjxGQBgC"}]},
+ {t:"THE CRESCENT STARS",d:"หนังสั้นแฟนตาซี",de:"Fantasy short film",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"16v_nQQJojFC8gpxlToZOF__rPKN5fZPk"}]},
+ {t:"JOJO'S KAI AND THE PATTERN HERALD",d:"หนังสั้นสไตล์ JoJo",de:"JoJo-style short film",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"1vzFCY3xddG5URWSQ4eguiBAgYFC7069m"}]},
+ {t:"TANK TOP MASTERS: WORLD SAVERS",d:"「四拳衆」 SHIKKENSHU — Four-Fist Brotherhood",de:"「四拳衆」 SHIKKENSHU — Four-Fist Brotherhood",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"1c4ylKc3YgT1xwame_ldNTMgazStJ7Gq0"}]},
+ {t:"TANK TOP MASTERS: TITAN HUNTERS",d:"「裂界三拳」 REKKAI SANKEN",de:"「裂界三拳」 REKKAI SANKEN",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"1XFgRlZPKolrg3NPIxMC6b7M1L9hk2nAJ"}]},
+ {t:"TANK TOP MASTERS: DEMON SLAYER",d:"ภาคพิเศษสไตล์ดาบพิฆาตอสูร",de:"Demon Slayer-style special",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"1H1Z_iDZfTDm03wqPPZYfpJPUZ9w6QoDU"}]},
+ {t:"TANK TOP MASTERS: KIZUNA PROTOCOL",d:"タンクトップ マスターズ 絆プロトコル",de:"タンクトップ マスターズ Kizuna Protocol",c:"series",y:"2026",a:"9:16",tools:["SEEDANCE 2.0"],
+  v:[{l:"MAIN",id:"1EHCCds8FsqNnUK8FvGihIlBLnUO_JHL3"},{l:"EP 0",id:"1bZy5YVHZtcvtNy5D1Q5A5Ve4AN3ure2o"}]},
+ {t:"BLAZE FIST: OASIS UNDERGROUND",d:"แอ็กชันใต้ดินสายเลือดนักสู้",de:"Underground fighting action",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"1GPmetiA1zJPFCc_RUVytLrLbMuajIKeO"}]},
+ {t:"TRIAD COSMIC RECKONING",d:"มหาสงครามจักรวาลสามฝ่าย",de:"Three-way cosmic war",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"1t-CyJv_dAADN_0KpTIqgsDGOk6yvgffM"}]},
+ {t:"NARUTO VS SASUKE",d:"ฉากต่อสู้แฟนเมด Naruto",de:"Naruto fan-made battle",c:"clip",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"17NmbKlQ1Zk0Wtf212mSunqobpaUU9h1X"}]},
+ {t:"RESIDENT EVIL",d:"หนังสั้นสยองขวัญเอาชีวิตรอด",de:"Survival-horror short",c:"clip",y:"2026",a:"9:16",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"1fmptPvDt4Zb4xWF24WPk515BiSpaKbBD"}]},
+ {t:"THE AVENGERS NEED OUR HELP",d:"เมื่อเหล่า Avengers ต้องการความช่วยเหลือ",de:"When the Avengers need our help",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"16:9",id:"1vyywktN_F2ATVMshd_YofnLe2XgHxW9H"},{l:"9:16",id:"1QMLxRwBfDElTCMVDJWPsTh0OmnJ_Gj-b",a:"9:16"}]},
+ {t:"SAINT SEIYA",d:"เซนต์เซย่าฉบับ AI Cinematic",de:"Saint Seiya — AI cinematic edition",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"1jqIAfLz3Cse2oDWIiJWmgScbBwn5CvG6"}]},
+ {t:"THE ROWDYRUFF BOYS",d:"หนังสั้นแอ็กชันสุดป่วน",de:"Chaotic action short",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"16:9",id:"1IMhQaaE4vSLJvJXL7T3kuH82GSVCvCD2"},{l:"9:16",id:"1Hp9g_7MuMB-weIrJfEIRc8sw4yiJrBJS",a:"9:16"}]},
+ {t:"TRIPLE SPELL CLASH",d:"ศึกประลองเวทสามสาย",de:"Three-way sorcery showdown",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"16:9",id:"1TkkqIOTffMg17xncXnMIZJLbI83Sojer"},{l:"9:16",id:"1m7_qz4Ue8T_WpQs_W6u0fr69iD_Tq8jG",a:"9:16"}]},
+ {t:"RAISE THE DRAGON DOG",d:"เลี้ยงเจ้าหมามังกรให้เติบใหญ่",de:"Raising a dragon-dog pup",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"16:9",id:"1hf9bJVRvFH_udnSeF-j2N_VkLE9JBbKL"},{l:"9:16",id:"1NRbA53GQr5XrVxD8MafSgKgsRW-xCY5C",a:"9:16"}]},
+ {t:"LAST HIT, BRO.",d:"“เอาดิ ใครจะล้มก่อน” — ศึกหมัดต่อหมัด",de:"“Who drops first?” — fist-to-fist showdown",c:"clip",y:"2026",a:"9:16",tools:["SEEDANCE 2.0"],
+  v:[{l:"LAST HIT",id:"1p2ugqbji16v4T6ajTpJWfMi4I8qHhoZ6"},{l:"3 สิงห์",id:"10Gotejk9fqzQ7yk0S6VUZDMK1r7DSrgF"}]},
+ {t:"POWERED BY PAWS",d:"พลังที่มาจากอุ้งเท้า",de:"Power that comes from paws",c:"clip",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"1M8Vm-5BFNUWJ6OvVpu8jOgSeXlh3diin"}]},
+ {t:"EDDY MORTY & MONSTER ENERGY",d:"โฆษณาสไตล์ Eddy & Morty",de:"Eddy & Morty-style commercial",c:"clip",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"16:9",id:"1gUjzI-_utoSgmWXHA2lXBKd6n-Vytn3M"},{l:"9:16",id:"1CCYygdFnFAflLomGMLMV50Opi3RVP1wm",a:"9:16"}]},
+ {t:"EDDY VS 4 GIANTS",d:"หนึ่งต่อสี่กับเหล่ายักษ์",de:"One against four giants",c:"film",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"16:9",id:"1RvbdkAOyDlKzm360zz0wf7pt6rnYwZ1g"},{l:"9:16",id:"1GfGxebfQDPDwvBjjzI4l2OaG2at74-jz",a:"9:16"}]},
+ {t:"BLUE ZORO",d:"โซโลฉบับ AI Cinematic",de:"Zoro — AI cinematic edition",c:"clip",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"1g5c3Z2oVcQKXSYpjPOjp0cf7kE2s4U12"}]},
+ {t:"\"SHALL WE PLAY?\"",d:"คลิปสั้นสุดหลอน",de:"A creepy little short",c:"clip",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"1kHMS-6b6jHK85yXkmyfgsCaOlrX56twm"}]},
+ {t:"DOG PLAYING PHONE SECRETLY",d:"เจ้าตูบแอบเล่นมือถือ",de:"A dog secretly playing on a phone",c:"clip",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"1aqF9g6b1GNRevn_YNb7Ih-9fEtNwTpVp"}]},
+ {t:"ขอโทษเด้อ อมาไน",d:"คลิปสั้นคอมเมดี้",de:"Comedy short",c:"clip",y:"2026",a:"16:9",tools:["SEEDANCE 2.0"],
+  v:[{l:"WATCH",id:"1-kKnNXeH-ZcWkKcC6RM3APkqI7UhpwN6"}]},
+];
+
+const grid = document.getElementById('grid');
+const thumb = id => `https://drive.google.com/thumbnail?id=${id}&sz=w800`;
+let curFilter = 'all';
+
+function render(){
+  const L = I[lang];
+  grid.innerHTML = '';
+  let shown = 0;
+  P.forEach((p,i)=>{
+    if(curFilter!=='all' && p.c!==curFilter) return;
+    shown++;
+    const el = document.createElement('article');
+    el.className = 'card';
+    el.style.animationDelay = (shown%12)*0.04 + 's';
+    const desc = lang==='en' ? (p.de||p.d) : p.d;
+    el.innerHTML = `
+      <div class="thumb">
+        <span class="badge">${L.cat[p.c]}</span>
+        ${p.v.length>1?`<span class="badge ep">${p.v.length} EP</span>`:''}
+        <img loading="lazy" src="${thumb(p.v[0].id)}" alt="${p.t}"
+             onerror="this.style.display='none'">
+        <div class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+      </div>
+      <h3>${p.t}</h3>
+      <p>${desc}</p>
+      <div class="meta"><em>${p.y}</em><span>${p.a}</span>${p.tools.length?p.tools.map(x=>`<span>${x}</span>`).join(''):'<span>AI GENERATED</span>'}</div>`;
+    el.onclick = ()=>openModal(i);
+    grid.appendChild(el);
+  });
+  document.getElementById('count').textContent = shown + I[lang].works_count;
+}
+
+/* ---------------- LANG ---------------- */
+function setLang(l){
+  lang = l;
+  localStorage.setItem('lang', l);
+  document.documentElement.lang = l;
+  const L = I[l];
+  document.querySelectorAll('[data-i]').forEach(el=>{
+    const v = L[el.dataset.i];
+    if(v!==undefined) el.innerHTML = v;
+  });
+  document.getElementById('btnEN').classList.toggle('on', l==='en');
+  document.getElementById('btnTH').classList.toggle('on', l==='th');
+  render();
+}
+
+/* ---------------- MODAL ---------------- */
+const modal=document.getElementById('modal'), sheet=document.getElementById('sheet'),
+      player=document.getElementById('player'), mEps=document.getElementById('mEps');
+let cur=null;
+
+function openModal(i){
+  cur = P[i];
+  document.getElementById('mTitle').textContent = cur.t;
+  document.getElementById('mDesc').textContent = lang==='en' ? (cur.de||cur.d) : cur.d;
+  playVid(0);
+  modal.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function playVid(vi){
+  const v = cur.v[vi];
+  const aspect = v.a || cur.a;
+  sheet.classList.toggle('vertical', aspect==='9:16');
+  player.innerHTML = `<iframe src="https://drive.google.com/file/d/${v.id}/preview" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+  mEps.innerHTML = '';
+  if(cur.v.length>1){
+    cur.v.forEach((e,j)=>{
+      const b=document.createElement('button');
+      b.textContent = e.l;
+      if(j===vi) b.classList.add('on');
+      b.onclick = ()=>playVid(j);
+      mEps.appendChild(b);
+    });
+  }
+}
+function closeModal(){
+  modal.classList.remove('open');
+  player.innerHTML='';
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeQR()}});
+
+/* ---------------- LINE QR ---------------- */
+function openQR(){
+  document.getElementById('qrModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeQR(){
+  document.getElementById('qrModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+/* ---------------- FILTERS ---------------- */
+document.querySelectorAll('.chip').forEach(c=>{
+  c.onclick = ()=>{
+    document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+    c.classList.add('active');
+    curFilter = c.dataset.f;
+    render();
+  };
+});
+
+/* ---------------- STATS ---------------- */
+function countUp(el,target){
+  let n=0; const step=Math.max(1,Math.round(target/40));
+  const t=setInterval(()=>{n+=step;if(n>=target){n=target;clearInterval(t)}el.textContent=n},28);
+}
+countUp(document.getElementById('statProjects'), P.length);
+countUp(document.getElementById('statVideos'), P.reduce((s,p)=>s+p.v.length,0));
+
+setLang(lang);
+</script>
+</body>
+</html>

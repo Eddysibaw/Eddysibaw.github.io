@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDDYSIBAW — Media Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Kanit:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0c; --card:#141419; --line:rgba(255,255,255,.1);
+    --txt:#f2f2f0; --dim:#9a9aa2; --accent:#e8ff47;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#050506;display:flex;justify-content:center;padding:24px;
+    font-family:'Space Grotesk','Kanit',sans-serif;-webkit-font-smoothing:antialiased}
+
+  .page{
+    width:794px;min-height:1123px;background:var(--bg);color:var(--txt);
+    padding:52px 54px 40px;position:relative;overflow:hidden;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  .page::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(ellipse 55% 40% at 85% 8%,rgba(232,255,71,.09),transparent 60%),
+      radial-gradient(ellipse 45% 35% at 5% 95%,rgba(90,120,255,.06),transparent 60%);
+  }
+  .page>*{position:relative}
+
+  /* header */
+  .top{display:flex;justify-content:space-between;align-items:flex-start;
+    border-bottom:1px solid var(--line);padding-bottom:22px}
+  .brand h1{font-size:44px;font-weight:700;letter-spacing:-.01em;line-height:1}
+  .brand h1 span{color:var(--accent)}
+  .brand .role{color:var(--dim);font-family:'Kanit';font-weight:300;
+    font-size:14px;letter-spacing:.06em;margin-top:8px}
+  .tag{text-align:right;font-size:11px;letter-spacing:.28em;color:var(--accent);
+    text-transform:uppercase;line-height:1.9;padding-top:6px}
+
+  /* stat strip */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:var(--line);border:1px solid var(--line);margin:26px 0 30px}
+  .stats div{background:var(--bg);padding:18px 16px;text-align:center}
+  .stats b{display:block;font-size:30px;font-weight:700;letter-spacing:-.02em}
+  .stats b i{color:var(--accent);font-style:normal}
+  .stats span{display:block;color:var(--dim);font-family:'Kanit';font-weight:300;
+    font-size:11px;letter-spacing:.05em;margin-top:5px}
+
+  /* section head */
+  .sh{display:flex;align-items:baseline;gap:12px;margin:0 0 14px}
+  .sh .n{color:var(--accent);font-size:11px;letter-spacing:.25em}
+  .sh h2{font-size:15px;text-transform:uppercase;letter-spacing:.16em;font-weight:500}
+  .block{margin-bottom:26px}
+
+  .bio{color:#d9d9d6;font-size:14px;line-height:1.65;font-weight:300;
+    font-family:'Kanit'}
+  .bio b{color:var(--accent);font-weight:400}
+
+  /* flagship */
+  .flags{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .flag{background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:16px 15px 15px}
+  .flag .k{font-size:9px;letter-spacing:.18em;color:var(--accent);
+    text-transform:uppercase}
+  .flag h3{font-size:13px;margin:8px 0 6px;line-height:1.25;text-transform:uppercase;
+    font-weight:600}
+  .flag p{color:var(--dim);font-family:'Kanit';font-weight:300;font-size:11px;line-height:1.5}
+
+  /* offers */
+  .offers{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px}
+  .offer{display:flex;gap:12px;align-items:flex-start}
+  .offer .b{color:var(--accent);font-size:13px;font-weight:700;line-height:1.3;min-width:22px}
+  .offer h4{font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+  .offer p{color:var(--dim);font-family:'Kanit';font-weight:300;font-size:11px;line-height:1.5}
+
+  /* two-col meta */
+  .meta2{display:grid;grid-template-columns:1fr 1fr;gap:8px 40px;
+    padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .meta2 div{display:flex;justify-content:space-between;font-size:12px}
+  .meta2 span{color:var(--dim);font-family:'Kanit';font-weight:300}
+  .meta2 strong{font-weight:500}
+
+  /* contact footer */
+  .contact{display:flex;justify-content:space-between;align-items:flex-end;
+    margin-top:26px}
+  .contact .c-list{font-size:12px;line-height:2;color:#d9d9d6}
+  .contact .c-list b{color:var(--dim);font-family:'Kanit';font-weight:300;
+    display:inline-block;width:74px}
+  .contact .c-list a{color:var(--accent);text-decoration:none}
+  .contact .sign{text-align:right}
+  .contact .sign .big{font-size:22px;font-weight:700;letter-spacing:-.01em}
+  .contact .sign .big span{color:transparent;-webkit-text-stroke:1px rgba(242,242,240,.6)}
+  .contact .sign .fine{color:var(--dim);font-size:9px;letter-spacing:.2em;
+    text-transform:uppercase;margin-top:6px}
+
+  @media print{
+    body{background:#fff;padding:0}
+    .page{box-shadow:none;width:100%;min-height:auto}
+    @page{size:A4;margin:0}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="top">
+    <div class="brand">
+      <h1>EDDY<span>SIBAW</span></h1>
+      <div class="role">AI Filmmaker · Generative Video Director · Thailand</div>
+    </div>
+    <div class="tag">Media Kit<br>2026</div>
+  </div>
+
+  <div class="stats">
+    <div><b>34</b><span>Projects</span></div>
+    <div><b>60<i>+</i></b><span>Finished videos</span></div>
+    <div><b>2<i>+</i></b><span>Full-season series</span></div>
+    <div><b>1</b><span>Solo creator</span></div>
+  </div>
+
+  <div class="block">
+    <div class="sh"><span class="n">01</span><h2>Profile</h2></div>
+    <p class="bio">EDDYSIBAW is an AI filmmaker from Thailand who runs a complete production studio solo — writing, directing, generating, editing and scoring every film alone. Primary tool: <b>Seedance 2.0 (ByteDance)</b>. In under a year: <b>34 projects and 60+ finished videos</b>, including two complete multi-episode seasons — proof that one creator with the right AI tools can ship studio-scale stories across fantasy, action, sci-fi and comedy, in both horizontal and vertical formats.</p>
+  </div>
+
+  <div class="block">
+    <div class="sh"><span class="n">02</span><h2>Flagship Work</h2></div>
+    <div class="flags">
+      <div class="flag">
+        <div class="k">Series · 8 EP</div>
+        <h3>Fractured God: The Dark Ascent</h3>
+        <p>Epic dark-fantasy series, eight episodes. Full narrative arc, cinematic scale.</p>
+      </div>
+      <div class="flag">
+        <div class="k">Series · 9 EP</div>
+        <h3>Eddy & Morty: Across the Fray</h3>
+        <p>Interdimensional adventure, Season 1. Vertical 9:16 with TH/ENG subtitles.</p>
+      </div>
+      <div class="flag">
+        <div class="k">Feature Film</div>
+        <h3>Celestial Ascent</h3>
+        <p>Feature-length film — "10 Years Later." Released with teaser campaign.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="sh"><span class="n">03</span><h2>What I Offer Brands & AI Companies</h2></div>
+    <div class="offers">
+      <div class="offer"><div class="b">01</div><div>
+        <h4>Sponsored Films</h4>
+        <p>Original shorts or series built around your tool — stories audiences actually watch.</p></div></div>
+      <div class="offer"><div class="b">02</div><div>
+        <h4>Tool Showcases</h4>
+        <p>Cinematic pieces that push your model to its limits and sell capability.</p></div></div>
+      <div class="offer"><div class="b">03</div><div>
+        <h4>Tutorials & Breakdowns</h4>
+        <p>Workflow and behind-the-scenes content showing your tool in a real pipeline.</p></div></div>
+      <div class="offer"><div class="b">04</div><div>
+        <h4>Speed & Volume</h4>
+        <p>Full seasons shipped solo — fast turnaround, consistent quality, 16:9 + 9:16.</p></div></div>
+    </div>
+  </div>
+
+  <div class="meta2">
+    <div><span>Primary tool</span><strong>Seedance 2.0 (ByteDance)</strong></div>
+    <div><span>Formats</span><strong>16:9 + 9:16</strong></div>
+    <div><span>Genres</span><strong>Fantasy · Action · Sci-fi · Comedy</strong></div>
+    <div><span>Output types</span><strong>Series · Short films · Ads</strong></div>
+  </div>
+
+  <div class="contact">
+    <div class="c-list">
+      <div><b>Portfolio</b><a href="#">[ your-live-site-url ]</a></div>
+      <div><b>YouTube</b><a href="https://www.youtube.com/@Eddysibaw">youtube.com/@Eddysibaw</a></div>
+      <div><b>Instagram</b><a href="https://www.instagram.com/eddy_sibaw/">@eddy_sibaw</a></div>
+      <div><b>Email</b><a href="mailto:tanaponploenjit@gmail.com">tanaponploenjit@gmail.com</a></div>
+    </div>
+    <div class="sign">
+      <div class="big">LET'S CREATE<br><span>SOMETHING EPIC</span></div>
+      <div class="fine">© 2026 EDDYSIBAW · Made with AI</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
