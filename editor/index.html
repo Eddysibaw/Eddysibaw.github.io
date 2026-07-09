@@ -4,7 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EDDYSIBAW — Video Editor &amp; Post Production · Bangkok</title>
-<meta name="description" content="EDDYSIBAW (Tanapon Ploenjit) — selected editing work for Supersports, Nike, PUMA, ASICS, HOKA, On, New Balance, Under Armour, Dermaster Hospital and Thai Lizm Festival. Brand film, event highlight, social cuts, colour and motion.">
+<meta name="description" content="EDDYSIBAW (Tanapon Ploenjit) — รับตัดต่อวิดีโอ Brand Film · Event Highlight · Social Cuts · AI Cinematic. ผลงานให้ Supersports, Nike, PUMA, ASICS, Under Armour, Dermaster Hospital. คลิป 1–2 นาที เริ่มต้น ฿3,000">
+<meta name="theme-color" content="#0A0D13">
+
+<!-- social sharing card (LINE / Facebook / X) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://eddysibaw.github.io/editor/">
+<meta property="og:title" content="EDDYSIBAW — Video Editor · Bangkok">
+<meta property="og:description" content="118 works for Nike, PUMA, Supersports, Dermaster &amp; more. Watch everything in-site. Clips from ฿3,000.">
+<meta property="og:image" content="https://eddysibaw.github.io/editor/covers/1AlvhSJn0OWG71h3WJOTLHT--s80kKn2I.jpg">
+<meta property="og:locale" content="th_TH">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="%230A0D13"/><rect width="64" height="64" rx="12" fill="none" stroke="%2341C2B3" stroke-width="2"/><text x="32" y="45" font-family="Arial,sans-serif" font-size="38" font-weight="bold" text-anchor="middle" fill="%23EFA43F">E</text></svg>'>
+
+<!-- Analytics (GoatCounter — free, no cookies): sign up at goatcounter.com,
+     pick the code "eddysibaw", then delete this comment wrapper to activate.
+<script data-goatcounter="https://eddysibaw.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Kanit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
@@ -517,6 +534,115 @@
   html[lang="en"] .step h4,
   html[lang="en"] .thumb .fb b{letter-spacing:-.01em}
 
+  /* ── CASE STUDIES ────────────────────────── */
+  .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.8vw,28px)}
+  .case{
+    border:1px solid var(--line);background:var(--panel);
+    padding:clamp(22px,2vw,32px);display:flex;flex-direction:column;
+    transition:border-color .3s,background .3s;
+  }
+  .case:hover{border-color:var(--line-2);background:var(--panel-2)}
+  .case-top{border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:18px}
+  .case-k{display:block;color:var(--teal);margin-bottom:12px}
+  .case-top h3{font-family:var(--serif);font-size:24px;font-weight:400;letter-spacing:-.01em;line-height:1.1}
+  html[lang="th"] .case-top h3{font-weight:600}
+  .case-body{flex:1;display:flex;flex-direction:column;gap:15px}
+  .case-body > div span{display:block;color:var(--sand);margin-bottom:5px}
+  .case-body > div p{font-size:13.5px;color:var(--ink-2);line-height:1.55}
+  .case-cta{
+    margin-top:22px;align-self:flex-start;background:none;border:0;cursor:pointer;
+    color:var(--ink);font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+    text-transform:uppercase;padding:8px 0;transition:color .25s,gap .25s;
+    display:inline-flex;gap:8px;
+  }
+  .case-cta:hover{color:var(--teal);gap:13px}
+
+  /* ── AI BAND ─────────────────────────────── */
+  .ai-band{
+    background:
+      radial-gradient(ellipse 90% 70% at 20% 0%,rgba(65,194,179,.06),transparent 60%),
+      radial-gradient(ellipse 90% 70% at 90% 100%,rgba(239,164,63,.05),transparent 60%),
+      var(--bg-2);
+  }
+  .ai-more{
+    display:flex;align-items:center;gap:10px;margin:38px auto 0;
+    background:none;border:1px solid var(--line-2);border-radius:2px;cursor:pointer;
+    color:var(--ink);font-family:var(--mono);font-size:11px;letter-spacing:.18em;
+    text-transform:uppercase;padding:15px 28px;transition:.3s cubic-bezier(.16,1,.3,1);
+  }
+  .ai-more b{color:var(--teal);font-weight:400}
+  .ai-more:hover{background:var(--teal);border-color:var(--teal);color:#0A0D13;gap:16px}
+  .ai-more:hover b{color:#0A0D13}
+
+  /* ── PACKAGES ────────────────────────────── */
+  .pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.8vw,26px);align-items:stretch}
+  .pkgs.solo{grid-template-columns:min(440px,100%);justify-content:center}
+  .pkg{
+    position:relative;border:1px solid var(--line);background:var(--panel);
+    padding:clamp(24px,2.2vw,34px);display:flex;flex-direction:column;
+    transition:border-color .3s,transform .3s;
+  }
+  .pkg:hover{border-color:var(--line-2);transform:translateY(-4px)}
+  .pkg.feat{border-color:var(--sand);background:var(--panel-2)}
+  .pkg-badge{
+    position:absolute;top:-1px;right:-1px;background:var(--sand);color:#14100A;
+    padding:5px 11px;letter-spacing:.16em;
+  }
+  .pkg-name{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+  .pkg-price{font-family:var(--serif);font-size:clamp(36px,4vw,52px);font-weight:400;letter-spacing:-.02em;line-height:1}
+  .pkg.feat .pkg-price{color:var(--sand)}
+  .pkg-per{margin:8px 0 22px}
+  .pkg-list{list-style:none;border-top:1px solid var(--line);margin-top:auto}
+  .pkg-list li{
+    font-size:13.5px;color:var(--ink-2);padding:11px 0 11px 22px;position:relative;
+    border-bottom:1px solid var(--line);
+  }
+  .pkg-list li::before{content:"→";position:absolute;left:0;color:var(--teal);font-family:var(--mono);font-size:11px}
+  .pkg-note{
+    margin-top:30px;text-align:center;color:var(--muted);font-size:13px;
+    max-width:70ch;margin-inline:auto;line-height:1.7;
+  }
+  .pkg-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+  .cta.ghost{background:transparent;border:1px solid var(--line-2);color:var(--ink)}
+  .cta.ghost:hover{background:var(--panel-2);border-color:var(--teal);color:var(--teal)}
+  .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  /* ── HERO CTAS ───────────────────────────── */
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:clamp(28px,5vh,44px)}
+  .cta{border:0;cursor:pointer;font-family:var(--mono)}
+  .line-go{transition:color .25s}
+  .line-go:hover,.line-go:hover strong{color:var(--teal)}
+
+  /* ── FAQ ─────────────────────────────────── */
+  .faq{max-width:860px;margin:0 auto}
+  .faq details{border-bottom:1px solid var(--line)}
+  .faq summary{
+    cursor:pointer;list-style:none;display:flex;justify-content:space-between;
+    align-items:center;gap:18px;padding:19px 0;
+    font-size:15.5px;font-weight:500;color:var(--ink);
+  }
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";font-family:var(--mono);font-size:17px;color:var(--teal);flex:none;transition:transform .3s}
+  .faq details[open] summary::after{transform:rotate(45deg)}
+  .faq .a{padding:0 0 20px;color:var(--ink-2);font-size:14px;line-height:1.75;max-width:62ch}
+
+  /* ── STICKY MOBILE CTA ───────────────────── */
+  .mcta{
+    position:fixed;left:0;right:0;bottom:0;z-index:80;display:none;
+    border-top:1px solid rgba(0,0,0,.4);
+  }
+  .mcta a{
+    flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
+    padding:15px 8px;font-family:var(--mono);font-size:10.5px;
+    letter-spacing:.12em;text-transform:uppercase;font-weight:500;
+  }
+  .mcta .m-line{background:var(--teal);color:#0A0D13}
+  .mcta .m-quote{background:var(--sand);color:#14100A}
+  @media(max-width:860px){
+    .mcta{display:flex}
+    body{padding-bottom:47px} /* keep the footer clear of the bar */
+  }
+
   /* ── REVEAL ──────────────────────────────── */
   .rv{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
   .rv.in{opacity:1;transform:none}
@@ -532,6 +658,8 @@
     .grid{grid-template-columns:repeat(2,1fr)}
     .craft-grid{grid-template-columns:repeat(2,1fr)}
     .steps{grid-template-columns:repeat(2,1fr)}
+    .cases{grid-template-columns:1fr}
+    .pkgs{grid-template-columns:1fr;max-width:440px;margin-inline:auto}
   }
   @media(max-width:860px){
     .nav nav{
@@ -571,10 +699,10 @@
   <div class="nav-in">
     <a class="brand" href="#top"><span class="neon">EDDYSIBAW</span><small data-en="Video Editor" data-th="ตัดต่อวิดีโอ">Video Editor</small></a>
     <nav id="menu">
-      <a href="#work" data-en="Work" data-th="ผลงาน">Work</a>
-      <a href="#index" data-en="Index" data-th="รวมงาน">Index</a>
-      <a href="#craft" data-en="Craft" data-th="ทักษะ">Craft</a>
-      <a href="#process" data-en="Process" data-th="ขั้นตอน">Process</a>
+      <a href="#index" data-en="Work" data-th="ผลงาน">Work</a>
+      <a href="#cases" data-en="Cases" data-th="เคส">Cases</a>
+      <a href="#ai" data-en="AI Films" data-th="งาน AI">AI Films</a>
+      <a href="#services" data-en="Pricing" data-th="ราคา">Pricing</a>
       <a href="#about" data-en="About" data-th="เกี่ยวกับ">About</a>
       <a href="#contact" data-en="Contact" data-th="ติดต่อ">Contact</a>
     </nav>
@@ -594,36 +722,41 @@
       <span class="label">Bangkok, TH · Est. 2021</span>
     </div>
 
-    <h1 data-en="Cutting for<br><em>brands</em> that<br>move." data-th="งานตัดต่อ<br>สำหรับ<em>แบรนด์</em><br>ที่ไม่หยุดนิ่ง">Cutting for<br><em>brands</em> that<br>move.</h1>
+    <h1 data-en="Edits that<br>make brands<br><em>sell.</em>" data-th="ตัดต่อที่<br>ทำให้แบรนด์<br><em>ขายได้</em>">Edits that<br>make brands<br><em>sell.</em></h1>
 
     <div class="hero-grid">
       <p class="hero-lede"
-         data-en="Freelance editor and post-production lead in Bangkok. Eight years cutting <strong>brand films, event highlights and social campaigns</strong> for sportswear, hospitality and medical brands — from first assembly through colour, motion and final master."
-         data-th="ฟรีแลนซ์นักตัดต่อและดูแลงานโพสต์โปรดักชันในกรุงเทพฯ ประสบการณ์แปดปีกับงาน <strong>Brand Film · Event Highlight · Social Campaign</strong> ให้กับแบรนด์กีฬา ไลฟ์สไตล์ และการแพทย์ — ตั้งแต่ตัดต่อร่างแรก จนถึงเกรดสี โมชั่น และไฟล์มาสเตอร์">
-        Freelance editor and post-production lead in Bangkok.
+         data-en="I turn raw footage into video that gets watched and drives action — <strong>race-day hype, clinic bookings, campaign launches.</strong> Eight years, 100+ films for Nike, Supersports, PUMA, Dermaster and APEX. From same-day social cuts to hero brand films, delivered end-to-end."
+         data-th="ผมเปลี่ยนฟุตเทจดิบให้เป็นวิดีโอที่คนดูจนจบ และสร้างผลลัพธ์จริง — <strong>ปลุกกระแสวันแข่ง ดันยอดจองคลินิก เปิดตัวแคมเปญ</strong> แปดปี ผลงานกว่า 100 ชิ้นให้ Nike, Supersports, PUMA, Dermaster และ APEX ตั้งแต่คลิปโซเชียลส่งวันเดียว จนถึงหนังแบรนด์หลัก ครบจบที่เดียว">
+        I turn raw footage into video that drives action.
       </p>
 
       <div class="stats">
         <div>
-          <span class="label" data-en="Works" data-th="ผลงาน">Works</span>
-          <strong id="heroCount">82</strong>
-          <small data-en="in this index" data-th="ในหน้านี้">in this index</small>
+          <span class="label" data-en="Client Works" data-th="งานตัดต่อ">Client Works</span>
+          <strong id="heroCountClient">84</strong>
+          <small data-en="brand &amp; social" data-th="แบรนด์และโซเชียล">brand &amp; social</small>
+        </div>
+        <div>
+          <span class="label" data-en="AI Films" data-th="งาน AI">AI Films</span>
+          <strong id="heroCountAI">34</strong>
+          <small data-en="original cinematic" data-th="หนังออริจินัล">original cinematic</small>
         </div>
         <div>
           <span class="label" data-en="Clients" data-th="ลูกค้า">Clients</span>
           <strong>25+</strong>
           <small data-en="brands &amp; agencies" data-th="แบรนด์และเอเจนซี">brands &amp; agencies</small>
         </div>
-        <div>
-          <span class="label" data-en="Delivery" data-th="ส่งงาน">Delivery</span>
-          <strong>16:9 · 9:16</strong>
-          <small data-en="master &amp; social" data-th="มาสเตอร์และโซเชียล">master &amp; social</small>
-        </div>
       </div>
     </div>
 
+    <div class="hero-ctas">
+      <button class="cta" id="showreelBtn" type="button"><span>▶</span><span data-en="Watch Showreel" data-th="ดู Showreel">Watch Showreel</span></button>
+      <a class="cta ghost" href="mailto:tanaponploenjit@gmail.com?subject=Request%20a%20Quote%20—%20Video%20Editing&amp;body=Hi%20Eddy%2C%20I%27d%20like%20a%20quote.%0A%0AProject%3A%20%0AClip%20length%3A%20%0ADeadline%3A%20%0AReference%3A%20"><span data-en="Request a Quote" data-th="ขอใบเสนอราคา">Request a Quote</span><span>→</span></a>
+    </div>
+
     <div class="scroll-cue">
-      <span class="label" data-en="Scroll to view selected work" data-th="เลื่อนลงเพื่อดูผลงานคัดสรร">Scroll to view selected work</span>
+      <span class="label" data-en="Reply within 24 hours" data-th="ตอบกลับภายใน 24 ชั่วโมง">Reply within 24 hours</span>
       <div class="bar"></div>
       <span class="label">↓</span>
     </div>
@@ -680,11 +813,160 @@
   </div>
 </section>
 
+<!-- ══ CASE STUDIES ═════════════════════════ -->
+<section class="sec" id="cases">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="idx">03</div>
+      <div>
+        <h2 data-en="Case <em>Studies</em>" data-th="เคส<em>สตัดดี้</em>">Case <em>Studies</em></h2>
+        <p class="sub" data-en="Three long-term clients — and what the edit actually delivered." data-th="สามลูกค้าประจำ — กับผลลัพธ์ที่งานตัดต่อสร้างให้จริง">Three long-term clients.</p>
+      </div>
+      <div class="count"><strong>03</strong><span class="label" data-en="Studies" data-th="เคส">Studies</span></div>
+    </div>
+
+    <div class="cases">
+      <article class="case rv">
+        <div class="case-top">
+          <span class="case-k label" data-en="Sport · Since 2021" data-th="กีฬา · ตั้งแต่ 2021">Sport · Since 2021</span>
+          <h3>Supersports Running Club</h3>
+        </div>
+        <div class="case-body">
+          <div><span class="label" data-en="Challenge" data-th="โจทย์">Challenge</span><p data-en="Seven sportswear brands, weekly race-day and football shoots — all needing social content live the same day." data-th="แบรนด์กีฬา 7 แบรนด์ ถ่ายงานวิ่งและฟุตบอลทุกสัปดาห์ — ต้องได้คอนเทนต์โซเชียลลงภายในวันงาน">Same-day social from weekly shoots.</p></div>
+          <div><span class="label" data-en="Approach" data-th="วิธีทำ">Approach</span><p data-en="In-house edit lead: race-day highlights, athlete stories and hero campaign films, each with 9:16 and 1:1 cutdowns." data-th="หัวหน้าฝ่ายตัดต่อ: ไฮไลต์วันแข่ง เรื่องราวนักกีฬา และหนังแคมเปญหลัก พร้อมตัดย่อ 9:16 และ 1:1">Highlights, athlete stories, cutdowns.</p></div>
+          <div><span class="label" data-en="Result" data-th="ผลลัพธ์">Result</span><p data-en="30+ campaign films for Nike, PUMA, ASICS, HOKA, On, New Balance and Under Armour — often on a 24-hour turnaround." data-th="หนังแคมเปญกว่า 30 ชิ้นให้ Nike, PUMA, ASICS, HOKA, On, New Balance และ Under Armour — ส่งภายใน 24 ชม.">30+ films, 7 brands, 24h turnaround.</p></div>
+        </div>
+        <button class="case-cta" data-jump="sport"><span data-en="See sport work" data-th="ดูงานกีฬา">See sport work</span> →</button>
+      </article>
+
+      <article class="case rv">
+        <div class="case-top">
+          <span class="case-k label" data-en="Beauty · Full pipeline" data-th="ความงาม · ครบวงจร">Beauty · Full pipeline</span>
+          <h3>Dermaster Hospital</h3>
+        </div>
+        <div class="case-body">
+          <div><span class="label" data-en="Challenge" data-th="โจทย์">Challenge</span><p data-en="Turn surgical procedures and doctor interviews into content patients actually trust — and book from." data-th="เปลี่ยนหัตถการและบทสัมภาษณ์หมอ ให้เป็นคอนเทนต์ที่คนไข้เชื่อใจ — และตัดสินใจจอง">Turn procedures into bookable trust.</p></div>
+          <div><span class="label" data-en="Approach" data-th="วิธีทำ">Approach</span><p data-en="Full post pipeline: celebrity campaigns, patient documentaries, the Dr. Talk expert series, 4-branch location films and the Dermaster × Mentor collab." data-th="งานโพสต์ครบวงจร: แคมเปญเซเลบ สารคดีคนไข้ ซีรีส์ Dr.Talk หนังโลเคชั่น 4 สาขา และงานร่วม Dermaster × Mentor">Campaigns, docs, Dr. Talk, brand collabs.</p></div>
+          <div><span class="label" data-en="Result" data-th="ผลลัพธ์">Result</span><p data-en="A steady content engine — 40+ pieces in one consistent brand grade, led by the signature Deep Plane film." data-th="เครื่องผลิตคอนเทนต์ต่อเนื่อง — กว่า 40 ชิ้นในโทนแบรนด์เดียวกัน นำโดยหนังซิกเนเจอร์ Deep Plane">40+ pieces, one brand grade.</p></div>
+        </div>
+        <button class="case-cta" data-jump="beauty"><span data-en="See clinic work" data-th="ดูงานคลินิก">See clinic work</span> →</button>
+      </article>
+
+      <article class="case rv">
+        <div class="case-top">
+          <span class="case-k label" data-en="Hair &amp; Aesthetic · Bilingual" data-th="เส้นผม &amp; ความงาม · สองภาษา">Hair &amp; Aesthetic · Bilingual</span>
+          <h3>APEX Hair Center</h3>
+        </div>
+        <div class="case-body">
+          <div><span class="label" data-en="Challenge" data-th="โจทย์">Challenge</span><p data-en="Explain hair-restoration and aesthetic procedures clearly — and reach patients beyond Thailand." data-th="อธิบายการปลูกผมและหัตถการความงามให้เข้าใจง่าย — และเข้าถึงคนไข้นอกประเทศไทย">Clear explainers for a global audience.</p></div>
+          <div><span class="label" data-en="Approach" data-th="วิธีทำ">Approach</span><p data-en="A multi-specialist Dr. Talk interview series, motion identity, and AI-dubbed English versions for international viewers." data-th="ซีรีส์สัมภาษณ์ Dr.Talk หลายแพทย์ โมชั่นไอเดนติตี้ และเวอร์ชันพากย์อังกฤษด้วย AI สำหรับคนไข้ต่างชาติ">Dr. Talk series + AI English dubs.</p></div>
+          <div><span class="label" data-en="Result" data-th="ผลลัพธ์">Result</span><p data-en="A library of talent interviews and patient reels — now bilingual and ready for a global audience." data-th="คลังบทสัมภาษณ์และรีลคนไข้ — สองภาษา พร้อมสำหรับผู้ชมทั่วโลก">Bilingual library, global-ready.</p></div>
+        </div>
+        <button class="case-cta" data-jump="beauty"><span data-en="See clinic work" data-th="ดูงานคลินิก">See clinic work</span> →</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ AI CINEMATIC ═════════════════════════ -->
+<section class="sec ai-band" id="ai">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="idx">04</div>
+      <div>
+        <h2 data-en="AI <em>Cinematic</em>" data-th="AI <em>Cinematic</em>">AI <em>Cinematic</em></h2>
+        <p class="sub" data-en="Original films directed end-to-end with a Seedance image-to-video pipeline — concept, generation, edit, grade, sound." data-th="หนังออริจินัลที่กำกับเองครบวงจรด้วย Seedance image-to-video — คอนเซปต์ เจน ตัดต่อ เกรดสี เสียง">Original AI films, directed end-to-end.</p>
+      </div>
+      <div class="count"><strong id="aiTotal">34</strong><span class="label" data-en="AI Films" data-th="หนัง AI">AI Films</span></div>
+    </div>
+
+    <div class="grid" id="ai-grid"></div>
+
+    <button class="ai-more rv" data-jump="ai"><span data-en="View all" data-th="ดูทั้งหมด">View all</span> <b>34</b> <span data-en="AI films" data-th="หนัง AI">AI films</span> →</button>
+  </div>
+</section>
+
+<!-- ══ SERVICES / PACKAGES ══════════════════ -->
+<section class="sec" id="services">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="idx">05</div>
+      <div>
+        <h2 data-en="Services &amp; <em>Rate</em>" data-th="บริการ &amp; <em>ราคา</em>">Services &amp; <em>Rate</em></h2>
+        <p class="sub" data-en="One simple starting rate — every project gets a tailored quote within 24 hours." data-th="ราคาเริ่มต้นเดียว เข้าใจง่าย — ทุกโปรเจกต์ได้ใบเสนอราคาเฉพาะงานภายใน 24 ชม.">One simple starting rate.</p>
+      </div>
+      <div class="count"><strong>24h</strong><span class="label" data-en="Quote reply" data-th="ตอบใบเสนอราคา">Quote reply</span></div>
+    </div>
+
+    <div class="pkgs solo">
+      <article class="pkg feat rv">
+        <div class="pkg-name" data-en="Starting rate" data-th="ราคาเริ่มต้น">Starting rate</div>
+        <div class="pkg-price">฿3,000</div>
+        <div class="pkg-per label" data-en="1 clip · 1–2 minutes" data-th="1 คลิป · ความยาว 1–2 นาที">1 clip · 1–2 minutes</div>
+        <ul class="pkg-list">
+          <li data-en="Edit + colour grade + sound mix" data-th="ตัดต่อ + เกรดสี + มิกซ์เสียง">Edit + colour grade + sound mix</li>
+          <li data-en="TH or EN subtitles" data-th="ซับไทยหรืออังกฤษ">TH or EN subtitles</li>
+          <li data-en="Revisions included" data-th="รวมรอบแก้ไข">Revisions included</li>
+          <li data-en="MP4 Full HD, ready to post" data-th="ไฟล์ MP4 Full HD พร้อมโพสต์">MP4 Full HD, ready to post</li>
+        </ul>
+      </article>
+    </div>
+
+    <p class="pkg-note rv" data-en="Motion graphics, extra aspect ratios, rush delivery, event highlights, multi-clip campaigns and AI films — quoted per project. Send the brief and get a price within 24 hours." data-th="โมชั่นกราฟิก เพิ่มสัดส่วน งานด่วน ไฮไลต์อีเวนต์ แคมเปญหลายคลิป และงาน AI — ประเมินราคาต่อโปรเจกต์ ส่งบรีฟมาแล้วรับราคาภายใน 24 ชั่วโมง">Everything else quoted per project within 24 hours.</p>
+
+    <div class="pkg-actions rv">
+      <a href="mailto:tanaponploenjit@gmail.com?subject=Request%20a%20Quote%20—%20Video%20Editing&amp;body=Hi%20Eddy%2C%20I%27d%20like%20a%20quote.%0A%0AProject%3A%20%0AClip%20length%3A%20%0ADeadline%3A%20%0AReference%3A%20" class="cta"><span data-en="Request a Quote" data-th="ขอใบเสนอราคา">Request a Quote</span><span>→</span></a>
+      <a href="https://line.me/ti/p/apnM6wGIRK" target="_blank" rel="noopener" class="cta ghost"><span data-en="Chat on LINE" data-th="ทักไลน์เลย">Chat on LINE</span><span>→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══════════════════════════════════ -->
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="idx">06</div>
+      <div>
+        <h2 data-en="Questions, <em>answered</em>" data-th="คำถาม<em>ที่พบบ่อย</em>">Questions, <em>answered</em></h2>
+        <p class="sub" data-en="Everything clients usually ask before the first brief." data-th="ทุกเรื่องที่ลูกค้ามักถามก่อนส่งบรีฟแรก">What clients usually ask.</p>
+      </div>
+      <div class="count"><strong>06</strong><span class="label" data-en="Answers" data-th="คำตอบ">Answers</span></div>
+    </div>
+
+    <div class="faq rv">
+      <details>
+        <summary data-en="How many revisions are included?" data-th="แก้ไขได้กี่รอบ?">How many revisions are included?</summary>
+        <p class="a" data-en="Every job includes revision rounds — we agree the number in the quote before I start. Most cuts land within them, because references and objectives get locked at the brief." data-th="ทุกงานรวมรอบแก้ไข — ตกลงจำนวนกันชัดในใบเสนอราคาก่อนเริ่ม งานส่วนใหญ่จบภายในรอบที่ตกลง เพราะเราล็อก reference และเป้าหมายกันตั้งแต่บรีฟ">Revision rounds agreed in the quote.</p>
+      </details>
+      <details>
+        <summary data-en="How do I send footage?" data-th="ส่งฟุตเทจยังไง?">How do I send footage?</summary>
+        <p class="a" data-en="A Google Drive folder link works best. Tell me roughly how much raw footage there is when you brief — it's factored into the quote." data-th="ส่งเป็นลิงก์โฟลเดอร์ Google Drive สะดวกสุด แจ้งปริมาณฟุตเทจดิบคร่าว ๆ มาพร้อมบรีฟ เพราะมีผลกับใบเสนอราคา">Google Drive link, footage volume in the brief.</p>
+      </details>
+      <details>
+        <summary data-en="How fast can you deliver?" data-th="ใช้เวลากี่วัน?">How fast can you deliver?</summary>
+        <p class="a" data-en="A standard 1–2 minute clip takes about 3 working days. Rush and same-day delivery are available — same-day social cuts are literally what I do for Supersports every week." data-th="คลิป 1–2 นาทีมาตรฐานใช้เวลาประมาณ 3 วันทำการ งานด่วน/ส่งภายในวันมีให้ — งานส่งภายในวันคือสิ่งที่ทำให้ Supersports ทุกสัปดาห์อยู่แล้ว">~3 working days. Rush available.</p>
+      </details>
+      <details>
+        <summary data-en="What files do I get?" data-th="ได้ไฟล์อะไรบ้าง?">What files do I get?</summary>
+        <p class="a" data-en="MP4 Full HD as standard (4K on request), in the aspect ratios we agree — 16:9, 9:16 or 1:1. Project files can be purchased separately." data-th="ไฟล์ MP4 Full HD เป็นมาตรฐาน (4K แจ้งได้) ตามสัดส่วนที่ตกลงกัน — 16:9, 9:16 หรือ 1:1 ไฟล์โปรเจกต์ซื้อแยกได้">MP4 Full HD standard, 4K on request.</p>
+      </details>
+      <details>
+        <summary data-en="How does payment work?" data-th="จ่ายเงินยังไง?">How does payment work?</summary>
+        <p class="a" data-en="Through a platform (Fastwork etc.) — their escrow handles it. Direct bookings: 50% deposit to start, watermarked preview for approval, balance on delivery of the clean master." data-th="ผ่านแพลตฟอร์ม (เช่น Fastwork) ระบบกลางดูแลให้ · จ้างตรง: มัดจำ 50% ก่อนเริ่ม ส่งพรีวิวมีลายน้ำให้ตรวจ จ่ายส่วนที่เหลือแล้วรับไฟล์มาสเตอร์">Platform escrow, or 50% deposit direct.</p>
+      </details>
+      <details>
+        <summary data-en="What kind of work do you take?" data-th="รับงานแบบไหนบ้าง?">What kind of work do you take?</summary>
+        <p class="a" data-en="Brand films, event and race-day highlights, clinic and product content, social cuts (TikTok / Reels / Shorts), and AI cinematic video — concept to final master. Not sure it fits? Send the brief anyway, I reply within 24 hours." data-th="Brand Film · ไฮไลต์อีเวนต์และงานแข่ง · คอนเทนต์คลินิกและสินค้า · คลิปโซเชียล (TikTok / Reels / Shorts) · วิดีโอ AI Cinematic ตั้งแต่คอนเซปต์จนจบ ไม่แน่ใจว่างานเข้าข่ายไหม ส่งบรีฟมาก่อนได้ ตอบภายใน 24 ชม.">Brand, event, clinic, social and AI video.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- ══ CRAFT ════════════════════════════════ -->
 <section class="sec" id="craft">
   <div class="wrap">
     <div class="sec-head rv">
-      <div class="idx">03</div>
+      <div class="idx">07</div>
       <div>
         <h2 data-en="Tools &amp; <em>Craft</em>" data-th="เครื่องมือ &amp; <em>ทักษะ</em>">Tools &amp; <em>Craft</em></h2>
         <p class="sub" data-en="From first assembly to delivered master — the full post pipeline, in-house." data-th="ตั้งแต่ตัดร่างแรกจนถึงส่งมาสเตอร์ — ครบทั้งไปป์ไลน์ ทำเองทั้งหมด">The full post pipeline, in-house.</p>
@@ -709,7 +991,7 @@
 <section class="sec" id="process">
   <div class="wrap">
     <div class="sec-head rv">
-      <div class="idx">04</div>
+      <div class="idx">08</div>
       <div>
         <h2 data-en="How I <em>Work</em>" data-th="ขั้นตอน<em>การทำงาน</em>">How I <em>Work</em></h2>
         <p class="sub" data-en="A clear pipeline, so agencies and brand teams always know where a cut stands." data-th="ไปป์ไลน์ชัดเจน เพื่อให้เอเจนซีและทีมแบรนด์รู้สถานะงานตลอดเวลา">A clear pipeline for agencies and brand teams.</p>
@@ -732,7 +1014,7 @@
 <section class="sec" id="about">
   <div class="wrap">
     <div class="sec-head rv">
-      <div class="idx">05</div>
+      <div class="idx">09</div>
       <div>
         <h2 data-en="About" data-th="เกี่ยวกับ">About</h2>
         <p class="sub" data-en="Tanapon Ploenjit — editor, colourist, motion designer." data-th="ธนพล เพลินจิตร — นักตัดต่อ คัลเลอริสต์ และโมชั่นดีไซเนอร์">Tanapon Ploenjit</p>
@@ -783,7 +1065,10 @@
        data-th="รับงาน Brand Film · Event Highlight · Product AD · Music Festival · AI Cinematic · Social Cuts — ส่งบรีฟมาได้เลย ผมจะตอบกลับพร้อมแนวทางและไทม์ไลน์">
       Send a brief.
     </p>
-    <a href="mailto:tanaponploenjit@gmail.com" class="cta"><span data-en="Get in touch" data-th="ติดต่อผม">Get in touch</span><span>→</span></a>
+    <div class="cta-row">
+      <a href="mailto:tanaponploenjit@gmail.com?subject=Request%20a%20Quote%20—%20Video%20Editing&amp;body=Hi%20Eddy%2C%20I%27d%20like%20a%20quote.%0A%0AProject%3A%20%0AClip%20length%3A%20%0ADeadline%3A%20%0AReference%3A%20" class="cta"><span data-en="Request a Quote" data-th="ขอใบเสนอราคา">Request a Quote</span><span>→</span></a>
+      <a href="https://line.me/ti/p/apnM6wGIRK" target="_blank" rel="noopener" class="cta ghost"><span data-en="Chat on LINE" data-th="ทักไลน์เลย">Chat on LINE</span><span>→</span></a>
+    </div>
 
     <div class="socials">
       <a href="https://www.instagram.com/eddy_sibaw/" target="_blank" rel="noopener">
@@ -794,6 +1079,10 @@
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="5.5" width="19" height="13" rx="3.5"/><path d="M10.5 9.5v5l4.5-2.5z" fill="currentColor" stroke="none"/></svg>
         @Eddysibaw
       </a>
+      <a href="https://line.me/ti/p/apnM6wGIRK" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4c-5.2 0-9.5 3.3-9.5 7.4 0 3.7 3.4 6.8 7.9 7.3L10 21.5l4-2.8c4.3-.5 7.5-3.4 7.5-7.3C21.5 7.3 17.2 4 12 4z"/></svg>
+        <span data-en="Add on LINE" data-th="แอด LINE">Add on LINE</span>
+      </a>
       <a href="mailto:tanaponploenjit@gmail.com">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg>
         tanaponploenjit@gmail.com
@@ -801,18 +1090,13 @@
     </div>
 
     <div class="channels">
-      <a href="tel:+66656194919" class="ch">
-        <div class="label" data-en="Call · Direct line" data-th="โทร · สายตรง">Call · Direct line</div>
-        <div class="ch-v">065 <em>619</em> 4919</div>
-        <div class="ch-s" data-en="Tap to dial · Bangkok +66" data-th="แตะเพื่อโทร · กรุงเทพฯ +66">Tap to dial · Bangkok +66</div>
-      </a>
       <div class="ch qr">
         <div class="label" data-en="Add on LINE · Scan QR" data-th="เพิ่มเพื่อนทาง LINE · สแกน QR">Add on LINE · Scan QR</div>
         <div class="qr-frame">
           <img src="line-qr.png" alt="LINE QR code" loading="lazy">
           <div class="qr-fb">LINE<br>QR<br>—<br>line-qr.png</div>
         </div>
-        <div class="ch-s"><strong>@eddy</strong> · <span data-en="Add friend" data-th="เพิ่มเพื่อน">Add friend</span></div>
+        <a class="ch-s line-go" href="https://line.me/ti/p/apnM6wGIRK" target="_blank" rel="noopener"><strong data-en="On mobile? Tap to add →" data-th="เปิดจากมือถือ? แตะเพื่อแอดเลย →">On mobile? Tap to add →</strong></a>
       </div>
     </div>
 
@@ -836,6 +1120,12 @@
     <div class="label">Bangkok · Available 2026</div>
   </div>
 </footer>
+
+<!-- ══ STICKY MOBILE CTA ════════════════════ -->
+<div class="mcta">
+  <a class="m-line" href="https://line.me/ti/p/apnM6wGIRK" target="_blank" rel="noopener" data-en="Add LINE" data-th="แอด LINE">Add LINE</a>
+  <a class="m-quote" href="mailto:tanaponploenjit@gmail.com?subject=Request%20a%20Quote%20—%20Video%20Editing" data-en="Request a Quote" data-th="ขอใบเสนอราคา">Request a Quote</a>
+</div>
 
 <!-- ══ IN-SITE PLAYER ═══════════════════════ -->
 <div class="player" id="player" role="dialog" aria-modal="true" aria-label="Video player">
@@ -1016,6 +1306,21 @@ const WORKS = [
   {c:'beauty',id:'1H2Y8E7RVUSZP5gdCl4rQ2NFRcW59Noef',t:'f',en:'Hair Restart — Motion Identity',th:'Hair Restart — Motion Identity',tag:'motion',y:2025},
   {c:'beauty',id:'1uaoNTXb1Ki-hqXu3QccobY1K-d6fykp6',t:'f',en:'Hair Restart — The Compilation',th:'Hair Restart — รวมผลงาน',tag:'patient',y:2025},
   {c:'beauty',id:'1kaoJuh_bV3v4VejnjoayfzP7w-C5SYI-',t:'f',en:'Arm Chutima — A New Crown',th:'อาร์ม ชุติมา — A New Crown',tag:'celeb',y:2026},
+  /* — new 2026 (Dermaster Portfolio folder) — */
+  {c:'beauty',id:'1DZPZh8MYUg1LJbqvCzY4TKBrWKBStBDG',t:'f',en:'Dermaster × Mentor',th:'Dermaster × Mentor',tag:'brandfilm',y:2026},
+  {c:'beauty',id:'1YXStbNNHSBBsDauHFq0zrykYqPjqTz7Q',t:'f',ar:'9:16',en:'Dermaster — Four Branches',th:'Dermaster — โลเคชั่น 4 สาขา',tag:'brandfilm',y:2026},
+  {c:'beauty',id:'14Xm26pU0doucSA61kkWXu4vw5yUMvH9J',t:'f',en:'Oligo X — The Compilation',th:'รวม Oligo X',tag:'brandfilm',y:2026},
+  {c:'beauty',id:'147r2zqGnLZ5i2AhBKh6u-U83LjCvwXiy',t:'f',ar:'9:16',en:'Dr. Talk — An Anaesthesia Case',th:'Dr.Talk หมอนพ — เคสดมยาสลบ',tag:'series',y:2026},
+  {c:'beauty',id:'1yEv2DCmJlvRpCC8t2xdpdVA-unIDg4_d',t:'f',ar:'9:16',en:'Inside the Operating Room',th:'อาจารย์บัว — ในห้องผ่าตัด',tag:'series',y:2026},
+  {c:'beauty',id:'1MF9-kqelOgWPOOW-wxrUtwpBuSXdhQXv',t:'f',ar:'9:16',en:'Dr. Talk — Before &amp; After Lipo',th:'Dr.Talk หมออรรถ — ก่อน/หลังดูดไขมัน',tag:'series',y:2026},
+  {c:'beauty',id:'1giM-XSh2bbQ3MJrcM1w9WcDBU7NgcWSo',t:'f',ar:'9:16',en:'Why the Anaesthetist Matters',th:'Dr.Talk — ทำไมวิสัญญีแพทย์สำคัญ',tag:'series',y:2026},
+  /* — new (APEX Hair Center — Dr. Talk series) — */
+  {c:'beauty',id:'17A7_N0t5oFobjWSq-mD1rZrewbLiuLYA',t:'f',ar:'9:16',en:'Dr. Talk — Neck Ageing',th:'Dr.Talk หมอเอิง — คอเหี่ยวก่อนหน้า',tag:'series',y:2026},
+  {c:'beauty',id:'1_ihbvgbMure46dtfxzqH2d5bUemmBg5A',t:'f',ar:'9:16',en:'Dr. Talk — Double Layer Lift',th:'Dr.Talk หมอเอก — Double Layer',tag:'series',y:2026},
+  {c:'beauty',id:'1enCncYF6JtW6XePZcqntcdzDBcbvk3lH',t:'f',ar:'9:16',en:'Dr. Talk — Lifting Myths',th:'Dr.Talk หมอณัชชา — 3 เข้าใจผิดการยกกระชับ',tag:'series',y:2026},
+  {c:'beauty',id:'1vCeCeJHUz8y9jr1JhUN7R6zP1E67NOjH',t:'f',ar:'9:16',en:'Dr. Talk — Filler Facelift',th:'Dr.Talk หมอนาย — ฟิลเลอร์ยกหน้า',tag:'series',y:2026},
+  {c:'beauty',id:'179GUlYGhNfJ8iKTby492AfEOvoMWnqv3',t:'f',ar:'9:16',en:'Dr. Talk — Treating Melasma',th:'Dr.Talk หมอโจ้ — ฝ้ารักษาหายไหม',tag:'series',y:2026},
+  {c:'beauty',id:'1peBfYpZhVQv10q7iHyoQD5dsiVaM_b8U',t:'f',en:'Krittone — Hair Restart (EN Dub)',th:'Krittone — Hair Restart (พากย์อังกฤษ)',tag:'interview',y:2025},
 
   /* ── MUSIC & FESTIVAL ──────────────────── */
   {c:'festival',id:'1yTQEY2QVsy1GRIUlHG368XpRtBzMr4Ds',t:'f',en:'Thai Lizm — The After Movie',th:'Thai Lizm — The After Movie',tag:'event',y:2026},
@@ -1150,15 +1455,19 @@ document.querySelectorAll('#filters button').forEach(b => {
   b.dataset.n = n;
 });
 
-document.getElementById('total').textContent = WORKS.length;
-document.getElementById('heroCount').textContent = WORKS.length;
+/* split counts: AI vs everything-else (client editing work) */
+const aiCount     = counts.ai || 0;
+const clientCount = WORKS.length - aiCount;
+document.getElementById('total').textContent       = WORKS.length;
+document.getElementById('heroCountClient').textContent = clientCount;
+document.getElementById('heroCountAI').textContent     = aiCount;
 
 /* ═══════════════════════════════════════════
-   RENDER — grid
+   RENDER — grid  (card builder reused by the AI showcase)
    ═══════════════════════════════════════════ */
-document.getElementById('grid').innerHTML = WORKS.map((w,i) => {
-  const tag = TAGS[w.tag];
-  const g   = 'g' + (i % 4 + 1);
+function cardHTML(w,i){
+  const tag  = TAGS[w.tag];
+  const g    = 'g' + (i % 4 + 1);
   const fbEn = plain(w.en).split(' — ')[0];
   const fbTh = plain(w.th).split(' — ')[0];
   return `
@@ -1179,7 +1488,13 @@ document.getElementById('grid').innerHTML = WORKS.map((w,i) => {
       <span class="yr">${w.y}</span>
     </div>
   </a>`;
-}).join('');
+}
+document.getElementById('grid').innerHTML = WORKS.map(cardHTML).join('');
+
+/* AI showcase — first 8 AI films rendered into their own band */
+const aiPicks = WORKS.filter(w => w.c === 'ai').slice(0, 8);
+document.getElementById('ai-grid').innerHTML = aiPicks.map(cardHTML).join('');
+document.getElementById('aiTotal').textContent = aiCount;
 
 /* Cover chain: local file → live Drive thumbnail → gradient title card.
    A Drive thumbnail for a private file returns an HTML sign-in page, which
@@ -1229,16 +1544,12 @@ applyLang(LANG);
 /* ═══════════════════════════════════════════
    FILTER
    ═══════════════════════════════════════════ */
-const cards = [...document.querySelectorAll('.card')];
+/* scope to #grid only — the AI showcase (#ai-grid) also holds .card nodes
+   but must never be filtered away */
+const cards = [...document.querySelectorAll('#grid .card')];
 const empty = document.getElementById('empty');
 
-document.getElementById('filters').addEventListener('click', e => {
-  const btn = e.target.closest('button');
-  if (!btn) return;
-
-  document.querySelectorAll('#filters button').forEach(b => b.classList.toggle('on', b === btn));
-
-  const f = btn.dataset.f;
+function applyFilter(f){
   let shown = 0;
   cards.forEach(c => {
     const hit = f === 'all' || c.dataset.c === f;
@@ -1246,6 +1557,27 @@ document.getElementById('filters').addEventListener('click', e => {
     if (hit) shown++;
   });
   empty.style.display = shown ? 'none' : 'block';
+}
+function setFilterButton(f){
+  const target = document.querySelector(`#filters button[data-f="${f}"]`);
+  document.querySelectorAll('#filters button').forEach(b => b.classList.toggle('on', b === target));
+}
+
+document.getElementById('filters').addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  setFilterButton(btn.dataset.f);
+  applyFilter(btn.dataset.f);
+});
+
+/* case-study & "view all AI" buttons jump to the Index with a filter set */
+document.querySelectorAll('[data-jump]').forEach(el => {
+  el.addEventListener('click', () => {
+    const f = el.dataset.jump;
+    setFilterButton(f);
+    applyFilter(f);
+    document.getElementById('index').scrollIntoView({behavior:'smooth'});
+  });
 });
 
 /* ═══════════════════════════════════════════
@@ -1271,8 +1603,10 @@ let playlist = [], plIdx = -1;
 let clipVids = [], clipDefaultPortrait = false;
 
 const playable = a => /\/file\/d\//.test(a.href);
-const visibleClips = () =>
-  [...document.querySelectorAll('#features a.feat, #grid a.card')]
+/* playlist = the playable, currently-visible cards in the same container
+   as the clicked card (features, the Index grid, or the AI showcase) */
+const visibleClips = (scope) =>
+  [...scope.querySelectorAll('a.feat, a.card')]
     .filter(a => playable(a) && a.offsetParent !== null);
 
 function setEp(i){
@@ -1312,7 +1646,8 @@ plEps.addEventListener('click', e => {
   if (b) setEp([...plEps.children].indexOf(b));
 });
 function openPlayer(a){
-  playlist = visibleClips();
+  const scope = a.closest('#features, #grid, #ai-grid') || document;
+  playlist = visibleClips(scope);
   plIdx = playlist.indexOf(a);
   if (plIdx < 0) return;
   showClip();
@@ -1326,7 +1661,7 @@ function closePlayer(){
 }
 
 document.addEventListener('click', e => {
-  const a = e.target.closest('#features a.feat, #grid a.card');
+  const a = e.target.closest('#features a.feat, #grid a.card, #ai-grid a.card');
   if (!a || !playable(a) || e.metaKey || e.ctrlKey || e.shiftKey) return;
   e.preventDefault();
   openPlayer(a);
@@ -1339,6 +1674,15 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closePlayer();
   if (e.key === 'ArrowLeft'  && plIdx > 0){ plIdx--; showClip(); }
   if (e.key === 'ArrowRight' && plIdx < playlist.length - 1){ plIdx++; showClip(); }
+});
+
+/* hero "Watch Showreel" → open the Supersports Showreel 2026 in the player.
+   Reset the filter first: a hidden card can't join the playlist. */
+document.getElementById('showreelBtn').addEventListener('click', () => {
+  setFilterButton('all');
+  applyFilter('all');
+  const reel = document.querySelector('#grid a.card[href*="1I4nkj9OaN7ocuWI6cDwlGkORPf4BN19L"]');
+  if (reel) openPlayer(reel);
 });
 
 /* the sticky filter bar and anchor offsets track the real nav height */
