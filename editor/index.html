@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDDYSIBAW — Video Editor &amp; Post Production · Bangkok</title>
+<meta name="description" content="EDDYSIBAW (Tanapon Ploenjit) — selected editing work for Supersports, Nike, PUMA, ASICS, HOKA, On, New Balance, Under Armour, Dermaster Hospital and Thai Lizm Festival. Brand film, event highlight, social cuts, colour and motion.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Kanit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* cinematic teal-and-amber grade on a blue-black base */
+    --bg:#0A0D13;
+    --bg-2:#0D1119;
+    --panel:#111826;
+    --panel-2:#172131;
+    --line:rgba(164,198,224,.10);
+    --line-2:rgba(164,198,224,.18);
+    --ink:#F2EFE7;
+    --ink-2:#C9C5BA;
+    --muted:#8B93A1;
+    --muted-2:#5B6472;
+    --sand:#EFA43F;
+    --sand-dim:rgba(239,164,63,.14);
+    --teal:#41C2B3;
+    --teal-dim:rgba(65,194,179,.12);
+
+    /* same pairing as the EDDYSIBAW AI portfolio: Space Grotesk carries
+       Latin, Kanit picks up every Thai glyph by fallback */
+    --serif:'Space Grotesk','Kanit',Georgia,serif;
+    --sans:'Space Grotesk','Kanit','Helvetica Neue',Arial,sans-serif;
+    --mono:'Space Grotesk','Kanit','Courier New',monospace;
+
+    --pad:clamp(20px,5vw,80px);
+    --maxw:1440px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans);
+    background:var(--bg);color:var(--ink);
+    font-weight:300;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    /* clip, not hidden: `hidden` forces overflow-y to `auto`, making body a
+       scroll container. `clip` leaves overflow-y visible. */
+    overflow-x:clip;
+  }
+  /* cinematic grade: teal falls from the top, amber rises from the bottom */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+    background:
+      radial-gradient(ellipse 120% 90% at 50% -10%,rgba(65,194,179,.055),transparent 55%),
+      radial-gradient(ellipse 120% 100% at 50% 115%,rgba(239,164,63,.05),transparent 55%);
+  }
+  /* film grain — above content, below the player (z 1600) */
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1500;opacity:.05;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence baseFrequency='.9'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+  }
+  html[lang="th"] body{line-height:1.75}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  ::selection{background:var(--sand);color:#0C0C0D}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+  section[id]{scroll-margin-top:var(--navh,66px)}
+
+  .label{
+    font-family:var(--mono);font-size:10px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--muted);font-weight:400;
+  }
+
+  /* ── NAV ─────────────────────────────────── */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(12,12,13,.72);
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--line);
+    transition:padding .3s ease;
+  }
+  .nav-in{
+    max-width:var(--maxw);margin:0 auto;padding:16px var(--pad);
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+  }
+  .brand{
+    font-family:var(--serif);font-size:21px;font-weight:600;
+    letter-spacing:-.01em;display:flex;align-items:baseline;gap:9px;
+  }
+  .brand small{
+    font-family:var(--mono);font-size:9px;letter-spacing:.22em;
+    color:var(--muted);text-transform:uppercase;font-weight:400;
+  }
+  .nav nav{display:flex;gap:30px}
+  .nav nav a{
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink-2);
+    padding:6px 0;position:relative;transition:color .25s;
+  }
+  .nav nav a::after{
+    content:"";position:absolute;left:0;bottom:0;height:1px;width:0;
+    background:var(--sand);transition:width .3s ease;
+  }
+  .nav nav a:hover{color:var(--ink)}
+  .nav nav a:hover::after{width:100%}
+
+  .lang{display:flex;align-items:center;border:1px solid var(--line-2);border-radius:2px;overflow:hidden}
+  .lang button{
+    background:none;border:0;cursor:pointer;color:var(--muted);
+    font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+    padding:7px 11px;transition:.22s;
+  }
+  .lang button.on{background:var(--ink);color:var(--bg)}
+  .lang button:not(.on):hover{color:var(--ink)}
+
+  .burger{display:none;background:none;border:0;cursor:pointer;padding:8px;color:var(--ink)}
+  .burger span{display:block;width:20px;height:1px;background:currentColor;margin:5px 0;transition:.3s}
+
+  /* ── HERO ────────────────────────────────── */
+  .hero{
+    min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
+    padding:140px 0 44px;position:relative;border-bottom:1px solid var(--line);
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 10%,rgba(65,194,179,.07),transparent 70%),
+      radial-gradient(ellipse 70% 50% at 15% 90%,rgba(239,164,63,.05),transparent 65%);
+  }
+  .hero .wrap{position:relative;z-index:2;width:100%}
+  .hero-top{
+    display:flex;justify-content:space-between;gap:20px;
+    padding-bottom:clamp(40px,8vh,90px);
+  }
+  .hero h1{
+    font-family:var(--serif);
+    font-size:clamp(50px,10.4vw,178px);
+    line-height:.88;font-weight:300;letter-spacing:-.035em;
+    margin-bottom:clamp(30px,5vh,56px);
+  }
+  .hero h1 em{font-style:italic;font-weight:400}
+  html[lang="th"] .hero h1{font-size:clamp(38px,7.6vw,124px);line-height:1.06;letter-spacing:-.01em;font-weight:600}
+
+  .hero-grid{
+    display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,6vw,90px);
+    align-items:end;border-top:1px solid var(--line);padding-top:34px;
+  }
+  .hero-lede{font-size:clamp(15px,1.15vw,18px);color:var(--ink-2);max-width:52ch;font-weight:300}
+  .hero-lede strong{color:var(--ink);font-weight:500}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .stats div span{display:block;margin-bottom:9px}
+  .stats div strong{
+    display:block;font-family:var(--serif);font-size:clamp(26px,2.4vw,40px);
+    font-weight:400;line-height:1;letter-spacing:-.02em;
+  }
+  .stats div small{display:block;margin-top:7px;font-size:11px;color:var(--muted-2)}
+
+  .scroll-cue{
+    margin-top:clamp(34px,6vh,64px);display:flex;align-items:center;gap:14px;
+  }
+  .scroll-cue .bar{flex:1;height:1px;background:linear-gradient(90deg,var(--line-2),transparent)}
+
+  /* ── CLIENT STRIP ────────────────────────── */
+  .strip{
+    border-bottom:1px solid var(--line);padding:26px 0;overflow:hidden;
+    background:var(--bg-2);
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  }
+  .strip .track{display:flex;gap:56px;white-space:nowrap;animation:slide 46s linear infinite;width:max-content}
+  .strip:hover .track{animation-play-state:paused}
+  .strip .track span{
+    font-family:var(--serif);font-size:clamp(15px,1.35vw,21px);
+    color:var(--muted);letter-spacing:-.01em;font-weight:400;
+    transition:color .3s;
+  }
+  .strip .track span:hover{color:var(--ink)}
+  .strip .track i{color:var(--sand);font-style:normal;opacity:.45}
+  @keyframes slide{to{transform:translateX(-50%)}}
+
+  /* ── SECTION HEAD ────────────────────────── */
+  .sec{padding:clamp(70px,11vh,150px) 0;border-bottom:1px solid var(--line)}
+  .sec-head{
+    display:grid;grid-template-columns:auto 1fr auto;gap:clamp(20px,4vw,60px);
+    align-items:baseline;margin-bottom:clamp(40px,6vh,76px);
+    padding-bottom:26px;border-bottom:1px solid var(--line);
+  }
+  .sec-head .idx{font-family:var(--mono);font-size:11px;color:var(--sand);letter-spacing:.2em}
+  .sec-head h2{
+    font-family:var(--serif);font-size:clamp(30px,4.1vw,62px);
+    font-weight:300;letter-spacing:-.03em;line-height:1;
+  }
+  .sec-head h2 em{font-style:italic;font-weight:400}
+  html[lang="th"] .sec-head h2{font-weight:600;letter-spacing:-.01em;line-height:1.2}
+  .sec-head .sub{margin-top:12px;color:var(--muted);font-size:14px}
+  .sec-head .count{text-align:right;white-space:nowrap}
+  .sec-head .count strong{display:block;font-family:var(--serif);font-size:30px;font-weight:400;line-height:1}
+  .sec-head .count span{display:block;margin-top:6px}
+
+  /* ── FEATURED ────────────────────────────── */
+  .feat{
+    display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(24px,3.4vw,58px);
+    align-items:center;padding:clamp(34px,5vh,60px) 0;border-bottom:1px solid var(--line);
+  }
+  .feat:last-child{border-bottom:0}
+  .feat:nth-child(even) .feat-img{order:2}
+  .feat-img{position:relative;overflow:hidden;background:var(--panel);aspect-ratio:16/9}
+  .feat-img img{
+    width:100%;height:100%;object-fit:cover;
+    filter:saturate(.9) contrast(1.03);
+    transition:transform 1.1s cubic-bezier(.16,1,.3,1),filter .6s;
+  }
+  .feat:hover .feat-img img{transform:scale(1.035);filter:saturate(1.05) contrast(1.05)}
+  .feat-img .veil{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(12,12,13,.55))}
+  .feat-img .pin{
+    position:absolute;top:16px;left:16px;z-index:2;
+    background:rgba(10,13,19,.66);backdrop-filter:blur(8px);
+    border:1px solid var(--line-2);padding:6px 11px;
+    font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);
+  }
+  .play{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;
+    width:62px;height:62px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.5);background:rgba(12,12,13,.35);
+    backdrop-filter:blur(6px);
+    display:grid;place-items:center;font-size:15px;color:#fff;
+    transition:.35s cubic-bezier(.16,1,.3,1);
+  }
+  .feat:hover .play,.card:hover .play{background:var(--sand);color:#14100A;border-color:var(--sand);transform:translate(-50%,-50%) scale(1.08)}
+
+  .feat-txt h3{
+    font-family:var(--serif);font-size:clamp(24px,2.7vw,42px);
+    font-weight:300;letter-spacing:-.025em;line-height:1.05;margin:16px 0 18px;
+  }
+  .feat-txt h3 em{font-style:italic;font-weight:400}
+  html[lang="th"] .feat-txt h3{font-weight:600;letter-spacing:0;line-height:1.3}
+  .feat-txt p{color:var(--ink-2);font-size:15px;max-width:48ch;margin-bottom:26px}
+  .specs{border-top:1px solid var(--line)}
+  .specs li{
+    list-style:none;display:flex;justify-content:space-between;gap:16px;
+    padding:11px 0;border-bottom:1px solid var(--line);font-size:13px;
+  }
+  .specs li span:first-child{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);padding-top:3px}
+  .specs li span:last-child{color:var(--ink);text-align:right}
+
+  /* ── FILTER ──────────────────────────────── */
+  .filters{
+    display:flex;flex-wrap:wrap;gap:8px;margin-bottom:38px;
+    position:sticky;top:var(--navh,66px);z-index:40;
+    background:rgba(12,12,13,.9);backdrop-filter:blur(14px);
+    padding:14px 0;margin-top:-14px;
+  }
+  .filters button{
+    background:none;cursor:pointer;color:var(--muted);
+    border:1px solid var(--line);border-radius:2px;
+    font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    padding:9px 15px;transition:.22s;
+  }
+  .filters button:hover{color:var(--ink);border-color:var(--line-2)}
+  .filters button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .filters button b{font-weight:400;opacity:.5;margin-left:6px}
+
+  /* ── GRID ────────────────────────────────── */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.8vw,30px)}
+  .card{display:block;position:relative}
+  .thumb{
+    position:relative;overflow:hidden;background:var(--panel);
+    aspect-ratio:16/10;margin-bottom:15px;
+  }
+  .thumb img{
+    width:100%;height:100%;object-fit:cover;position:relative;z-index:1;
+    filter:saturate(.85) contrast(1.02) brightness(.94);
+    transition:transform .95s cubic-bezier(.16,1,.3,1),filter .5s;
+  }
+  /* 9:16 masters cropped into a 16:10 card: bias upward so heads survive */
+  .thumb img.portrait{object-position:50% 30%}
+  .card:hover .thumb img{transform:scale(1.05);filter:saturate(1) contrast(1.05) brightness(1)}
+  .thumb .fb{
+    position:absolute;inset:0;z-index:0;display:grid;place-content:center;
+    text-align:center;padding:20px;
+  }
+  .thumb .fb b{
+    display:block;font-family:var(--serif);font-size:22px;font-weight:400;
+    letter-spacing:-.02em;color:rgba(243,241,237,.82);line-height:1.15;
+  }
+  .thumb .fb i{
+    display:block;margin-top:8px;font-family:var(--mono);font-style:normal;
+    font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-2);
+  }
+  .g1{background:linear-gradient(150deg,#14202E,#0B0F16)}
+  .g2{background:linear-gradient(150deg,#26190E,#130D07)}
+  .g3{background:linear-gradient(150deg,#0F2724,#0A1013)}
+  .g4{background:linear-gradient(150deg,#1E1626,#0F0C14)}
+
+  .thumb .chips{position:absolute;inset:auto 12px 12px;z-index:3;display:flex;justify-content:space-between;align-items:flex-end;gap:8px;opacity:0;transform:translateY(6px);transition:.4s}
+  .card:hover .thumb .chips{opacity:1;transform:none}
+  .chip{
+    background:rgba(12,12,13,.72);backdrop-filter:blur(8px);border:1px solid var(--line-2);
+    font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+    padding:5px 9px;color:var(--ink-2);
+  }
+  .thumb .play{width:48px;height:48px;font-size:12px;opacity:0;transition:.4s}
+  .card:hover .thumb .play{opacity:1}
+  .thumb::after{
+    content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:linear-gradient(180deg,transparent 45%,rgba(12,12,13,.5));
+    opacity:0;transition:.4s;
+  }
+  .card:hover .thumb::after{opacity:1}
+
+  .card h3{
+    font-family:var(--serif);font-size:19px;font-weight:400;letter-spacing:-.012em;
+    line-height:1.25;margin-bottom:9px;transition:color .25s;
+  }
+  html[lang="th"] .card h3{font-weight:600;letter-spacing:0}
+  .card:hover h3{color:var(--sand)}
+  .card .row{display:flex;justify-content:space-between;gap:12px;align-items:baseline;border-top:1px solid var(--line);padding-top:9px}
+  .card .cat{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+  .card .yr{font-family:var(--mono);font-size:9.5px;color:var(--muted-2);letter-spacing:.1em}
+
+  .empty{padding:60px 0;text-align:center;color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+
+  /* ── PULL QUOTE ──────────────────────────── */
+  .pull{padding:clamp(70px,12vh,150px) 0;border-bottom:1px solid var(--line);text-align:center;background:var(--bg-2)}
+  .pull blockquote{
+    font-family:var(--serif);font-size:clamp(24px,3.5vw,52px);
+    font-weight:300;font-style:italic;letter-spacing:-.028em;line-height:1.2;
+    max-width:20ch;margin:0 auto;
+  }
+  html[lang="th"] .pull blockquote{font-style:normal;font-weight:600;letter-spacing:0;line-height:1.4;max-width:26ch}
+  .pull blockquote em{font-style:normal;color:var(--sand)}
+  html[lang="th"] .pull blockquote em{color:var(--sand)}
+  .pull cite{display:block;margin-top:28px;font-style:normal}
+
+  /* ── CRAFT ───────────────────────────────── */
+  .craft-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .craft-grid .cell{background:var(--bg);padding:clamp(22px,2.2vw,34px);transition:background .35s}
+  .craft-grid .cell:hover{background:var(--panel)}
+  .craft-grid .mark{
+    font-family:var(--serif);font-size:26px;font-weight:400;color:var(--sand);
+    letter-spacing:-.02em;margin-bottom:22px;
+  }
+  .craft-grid h4{font-size:15px;font-weight:500;margin-bottom:9px;letter-spacing:-.005em}
+  .craft-grid p{font-size:12.5px;color:var(--muted);line-height:1.65}
+
+  /* ── PROCESS ─────────────────────────────── */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,2.6vw,44px)}
+  .step{border-top:1px solid var(--line-2);padding-top:20px}
+  .step .n{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--sand);margin-bottom:14px}
+  .step h4{font-family:var(--serif);font-size:21px;font-weight:400;letter-spacing:-.015em;margin-bottom:10px}
+  html[lang="th"] .step h4{font-weight:600;letter-spacing:0}
+  .step p{font-size:13.5px;color:var(--muted);line-height:1.7}
+
+  /* ── ABOUT ───────────────────────────────── */
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,100px);align-items:start}
+  .about-lede{font-family:var(--serif);font-size:clamp(20px,2vw,30px);font-weight:300;letter-spacing:-.02em;line-height:1.32}
+  html[lang="th"] .about-lede{font-weight:500;letter-spacing:0;line-height:1.55}
+  .about-lede em{font-style:italic;color:var(--sand)}
+  html[lang="th"] .about-lede em{font-style:normal}
+  .about-body p{color:var(--ink-2);font-size:14.5px;margin-bottom:18px}
+  .about-body p:last-child{margin-bottom:0}
+  .facts{margin-top:32px;border-top:1px solid var(--line)}
+  .facts li{list-style:none;display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .facts li span:first-child{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);padding-top:3px}
+
+  /* ── CONTACT ─────────────────────────────── */
+  .contact{padding:clamp(80px,14vh,170px) 0;text-align:center;position:relative;overflow:hidden}
+  .contact::after{content:"";position:absolute;inset:0;pointer-events:none;background:
+    radial-gradient(ellipse 60% 50% at 50% 0%,rgba(239,164,63,.08),transparent 70%),
+    radial-gradient(ellipse 80% 60% at 50% 110%,rgba(65,194,179,.06),transparent 65%)}
+  .contact .wrap{position:relative;z-index:2}
+  .contact h2{
+    font-family:var(--serif);font-size:clamp(34px,5.6vw,88px);
+    font-weight:300;letter-spacing:-.035em;line-height:1;margin:22px 0 26px;
+  }
+  .contact h2 em{font-style:italic;color:var(--sand)}
+  html[lang="th"] .contact h2{font-weight:600;letter-spacing:-.01em;line-height:1.2}
+  html[lang="th"] .contact h2 em{font-style:normal}
+  .contact .lede{color:var(--ink-2);max-width:56ch;margin:0 auto 42px;font-size:15px}
+  .cta{
+    display:inline-flex;align-items:center;gap:14px;
+    background:var(--ink);color:var(--bg);
+    padding:17px 34px;font-family:var(--mono);font-size:11px;
+    letter-spacing:.2em;text-transform:uppercase;
+    transition:.3s cubic-bezier(.16,1,.3,1);
+  }
+  .cta:hover{background:var(--sand);gap:20px}
+
+  .channels{display:grid;grid-template-columns:repeat(2,minmax(0,320px));gap:20px;justify-content:center;margin-top:56px}
+  .ch{border:1px solid var(--line);background:var(--panel);padding:26px;text-align:left;transition:.3s}
+  .ch:hover{border-color:var(--line-2);background:var(--panel-2)}
+  .ch .ch-v{font-family:var(--serif);font-size:25px;font-weight:400;letter-spacing:-.01em;margin:12px 0 6px}
+  .ch .ch-v em{font-style:normal;color:var(--sand)}
+  .ch .ch-s{font-size:12px;color:var(--muted-2)}
+  .ch.qr{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .qr-frame{width:132px;height:132px;background:#fff;padding:8px;margin:14px 0 12px;display:grid;place-items:center}
+  .qr-frame img{width:100%;height:100%;object-fit:contain}
+  .qr-fb{display:none;font-family:var(--mono);font-size:9px;color:#333;line-height:1.7;letter-spacing:.1em}
+
+  .info{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px;border-top:1px solid var(--line);padding-top:34px;text-align:left}
+  .info div strong{display:block;margin-top:9px;font-size:14px;font-weight:400;color:var(--ink)}
+
+  /* ── FOOTER ──────────────────────────────── */
+  footer{border-top:1px solid var(--line);background:var(--bg-2)}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-top:26px;padding-bottom:26px}
+  footer .links{display:flex;gap:22px}
+  footer a:hover{color:var(--sand)}
+
+  /* ── NEON WORDMARK (EDDYSIBAW) ───────────── */
+  /* crystal-ice gradient clipped to the glyphs; glow via em-based
+     drop-shadows so it scales from the 19px nav mark to the 54px sign */
+  .neon{
+    background:linear-gradient(100deg,
+      #EAFFFB 0%, #9BEFE6 22%, #41C2B3 45%,
+      #F4FFFD 58%, #7EE4D9 78%, #C9FBF4 100%);
+    background-size:220% 100%;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 0 .18em rgba(120,240,226,.6))
+           drop-shadow(0 0 .6em rgba(65,194,179,.35));
+    animation:neonShimmer 7s linear infinite;
+  }
+  @keyframes neonShimmer{to{background-position:-220% 0}}
+  .neon-name{
+    font-family:var(--sans);font-weight:600;text-transform:uppercase;
+    font-size:clamp(26px,4vw,54px);letter-spacing:.3em;
+    text-indent:.3em; /* recentre: tracking adds a trailing gap */
+    margin-bottom:24px;
+  }
+
+  /* ── SOCIALS ─────────────────────────────── */
+  .socials{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:44px}
+  .socials a{
+    display:inline-flex;align-items:center;gap:9px;
+    border:1px solid var(--line-2);border-radius:2px;padding:11px 18px;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-2);transition:.25s;
+  }
+  .socials a:hover{border-color:var(--teal);color:var(--teal);box-shadow:0 0 18px rgba(65,194,179,.18)}
+  .socials svg{flex:none}
+
+  /* ── PLAYER (in-site lightbox) ───────────── */
+  .player{position:fixed;inset:0;z-index:1600;display:none;align-items:center;justify-content:center;padding:20px}
+  .player.open{display:flex}
+  .pl-back{position:absolute;inset:0;background:rgba(5,8,13,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .pl-box{
+    position:relative;z-index:2;width:min(1080px,94vw);max-height:94vh;
+    display:flex;flex-direction:column;background:var(--panel);
+    border:1px solid var(--line-2);box-shadow:0 40px 120px rgba(0,0,0,.65);
+  }
+  .pl-box.portrait{width:min(calc(76vh * 9 / 16 + 4px),94vw)}
+  .pl-top{display:flex;align-items:center;gap:18px;padding:14px 18px;border-bottom:1px solid var(--line)}
+  .pl-top > div:first-child{flex:1;min-width:0}
+  .pl-title{
+    font-family:var(--serif);font-size:18px;font-weight:400;letter-spacing:-.01em;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .pl-meta{margin-top:4px}
+  .pl-ext{white-space:nowrap;color:var(--muted);transition:color .25s}
+  .pl-ext:hover{color:var(--sand)}
+  .pl-x{
+    background:none;border:1px solid var(--line-2);border-radius:2px;cursor:pointer;
+    color:var(--ink-2);width:34px;height:34px;font-size:14px;line-height:1;
+    display:grid;place-items:center;transition:.25s;flex:none;
+  }
+  .pl-x:hover{background:var(--sand);border-color:var(--sand);color:#14100A}
+  /* always-visible episode-count badge on series cards */
+  .thumb .epb{
+    position:absolute;top:12px;left:12px;z-index:3;
+    background:rgba(10,13,19,.72);backdrop-filter:blur(8px);
+    border:1px solid var(--line-2);padding:5px 9px;
+    font-family:var(--mono);font-size:9px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--teal);
+  }
+  /* episode buttons inside the player */
+  .pl-eps{display:flex;flex-wrap:wrap;gap:8px;padding:12px 18px 0;border-top:1px solid var(--line)}
+  .pl-eps[hidden]{display:none}
+  .pl-eps button{
+    background:none;border:1px solid var(--line-2);border-radius:2px;cursor:pointer;
+    color:var(--muted);font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;
+    text-transform:uppercase;padding:7px 12px;transition:.2s;
+  }
+  .pl-eps button.on{background:var(--sand);border-color:var(--sand);color:#14100A}
+  .pl-eps button:not(.on):hover{color:var(--teal);border-color:var(--teal)}
+
+  .pl-frame{position:relative;background:#000;aspect-ratio:16/9;max-height:76vh}
+  .pl-box.portrait .pl-frame{aspect-ratio:9/16}
+  .pl-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .pl-bot{display:flex;justify-content:space-between;gap:14px;padding:11px 18px;border-top:1px solid var(--line)}
+  .pl-nav{
+    background:none;border:0;cursor:pointer;color:var(--muted);
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+    padding:6px 0;transition:color .25s;
+  }
+  .pl-nav:hover:not(:disabled){color:var(--teal)}
+  .pl-nav:disabled{opacity:.25;cursor:default}
+  @media(max-width:560px){
+    .player{padding:10px}
+    .pl-top{padding:12px 14px;gap:12px}
+    .pl-ext span{display:none} /* keep just the arrow on tiny screens */
+  }
+
+  /* ── LATIN TRACKING ──────────────────────── */
+  /* base heading tracking was tuned for the original serif; Space Grotesk
+     sits best just slightly tight. TH mode keeps its own rules for Kanit. */
+  html[lang="en"] .hero h1,
+  html[lang="en"] .sec-head h2,
+  html[lang="en"] .feat-txt h3,
+  html[lang="en"] .card h3,
+  html[lang="en"] .contact h2,
+  html[lang="en"] .pull blockquote,
+  html[lang="en"] .about-lede,
+  html[lang="en"] .stats div strong,
+  html[lang="en"] .brand,
+  html[lang="en"] .pl-title,
+  html[lang="en"] .ch .ch-v,
+  html[lang="en"] .craft-grid .mark,
+  html[lang="en"] .step h4,
+  html[lang="en"] .thumb .fb b{letter-spacing:-.01em}
+
+  /* ── REVEAL ──────────────────────────────── */
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+  .rv.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    .rv{opacity:1;transform:none;transition:none}
+    .strip .track{animation:none}
+    .neon{animation:none}
+    *{scroll-behavior:auto!important}
+  }
+
+  /* ── RESPONSIVE ──────────────────────────── */
+  @media(max-width:1080px){
+    .grid{grid-template-columns:repeat(2,1fr)}
+    .craft-grid{grid-template-columns:repeat(2,1fr)}
+    .steps{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:860px){
+    .nav nav{
+      display:none;position:absolute;top:100%;left:0;right:0;
+      flex-direction:column;gap:0;background:var(--bg-2);
+      border-bottom:1px solid var(--line);padding:8px var(--pad) 20px;
+    }
+    .nav nav.open{display:flex}
+    .nav nav a{padding:14px 0;border-bottom:1px solid var(--line);font-size:11px}
+    .burger{display:block;order:3}
+    .lang{order:2}
+    .hero-grid{grid-template-columns:1fr;gap:34px}
+    .hero-top{flex-direction:column;gap:10px}
+    .feat{grid-template-columns:1fr;gap:24px}
+    .feat:nth-child(even) .feat-img{order:0}
+    .sec-head{grid-template-columns:1fr;gap:12px}
+    .sec-head .count{text-align:left}
+    .about{grid-template-columns:1fr;gap:34px}
+    .channels{grid-template-columns:1fr;max-width:340px;margin-inline:auto}
+    .info{grid-template-columns:1fr;gap:18px}
+  }
+  @media(max-width:560px){
+    .grid{grid-template-columns:1fr;gap:26px}
+    .craft-grid,.steps{grid-template-columns:1fr}
+    .stats{grid-template-columns:1fr;gap:16px;border-top:1px solid var(--line);padding-top:20px}
+    .stats div{display:flex;justify-content:space-between;align-items:baseline}
+    .stats div span{margin:0}
+    .stats div small{display:none}
+    footer .wrap{flex-direction:column;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════ -->
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top"><span class="neon">EDDYSIBAW</span><small data-en="Video Editor" data-th="ตัดต่อวิดีโอ">Video Editor</small></a>
+    <nav id="menu">
+      <a href="#work" data-en="Work" data-th="ผลงาน">Work</a>
+      <a href="#index" data-en="Index" data-th="รวมงาน">Index</a>
+      <a href="#craft" data-en="Craft" data-th="ทักษะ">Craft</a>
+      <a href="#process" data-en="Process" data-th="ขั้นตอน">Process</a>
+      <a href="#about" data-en="About" data-th="เกี่ยวกับ">About</a>
+      <a href="#contact" data-en="Contact" data-th="ติดต่อ">Contact</a>
+    </nav>
+    <div class="lang">
+      <button data-lang="en" class="on">EN</button>
+      <button data-lang="th">TH</button>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ══ HERO ═════════════════════════════════ -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-top">
+      <span class="label" data-en="Video Editor · Motion · Colour" data-th="ตัดต่อวิดีโอ · โมชั่น · สี">Video Editor · Motion · Colour</span>
+      <span class="label">Bangkok, TH · Est. 2021</span>
+    </div>
+
+    <h1 data-en="Cutting for<br><em>brands</em> that<br>move." data-th="งานตัดต่อ<br>สำหรับ<em>แบรนด์</em><br>ที่ไม่หยุดนิ่ง">Cutting for<br><em>brands</em> that<br>move.</h1>
+
+    <div class="hero-grid">
+      <p class="hero-lede"
+         data-en="Freelance editor and post-production lead in Bangkok. Eight years cutting <strong>brand films, event highlights and social campaigns</strong> for sportswear, hospitality and medical brands — from first assembly through colour, motion and final master."
+         data-th="ฟรีแลนซ์นักตัดต่อและดูแลงานโพสต์โปรดักชันในกรุงเทพฯ ประสบการณ์แปดปีกับงาน <strong>Brand Film · Event Highlight · Social Campaign</strong> ให้กับแบรนด์กีฬา ไลฟ์สไตล์ และการแพทย์ — ตั้งแต่ตัดต่อร่างแรก จนถึงเกรดสี โมชั่น และไฟล์มาสเตอร์">
+        Freelance editor and post-production lead in Bangkok.
+      </p>
+
+      <div class="stats">
+        <div>
+          <span class="label" data-en="Works" data-th="ผลงาน">Works</span>
+          <strong id="heroCount">82</strong>
+          <small data-en="in this index" data-th="ในหน้านี้">in this index</small>
+        </div>
+        <div>
+          <span class="label" data-en="Clients" data-th="ลูกค้า">Clients</span>
+          <strong>25+</strong>
+          <small data-en="brands &amp; agencies" data-th="แบรนด์และเอเจนซี">brands &amp; agencies</small>
+        </div>
+        <div>
+          <span class="label" data-en="Delivery" data-th="ส่งงาน">Delivery</span>
+          <strong>16:9 · 9:16</strong>
+          <small data-en="master &amp; social" data-th="มาสเตอร์และโซเชียล">master &amp; social</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-cue">
+      <span class="label" data-en="Scroll to view selected work" data-th="เลื่อนลงเพื่อดูผลงานคัดสรร">Scroll to view selected work</span>
+      <div class="bar"></div>
+      <span class="label">↓</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CLIENT STRIP ═════════════════════════ -->
+<div class="strip" aria-hidden="true">
+  <div class="track" id="strip"></div>
+</div>
+
+<!-- ══ SELECTED WORK ════════════════════════ -->
+<section class="sec" id="work">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="idx">01</div>
+      <div>
+        <h2 data-en="Selected <em>Work</em>" data-th="ผลงาน<em>คัดสรร</em>">Selected <em>Work</em></h2>
+        <p class="sub" data-en="Three films that show the range — narrative, event, and festival." data-th="สามงานที่บอกขอบเขตของงานตัดต่อ — เล่าเรื่อง อีเวนต์ และเฟสติวัล">Three films that show the range.</p>
+      </div>
+      <div class="count"><strong>03</strong><span class="label" data-en="Features" data-th="งานเด่น">Features</span></div>
+    </div>
+    <div id="features"></div>
+  </div>
+</section>
+
+<!-- ══ FULL INDEX ═══════════════════════════ -->
+<section class="sec" id="index">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="idx">02</div>
+      <div>
+        <h2 data-en="The <em>Index</em>" data-th="รวม<em>ผลงาน</em>">The <em>Index</em></h2>
+        <p class="sub" data-en="Every piece, filterable. Click any card to watch on Google Drive." data-th="ผลงานทั้งหมด กรองตามหมวดได้ · คลิกการ์ดเพื่อรับชมบน Google Drive">Every piece, filterable.</p>
+      </div>
+      <div class="count"><strong id="total">83</strong><span class="label" data-en="Total Works" data-th="ผลงานทั้งหมด">Total Works</span></div>
+    </div>
+
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" style="display:none" data-en="No works in this category" data-th="ไม่มีผลงานในหมวดนี้">No works in this category</div>
+  </div>
+</section>
+
+<!-- ══ PULL QUOTE ═══════════════════════════ -->
+<section class="pull">
+  <div class="wrap">
+    <blockquote class="rv"
+      data-en="Good editing is <em>invisible.</em> Great editing feels inevitable."
+      data-th="งานตัดต่อที่ดี <em>มองไม่เห็น</em> งานตัดต่อที่ยอดเยี่ยม ทำให้รู้สึกว่ามันต้องเป็นแบบนี้">
+      Good editing is <em>invisible.</em> Great editing feels inevitable.
+    </blockquote>
+    <cite class="label rv">— The Editor's Creed</cite>
+  </div>
+</section>
+
+<!-- ══ CRAFT ════════════════════════════════ -->
+<section class="sec" id="craft">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="idx">03</div>
+      <div>
+        <h2 data-en="Tools &amp; <em>Craft</em>" data-th="เครื่องมือ &amp; <em>ทักษะ</em>">Tools &amp; <em>Craft</em></h2>
+        <p class="sub" data-en="From first assembly to delivered master — the full post pipeline, in-house." data-th="ตั้งแต่ตัดร่างแรกจนถึงส่งมาสเตอร์ — ครบทั้งไปป์ไลน์ ทำเองทั้งหมด">The full post pipeline, in-house.</p>
+      </div>
+      <div class="count"><strong>08</strong><span class="label" data-en="Disciplines" data-th="สาขา">Disciplines</span></div>
+    </div>
+
+    <div class="craft-grid">
+      <div class="cell rv"><div class="mark">Pr</div><h4>Premiere Pro</h4><p data-en="Multi-cam editing · Proxy workflows · Lumetri · Essential Graphics · Team Projects" data-th="ตัดต่อมัลติแคม · Proxy workflow · Lumetri · Essential Graphics · Team Project">Multi-cam · Proxy · Lumetri</p></div>
+      <div class="cell rv"><div class="mark">Ae</div><h4>After Effects</h4><p data-en="Motion graphics · Title design · Compositing · Logo &amp; shape animation" data-th="โมชั่นกราฟิก · ออกแบบไตเติล · คอมโพสิต · แอนิเมชันโลโก้">Motion graphics · Compositing</p></div>
+      <div class="cell rv"><div class="mark">Dv</div><h4>DaVinci Resolve</h4><p data-en="Colour grading · Primary &amp; secondary · Log to Rec.709 · Node trees" data-th="เกรดสี · Primary &amp; Secondary · Log to Rec.709 · Node tree">Colour grading · Node trees</p></div>
+      <div class="cell rv"><div class="mark">Ps</div><h4>Photoshop</h4><p data-en="Key visual · Thumbnail design · Frame extraction · Advanced retouching" data-th="คีย์วิชวล · ออกแบบธัมบ์เนล · ดึงเฟรม · รีทัชขั้นสูง">Key visual · Retouching</p></div>
+      <div class="cell rv"><div class="mark">Au</div><h4>Audition</h4><p data-en="Dialogue cleanup · Music editing · Sound design · Final stereo mix" data-th="เคลียร์เสียงพูด · ตัดต่อดนตรี · ออกแบบเสียง · มิกซ์สเตอริโอ">Dialogue · Sound design · Mix</p></div>
+      <div class="cell rv"><div class="mark">Ai</div><h4 data-en="AI Workflow" data-th="เวิร์กโฟลว์ AI">AI Workflow</h4><p data-en="Image-to-video · Seedance · Upscaling · Reference boards · Concept art" data-th="Image-to-video · Seedance · อัปสเกล · Reference board · คอนเซปต์อาร์ต">Image-to-video · Upscaling</p></div>
+      <div class="cell rv"><div class="mark">9:16</div><h4 data-en="Social Cuts" data-th="งานโซเชียล">Social Cuts</h4><p data-en="Reels · TikTok · Shorts · Vertical storytelling · Captions &amp; hooks" data-th="Reels · TikTok · Shorts · เล่าเรื่องแนวตั้ง · คำบรรยายและฮุก">Reels · TikTok · Shorts</p></div>
+      <div class="cell rv"><div class="mark">4K</div><h4 data-en="Event Post" data-th="งานอีเวนต์">Event Post</h4><p data-en="Multi-day coverage · Same-day edits · LED loops · Livestream graphics" data-th="ถ่ายทำหลายวัน · ตัดต่อส่งวันงาน · LED loop · กราฟิกไลฟ์สตรีม">Same-day edits · LED loops</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCESS ══════════════════════════════ -->
+<section class="sec" id="process">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="idx">04</div>
+      <div>
+        <h2 data-en="How I <em>Work</em>" data-th="ขั้นตอน<em>การทำงาน</em>">How I <em>Work</em></h2>
+        <p class="sub" data-en="A clear pipeline, so agencies and brand teams always know where a cut stands." data-th="ไปป์ไลน์ชัดเจน เพื่อให้เอเจนซีและทีมแบรนด์รู้สถานะงานตลอดเวลา">A clear pipeline for agencies and brand teams.</p>
+      </div>
+      <div class="count"><strong>06</strong><span class="label" data-en="Stages" data-th="ขั้นตอน">Stages</span></div>
+    </div>
+
+    <div class="steps">
+      <div class="step rv"><div class="n">01</div><h4 data-en="Brief &amp; Reference" data-th="รับบรีฟและอ้างอิง">Brief &amp; Reference</h4><p data-en="Objectives, audience, deliverables and reference boards agreed before a single clip is imported." data-th="ตกลงเป้าหมาย กลุ่มเป้าหมาย ไฟล์ที่ต้องส่ง และ reference board ให้ชัดก่อนเริ่มนำเข้าฟุตเทจ">Objectives and references agreed up front.</p></div>
+      <div class="step rv"><div class="n">02</div><h4 data-en="Assembly &amp; Selects" data-th="เรียงลำดับและคัดฟุตเทจ">Assembly &amp; Selects</h4><p data-en="Footage logged, proxies built, best takes pulled. You see a structure before you see polish." data-th="จัดระเบียบฟุตเทจ สร้าง proxy คัดเทคที่ดีที่สุด — คุณจะเห็นโครงเรื่องก่อนเห็นความสวยงาม">Structure before polish.</p></div>
+      <div class="step rv"><div class="n">03</div><h4 data-en="Offline Cut" data-th="ตัดต่อร่าง (Offline)">Offline Cut</h4><p data-en="Rhythm, pacing and story locked. Two rounds of revision included as standard." data-th="ล็อกจังหวะ ความเร็ว และการเล่าเรื่อง รวมการแก้ไขสองรอบเป็นมาตรฐาน">Rhythm and story locked. Two revisions standard.</p></div>
+      <div class="step rv"><div class="n">04</div><h4 data-en="Motion &amp; Graphics" data-th="โมชั่นและกราฟิก">Motion &amp; Graphics</h4><p data-en="Titles, lower thirds, sponsor lock-ups and brand-compliant animation built in After Effects." data-th="ไตเติล ชื่อผู้พูด โลโก้สปอนเซอร์ และแอนิเมชันตามไกด์ไลน์แบรนด์ ทำใน After Effects">Titles, lower thirds, sponsor lock-ups.</p></div>
+      <div class="step rv"><div class="n">05</div><h4 data-en="Colour &amp; Sound" data-th="เกรดสีและเสียง">Colour &amp; Sound</h4><p data-en="Grade in Resolve, dialogue cleanup and stereo mix in Audition. Consistent across every deliverable." data-th="เกรดสีใน Resolve เคลียร์เสียงพูดและมิกซ์สเตอริโอใน Audition ให้สม่ำเสมอทุกไฟล์">Grade in Resolve, mix in Audition.</p></div>
+      <div class="step rv"><div class="n">06</div><h4 data-en="Master &amp; Cutdowns" data-th="ไฟล์มาสเตอร์และตัดย่อ">Master &amp; Cutdowns</h4><p data-en="16:9 hero master plus 9:16 and 1:1 cutdowns, LED loops and platform-ready exports." data-th="มาสเตอร์ 16:9 พร้อมเวอร์ชัน 9:16 และ 1:1, LED loop และไฟล์พร้อมลงทุกแพลตฟอร์ม">Hero master plus every cutdown.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ════════════════════════════════ -->
+<section class="sec" id="about">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="idx">05</div>
+      <div>
+        <h2 data-en="About" data-th="เกี่ยวกับ">About</h2>
+        <p class="sub" data-en="Tanapon Ploenjit — editor, colourist, motion designer." data-th="ธนพล เพลินจิตร — นักตัดต่อ คัลเลอริสต์ และโมชั่นดีไซเนอร์">Tanapon Ploenjit</p>
+      </div>
+      <div class="count"><strong>2021</strong><span class="label" data-en="Working since" data-th="เริ่มทำงาน">Working since</span></div>
+    </div>
+
+    <div class="about">
+      <p class="about-lede rv"
+         data-en="I cut for brands where <em>pace is the product</em> — running clubs, football activations, festival crowds and clinics where trust has to be built in ninety seconds."
+         data-th="ผมตัดต่อให้แบรนด์ที่ <em>จังหวะคือหัวใจ</em> — คอมมูนิตี้วิ่ง กิจกรรมฟุตบอล ฝูงชนในเฟสติวัล และคลินิกที่ต้องสร้างความเชื่อมั่นให้ได้ภายในเก้าสิบวินาที">
+        I cut for brands where pace is the product.
+      </p>
+
+      <div class="about-body rv">
+        <p data-en="Since 2021 I have worked as the in-house edit lead for Supersports Running Club and Supersports Running Night Club, delivering campaign films for Nike, PUMA, ASICS, HOKA, On, New Balance and Under Armour — race-day highlights, athlete stories and same-day social cuts, often on a 24-hour turnaround."
+           data-th="ตั้งแต่ปี 2021 ผมทำงานเป็นหัวหน้าฝ่ายตัดต่อให้ Supersports Running Club และ Supersports Running Night Club ส่งงานแคมเปญให้ Nike, PUMA, ASICS, HOKA, On, New Balance และ Under Armour — ทั้งไฮไลต์วันแข่ง เรื่องราวนักกีฬา และงานโซเชียลส่งภายในวันเดียว บ่อยครั้งภายใน 24 ชั่วโมง">
+          Edit lead for Supersports Running Club since 2021.
+        </p>
+        <p data-en="In parallel I handle the full post pipeline for Dermaster Hospital and APEX Hair Center — celebrity campaigns, patient documentaries and the long-running Dr.&nbsp;Talk expert series — plus the after-movie and motion identity for Thai Lizm Festival at CentralWorld."
+           data-th="ควบคู่กันไป ผมดูแลงานโพสต์โปรดักชันทั้งหมดให้ Dermaster Hospital และ APEX Hair Center — แคมเปญเซเลบริตี้ สารคดีคนไข้ และซีรีส์ Dr.&nbsp;Talk — รวมถึง after-movie และ motion identity ของ Thai Lizm Festival ที่ CentralWorld">
+          Full post pipeline for Dermaster Hospital and APEX Hair Center.
+        </p>
+        <p data-en="I also direct original AI cinematic shorts under the name EDDYSIBAW — a research practice that feeds new techniques straight back into client work."
+           data-th="นอกจากนี้ผมยังกำกับหนังสั้น AI Cinematic ในชื่อ EDDYSIBAW — เป็นงานทดลองที่นำเทคนิคใหม่ ๆ กลับมาใช้กับงานลูกค้าโดยตรง">
+          Original AI cinematic shorts as EDDYSIBAW.
+        </p>
+
+        <ul class="facts">
+          <li><span data-en="Based in" data-th="ประจำอยู่ที่">Based in</span><span data-en="Bangkok, Thailand" data-th="กรุงเทพมหานคร ประเทศไทย">Bangkok, Thailand</span></li>
+          <li><span data-en="Languages" data-th="ภาษา">Languages</span><span data-en="Thai (native) · English (working)" data-th="ไทย (เจ้าของภาษา) · อังกฤษ (ใช้งานได้)">Thai · English</span></li>
+          <li><span data-en="Turnaround" data-th="ระยะเวลาส่งงาน">Turnaround</span><span data-en="Same-day social · 3–7 days hero film" data-th="โซเชียลส่งวันเดียว · Hero film 3–7 วัน">Same-day social · 3–7 days hero</span></li>
+          <li><span data-en="Availability" data-th="สถานะรับงาน">Availability</span><span data-en="Open for 2026 projects" data-th="เปิดรับงานปี 2026">Open for 2026</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══════════════════════════════ -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="neon-name neon">EDDYSIBAW</div>
+    <span class="label" data-en="Let's work together" data-th="มาร่วมงานกัน">Let's work together</span>
+    <h2 data-en="Ready to make<br>something <em>unforgettable.</em>" data-th="พร้อมสร้างงาน<br>ที่<em>น่าจดจำ</em>ไปด้วยกัน">Ready to make<br>something <em>unforgettable.</em></h2>
+    <p class="lede"
+       data-en="Available for brand film, event highlight, product advertising, festival coverage, AI cinematic and social cuts. Send a brief — I'll come back with a treatment and a timeline."
+       data-th="รับงาน Brand Film · Event Highlight · Product AD · Music Festival · AI Cinematic · Social Cuts — ส่งบรีฟมาได้เลย ผมจะตอบกลับพร้อมแนวทางและไทม์ไลน์">
+      Send a brief.
+    </p>
+    <a href="mailto:tanaponploenjit@gmail.com" class="cta"><span data-en="Get in touch" data-th="ติดต่อผม">Get in touch</span><span>→</span></a>
+
+    <div class="socials">
+      <a href="https://www.instagram.com/eddy_sibaw/" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
+        @eddy_sibaw
+      </a>
+      <a href="https://www.youtube.com/@Eddysibaw" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="5.5" width="19" height="13" rx="3.5"/><path d="M10.5 9.5v5l4.5-2.5z" fill="currentColor" stroke="none"/></svg>
+        @Eddysibaw
+      </a>
+      <a href="mailto:tanaponploenjit@gmail.com">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg>
+        tanaponploenjit@gmail.com
+      </a>
+    </div>
+
+    <div class="channels">
+      <a href="tel:+66656194919" class="ch">
+        <div class="label" data-en="Call · Direct line" data-th="โทร · สายตรง">Call · Direct line</div>
+        <div class="ch-v">065 <em>619</em> 4919</div>
+        <div class="ch-s" data-en="Tap to dial · Bangkok +66" data-th="แตะเพื่อโทร · กรุงเทพฯ +66">Tap to dial · Bangkok +66</div>
+      </a>
+      <div class="ch qr">
+        <div class="label" data-en="Add on LINE · Scan QR" data-th="เพิ่มเพื่อนทาง LINE · สแกน QR">Add on LINE · Scan QR</div>
+        <div class="qr-frame">
+          <img src="line-qr.png" alt="LINE QR code" loading="lazy">
+          <div class="qr-fb">LINE<br>QR<br>—<br>line-qr.png</div>
+        </div>
+        <div class="ch-s"><strong>@eddy</strong> · <span data-en="Add friend" data-th="เพิ่มเพื่อน">Add friend</span></div>
+      </div>
+    </div>
+
+    <div class="info">
+      <div><span class="label">Email</span><strong>tanaponploenjit@gmail.com</strong></div>
+      <div><span class="label" data-en="Based in" data-th="ประจำอยู่ที่">Based in</span><strong data-en="Bangkok, Thailand" data-th="กรุงเทพมหานคร">Bangkok, Thailand</strong></div>
+      <div><span class="label" data-en="Availability" data-th="สถานะ">Availability</span><strong data-en="Open for 2026" data-th="เปิดรับงานปี 2026">Open for 2026</strong></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="label">© 2026 <span class="neon">EDDYSIBAW</span> · Tanapon Ploenjit</div>
+    <div class="links label">
+      <a href="#work" data-en="Work" data-th="ผลงาน">Work</a>
+      <a href="#index" data-en="Index" data-th="รวมงาน">Index</a>
+      <a href="#about" data-en="About" data-th="เกี่ยวกับ">About</a>
+      <a href="#contact" data-en="Contact" data-th="ติดต่อ">Contact</a>
+    </div>
+    <div class="label">Bangkok · Available 2026</div>
+  </div>
+</footer>
+
+<!-- ══ IN-SITE PLAYER ═══════════════════════ -->
+<div class="player" id="player" role="dialog" aria-modal="true" aria-label="Video player">
+  <div class="pl-back" data-close></div>
+  <div class="pl-box" id="plBox">
+    <div class="pl-top">
+      <div>
+        <div class="pl-title" id="plTitle"></div>
+        <div class="pl-meta label" id="plMeta"></div>
+      </div>
+      <a class="pl-ext label" id="plExt" target="_blank" rel="noopener"><span data-en="Open in Drive" data-th="เปิดใน Drive">Open in Drive</span> ↗</a>
+      <button class="pl-x" data-close aria-label="Close">✕</button>
+    </div>
+    <div class="pl-frame"><iframe id="plIframe" allow="autoplay; fullscreen" allowfullscreen title="Video"></iframe></div>
+    <div class="pl-eps" id="plEps" hidden></div>
+    <div class="pl-bot">
+      <button class="pl-nav" id="plPrev">← <span data-en="Previous" data-th="ก่อนหน้า">Previous</span></button>
+      <button class="pl-nav" id="plNext"><span data-en="Next" data-th="ถัดไป">Next</span> →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════
+   DATA
+   t   = 'f' single file  |  'd' folder (multi-clip collections only)
+   cov = drive id of the cover frame; defaults to `id`. Folders need it
+         because a folder has no thumbnail of its own.
+   ═══════════════════════════════════════════ */
+const CLIENTS = ['Supersports','Nike','PUMA','ASICS','HOKA','On Running','New Balance','Under Armour','Dermaster Hospital','APEX Hair Center','Thai Lizm Festival','Wonderfruit'];
+
+const CATS = {
+  sport:   {en:'Sport &amp; Event',   th:'กีฬาและอีเวนต์'},
+  beauty:  {en:'Beauty &amp; Clinic', th:'ความงามและคลินิก'},
+  festival:{en:'Music &amp; Festival', th:'ดนตรีและเฟสติวัล'},
+  ai:      {en:'AI Cinematic',        th:'AI Cinematic'}
+};
+
+const TAGS = {
+  brandfilm:{en:'Brand Film',th:'Brand Film'},
+  celeb:{en:'Celebrity Film',th:'งานเซเลบริตี้'},
+  patient:{en:'Patient Story',th:'เรื่องราวคนไข้'},
+  series:{en:'Editorial Series',th:'ซีรีส์'},
+  motion:{en:'Motion Graphics',th:'โมชั่นกราฟิก'},
+  colour:{en:'Colour Grading',th:'เกรดสี'},
+  seasonal:{en:'Seasonal Film',th:'งานเทศกาล'},
+  campaign:{en:'Brand Campaign',th:'แคมเปญแบรนด์'},
+  highlight:{en:'Event Highlight',th:'ไฮไลต์อีเวนต์'},
+  reel:{en:'Brand Reel',th:'โชว์รีล'},
+  football:{en:'Football Event',th:'อีเวนต์ฟุตบอล'},
+  running:{en:'Running Campaign',th:'แคมเปญวิ่ง'},
+  golf:{en:'Golf Tournament',th:'กอล์ฟทัวร์นาเมนต์'},
+  press:{en:'Press Event',th:'งานแถลงข่าว'},
+  mv:{en:'Music Video',th:'มิวสิกวิดีโอ'},
+  doc:{en:'Documentary',th:'สารคดี'},
+  interview:{en:'Interview',th:'สัมภาษณ์'},
+  event:{en:'Event Film',th:'หนังอีเวนต์'},
+  promo:{en:'Promo Reel',th:'โปรโมรีล'},
+  keyart:{en:'Key Visual',th:'คีย์วิชวล'},
+  aicine:{en:'AI Film',th:'หนัง AI'},
+  aiseries:{en:'AI Series',th:'ซีรีส์ AI'},
+  aishort:{en:'AI Short',th:'คลิปสั้น AI'},
+  brandai:{en:'Brand × AI',th:'Brand × AI'},
+  aiworkflow:{en:'AI Workflow',th:'เวิร์กโฟลว์ AI'},
+  activity:{en:'Activity Event',th:'อีเวนต์กิจกรรม'},
+  content:{en:'Content Series',th:'คอนเทนต์ซีรีส์'}
+};
+
+const FEATURES = [
+  {
+    id:'1iHc7EJKCd26HpF6NdB71oyl52HJD-lDz', t:'f',
+    pin:'Signature · Deep Plane',
+    title_en:'Deep Plane — <em>Dee Patama.</em>',
+    title_th:'Deep Plane — <em>ดี้ ปัทมา</em>',
+    body_en:'A five-year patient story told as a cinematic interview. Slow push-ins, restrained grade, and a graphics language built specifically for Dermaster\'s signature procedure.',
+    body_th:'เรื่องราวคนไข้ตลอดห้าปี เล่าในรูปแบบสัมภาษณ์เชิงภาพยนตร์ ค่อย ๆ ดันภาพเข้าหา เกรดสีเรียบนิ่ง พร้อมภาษากราฟิกที่ออกแบบเฉพาะสำหรับหัตถการซิกเนเจอร์ของ Dermaster',
+    specs:[
+      [{en:'Client',th:'ลูกค้า'},{en:'Dermaster Hospital',th:'Dermaster Hospital'}],
+      [{en:'Format',th:'ฟอร์แมต'},{en:'16:9 Cinematic · 25 fps',th:'16:9 Cinematic · 25 fps'}],
+      [{en:'Role',th:'บทบาท'},{en:'Lead Editor · Colour · Motion',th:'หัวหน้าตัดต่อ · เกรดสี · โมชั่น'}],
+      [{en:'Year',th:'ปี'},{en:'2025',th:'2025'}]
+    ]
+  },
+  {
+    id:'1AlvhSJn0OWG71h3WJOTLHT--s80kKn2I', t:'f',
+    pin:'Signature · 10 Miles',
+    title_en:'The 10 Mile <em>Kick-Off.</em>',
+    title_th:'The 10 Mile <em>Kick-Off</em>',
+    body_en:'Supersports × Under Armour. Pre-event build, race-day chaos and after-party euphoria, cut as one continuous sport documentary — then split into hero, reels and an LED loop.',
+    body_th:'Supersports × Under Armour ร้อยเรียงช่วงก่อนงาน ความวุ่นวายในวันแข่ง และความสนุกหลังจบ ตัดเป็นสารคดีกีฬาชิ้นเดียว ก่อนแยกออกเป็น hero, reels และ LED loop',
+    specs:[
+      [{en:'Client',th:'ลูกค้า'},{en:'Supersports × Under Armour',th:'Supersports × Under Armour'}],
+      [{en:'Deliverables',th:'ไฟล์ส่งงาน'},{en:'Hero · Reels · LED Loop',th:'Hero · Reels · LED Loop'}],
+      [{en:'Role',th:'บทบาท'},{en:'Lead Editor · Colour',th:'หัวหน้าตัดต่อ · เกรดสี'}],
+      [{en:'Year',th:'ปี'},{en:'2026',th:'2026'}]
+    ]
+  },
+  {
+    id:'1yTQEY2QVsy1GRIUlHG368XpRtBzMr4Ds', t:'f',
+    pin:'Signature · Festival',
+    title_en:'Thai Lizm — <em>The After Movie.</em>',
+    title_th:'Thai Lizm — <em>The After Movie</em>',
+    body_en:'Two days, twelve artists, one stage at CentralWorld. Multi-cam concert coverage cut to the rhythm of the headline set, with a bespoke motion identity running through every transition.',
+    body_th:'สองวัน สิบสองศิลปิน หนึ่งเวทีที่ CentralWorld ตัดต่อมัลติแคมตามจังหวะเพลงของศิลปินหลัก พร้อม motion identity ที่ออกแบบเฉพาะ ไหลผ่านทุกทรานซิชัน',
+    specs:[
+      [{en:'Client',th:'ลูกค้า'},{en:'Thai Lizm Festival · CentralWorld',th:'Thai Lizm Festival · CentralWorld'}],
+      [{en:'Format',th:'ฟอร์แมต'},{en:'16:9 Hero · 9:16 Cutdowns',th:'16:9 Hero · ตัดย่อ 9:16'}],
+      [{en:'Role',th:'บทบาท'},{en:'Editor · Motion Identity',th:'ตัดต่อ · Motion Identity'}],
+      [{en:'Year',th:'ปี'},{en:'2026',th:'2026'}]
+    ]
+  }
+];
+
+const WORKS = [
+  /* ── SPORT & EVENT ─────────────────────── */
+  {c:'sport',id:'10wKS3N4H6er88VfFhtJOm5gSxK-4mMIB',t:'f',en:'Supersports 10 Mile 2026',th:'Supersports 10 Mile 2026',tag:'highlight',y:2026},
+  {c:'sport',id:'1jkYs5KEPkvGobbsn0D4uJVs4CB8QSdSz',t:'f',en:'10 Mile 2026 — Highlights',th:'10 Mile 2026 — ไฮไลต์',tag:'highlight',y:2026},
+  {c:'sport',id:'1AlvhSJn0OWG71h3WJOTLHT--s80kKn2I',t:'f',en:'The 10 Mile Kick-Off',th:'The 10 Mile Kick-Off',tag:'campaign',y:2026},
+  {c:'sport',id:'1NnnMuksc4xWEcl2g4AIxO-ur0FxsO_jr',t:'f',en:'Road To 10 Mile — Chapter I',th:'Road To 10 Mile — ตอนที่ 1',tag:'running',y:2026},
+  {c:'sport',id:'1Z3XLGtZlnM1pTEHE469VnxWwBJCTuTTm',t:'f',en:'Road To 10 Mile — Chapter II',th:'Road To 10 Mile — ตอนที่ 2',tag:'running',y:2026},
+  {c:'sport',id:'1K6AD57jyXYfXDDlhYcNAj2qQ5x7bZkMX',t:'f',en:'MV — โคตรวิ่ง',th:'MV — โคตรวิ่ง',tag:'mv',y:2026},
+  {c:'sport',id:'1vgKquamwYTIQE4nikkGZf3u9rqxsraKf',t:'f',en:'Football Galaxy 2026 — Highlights',th:'Football Galaxy 2026 — ไฮไลต์',tag:'football',y:2026},
+  {c:'sport',id:'1_MpQAGorb73VUYsduMIzrAO-iBsG9UpY',t:'f',en:'Football Galaxy — Fashion Cut',th:'Football Galaxy — Fashion Cut',tag:'football',y:2026},
+  {c:'sport',id:'1s-hvk1xdvuV3Bda7HBSKESof_CxBqsTF',t:'f',en:'GOP Supersports — Northville',th:'GOP Supersports — Northville',tag:'activity',y:2026},
+  {c:'sport',id:'1aLNJo4VjWJ67Uu7SjVe8_hbMhorp3TPb',t:'f',en:'Running Club — Ep.01 · Day Jobs',th:'Running Club — ตอนที่ 1 · อาชีพจริง',tag:'content',y:2026},
+  {c:'sport',id:'1n4Zj9d2WT02ztPg5nyV3tIm3BoygutiF',t:'f',en:'Running Club — Ep.02 · Being an Athlete',th:'Running Club — ตอนที่ 2 · เป็นนักกีฬาดียังไง',tag:'content',y:2026},
+  {c:'sport',id:'1qZeh53SvU6K2YXbB7p-glg6rPxdQ61vC',t:'f',en:'SRC × Nike — April Session',th:'SRC × Nike — เซสชันเดือนเมษา',tag:'running',y:2026},
+  {c:'sport',id:'12cyvvz5W7B5cCJvv4FGT2ogXI8Cq6KtL',t:'f',en:'SRC × On — Featherweight',th:'SRC × On — Featherweight',tag:'running',y:2026},
+  {c:'sport',id:'1IcKRzywPuq9_fNXck36zVDErg-i6btJ9',t:'f',en:'SRC × ASICS — 25K Edition',th:'SRC × ASICS — 25K Edition',tag:'running',y:2026},
+  {c:'sport',id:'1TRZNLxU9fbvmWP7TdgeQV0XXfLQGo_iZ',t:'f',en:'SRC × Nike — Night Pacers',th:'SRC × Nike — Night Pacers',tag:'running',y:2026},
+  {c:'sport',id:'1uUnrWj4yYKJTvXosj2RNg27MYUBUwCSw',t:'f',en:'SRC × New Balance — Cadence',th:'SRC × New Balance — Cadence',tag:'running',y:2026},
+  {c:'sport',id:'11p915m2hVilh2igJ9wSiPK4v-FyiBEgq',t:'f',en:'SRNC × HOKA — Night Run',th:'SRNC × HOKA — Night Run',tag:'running',y:2026},
+  {c:'sport',id:'1sL6QBVqOZ3KWKW1akcoJiSTKbD5Xidt7',t:'f',en:'SRNC × ASICS — Chapter II',th:'SRNC × ASICS — ตอนที่ 2',tag:'running',y:2026},
+  {c:'sport',id:'1Qxv024sbX4FfM29AJXBS1kT3i7VoOlId',t:'f',en:'SRNC × PUMA — Hyrox Fitness',th:'SRNC × PUMA — Hyrox Fitness',tag:'activity',y:2026},
+  {c:'sport',id:'1Dv1MpHmYq3OoeXFZBjlmPznfISlBntTj',t:'f',en:'PUMA Football × Supersports',th:'PUMA Football × Supersports',tag:'football',y:2026},
+  {c:'sport',id:'1QGP2IPR-8GmT-Nzgd2MzXZeNkVXhEZ8C',t:'f',en:'Nike Football — Chapter III',th:'Nike Football — ครั้งที่ 3',tag:'football',y:2026},
+  {c:'sport',id:'14UQraaQNggvDES3z2b_moPHhKibnTpgE',t:'f',en:'Nike Football — Chapter II',th:'Nike Football — ครั้งที่ 2',tag:'football',y:2025},
+  {c:'sport',id:'1Aqp80vOkWLAZ7j0P9-G0LloeiwnJloMf',t:'f',en:'Nike Tempo × Supersports',th:'Nike Tempo × Supersports',tag:'activity',y:2026},
+  {c:'sport',id:'1l0uo32atBreXNw7lmM5oLAhOfiR1CLji',t:'f',en:'Supersports Golf — Highlight Reel',th:'Supersports Golf — ไฮไลต์',tag:'golf',y:2025},
+  {c:'sport',id:'1I_zEFxHwQ3ZIc4KfCFJWrZCQjcYh3WBg',t:'f',en:'Supersports Golf — Press Conference',th:'Supersports Golf — งานแถลงข่าว',tag:'press',y:2025},
+  {c:'sport',id:'1I4nkj9OaN7ocuWI6cDwlGkORPf4BN19L',t:'f',en:'Supersports Showreel 2026',th:'Supersports Showreel 2026',tag:'reel',y:2026},
+  {c:'sport',id:'1C0cuxRkAy1DaIVfrhrAabkgpilhbmGxH',t:'f',en:'Supersports 2026 — The Collection',th:'Supersports 2026 — รวมผลงาน',tag:'reel',y:2026},
+  {c:'sport',id:'1ysj22MCit9hEtFsTxK9fj5f7jAqNQTMf',t:'f',en:'Power of the Year',th:'Power of the Year',tag:'highlight',y:2026},
+  {c:'sport',id:'1ZOztPTuCq2bJW9WlpcJQbq0SM8GJSIYR',t:'f',en:'Power of the Year — Chapter II',th:'Power of the Year — ตอนที่ 2',tag:'highlight',y:2026},
+  {c:'sport',id:'16VEUgSTw7zPgKo9HLSOcmxa2XaiH8pQQ',t:'f',en:'Coffee Run × BANGSAEN21',th:'Coffee Run × BANGSAEN21',tag:'running',y:2025},
+  {c:'sport',id:'1VC2RJIuM6SaWTwvwX6_3JAWhBe-Dc_eO',t:'f',en:'Supersports × ATM Bangkok 2025',th:'Supersports × ATM Bangkok 2025',tag:'highlight',y:2025},
+
+  /* ── BEAUTY & CLINIC ───────────────────── */
+  {c:'beauty',id:'1iHc7EJKCd26HpF6NdB71oyl52HJD-lDz',t:'f',en:'Deep Plane — Dee Patama',th:'Deep Plane — ดี้ ปัทมา',tag:'brandfilm',y:2025},
+  {c:'beauty',id:'11daeKUdgGjTdXwNLcmDqiZWEOPL5IL3e',t:'f',en:'Surge — A Three-Part Campaign',th:'Surge — แคมเปญสามตอน',tag:'campaign',y:2025},
+  {c:'beauty',id:'13uI-dJ1UdfFRXqpc_FMxUnP0XjF-hujr',t:'f',en:'Seventy-Plus — A Five-Year Story',th:'Seventy-Plus — เรื่องราวห้าปี',tag:'doc',y:2025},
+  {c:'beauty',id:'1RYFKkIJpxetAZiX9wJHb2-mrq6WgYKnH',t:'f',en:'The Expert Desk — Dr. Talk Series',th:'The Expert Desk — ซีรีส์ Dr. Talk',tag:'series',y:2026},
+  {c:'beauty',id:'1KH-t80ukw6LYdrnEsd83Edw_EMd8SRXp',t:'f',en:'15 Years of Dermaster',th:'15 ปี Dermaster',tag:'brandfilm',y:2026},
+  {c:'beauty',id:'10noFyJ4FrU7a7cmesvpx-OJQz6ayTc0b',t:'f',en:'Dr. Talk — Oligio X',th:'Dr. Talk หมอตูน — Oligio X',tag:'series',y:2026},
+  {c:'beauty',id:'1DM9LMJyt1tA3jcrKq-V0G4-tAcvggi-S',t:'f',en:'Dr. Talk — Weight-Loss Pens vs. Lipo',th:'Dr. Talk หมออรรถ — ปากกาลดน้ำหนัก vs ดูดไขมัน',tag:'series',y:2026},
+  {c:'beauty',id:'1u7UwcaC4GHaTNSz3gcFTe-jEnnoUDzaC',t:'f',en:'Khun Yoo — Ulthera',th:'คุณยู — Ulthera',tag:'celeb',y:2026},
+  {c:'beauty',id:'1P1F2OX4HIAoyO6HrbIANlg8gGT1COIRE',t:'f',en:'Pee Moo — Hair Solution',th:'พี่หมู — Hair Solution',tag:'patient',y:2026},
+  {c:'beauty',id:'1V_gRg1dBksp_0x06zlkemWld4spqp3B-',t:'f',en:'Walk-in for Hair Solution',th:'Walk-in for Hair Solution',tag:'brandfilm',y:2026},
+  {c:'beauty',id:'1W8qVSlFSfkZ_2kL5XoDR1xZOMSHa7tJL',t:'f',en:'Hair Solution Program',th:'Hair Solution Program',tag:'brandfilm',y:2026},
+  {c:'beauty',id:'1r7gxsMYjuL6JDARYIR6bXTdx09wdkup6',t:'f',en:'Mr. Jonas — Abdominal Lipo',th:'Mr. Jonas — ดูดไขมันหน้าท้อง',tag:'patient',y:2026},
+  {c:'beauty',id:'1aAGm0c8Yc-MinvpEWeaZVVrjgRXEXkME',t:'f',en:'Breast Augmentation — Dr. Teera',th:'เสริมหน้าอก — หมอธีระ',tag:'patient',y:2026},
+  {c:'beauty',id:'19NbiG07wyF-cy1T-9NRShlkHXvdfjHEG',t:'f',en:"Mother's Day — The Tribute",th:'วันแม่ — The Tribute',tag:'brandfilm',y:2025},
+  {c:'beauty',id:'1R8VhmVLNj-Y7tQZA8-RI_wSf8Vo18Mkx',t:'f',en:'Wonderfruit × Dermaster',th:'Wonderfruit × Dermaster',tag:'event',y:2025},
+  {c:'beauty',id:'1K8dxnrycsKlUXLkZ6hry38oY0RBWLjTR',t:'f',en:'Motion AI — Before &amp; After',th:'Motion AI — Before &amp; After',tag:'aiworkflow',y:2025},
+  {c:'beauty',id:'1PKyDcX3s3UN02q1PnzwuBA9q0RWy8KIL',t:'f',en:'A Study in Colour — Grading Reel',th:'A Study in Colour — รีลเกรดสี',tag:'colour',y:2023},
+  {c:'beauty',id:'1Hk_rSGATBqdj5pCETJ7WVZfx16YHgqAD',t:'f',en:'Joey Boy — The Session',th:'Joey Boy — The Session',tag:'celeb',y:2026},
+  {c:'beauty',id:'15xYj7ltbT1RcNK-g-XOH9NKWaPOerPL4',t:'f',en:'Year of the Horse — New Year 2026',th:'ปีมะเมีย — สวัสดีปีใหม่ 2026',tag:'seasonal',y:2026},
+  {c:'beauty',id:'19RFrHmy3_kFjlVv3lKWE6vVBA1GLjsPd',t:'f',en:'Gibsa — A Lifted Portrait',th:'Gibsa — Ultherapy Prime',tag:'celeb',y:2026},
+  {c:'beauty',id:'1uX4WpuZ0kWqhFXZZg1mZIqkiVuyb5piP',t:'f',en:'Sopitnapa — A Quiet Power',th:'โสภิตนภา — A Quiet Power',tag:'celeb',y:2026},
+  {c:'beauty',id:'1W5Dr3F4GiTLvfTkNCrFANxDt9lsIXQ3u',t:'f',en:'Mos — A New Chapter',th:'มอส — A New Chapter',tag:'celeb',y:2025},
+  {c:'beauty',id:'1eS6LVsiqEXEJSIj1NHdmM4uOpvlAXTTk',t:'f',en:'Maprang — A Hybrid Study',th:'มะปราง — Hybrid',tag:'celeb',y:2025},
+  {c:'beauty',id:'1iFrOu11dDFnHepzHvfk_HA1tszcCs4ZQ',t:'f',en:'French Fry — A Lift Story',th:'เฟรนช์ฟราย — A Lift Story',tag:'celeb',y:2026},
+  {c:'beauty',id:'1BD6DCGx-U4Wv5bqdvr5Oah-H7bJniaih',t:'f',en:'Tata — A Quiet Sedation',th:'ทาทา — A Quiet Sedation',tag:'patient',y:2026},
+  {c:'beauty',id:'1JMkCtA2P-P2VdU7NYvMEE4fgytCLkBQa',t:'f',en:'Christmas at Dermaster',th:'คริสต์มาสที่ Dermaster',tag:'seasonal',y:2025},
+  {c:'beauty',id:'1kAmvPiCcErZhlAn9vYt6vajP4S662IRH',t:'f',en:'Cake — A Skin Reset',th:'เค้ก — Sylfirm',tag:'celeb',y:2025},
+  {c:'beauty',id:'1p5q7rXUcEp2Tl531UzyeVTodhJkONsBq',t:'f',en:'Justyna — The Refinement',th:'Justyna — The Refinement',tag:'celeb',y:2026},
+  {c:'beauty',id:'1i70mE8jZx2yg4FMAnLdKl97rtxWwaf5E',t:'f',en:'Krittone — In His Own Words',th:'กฤตโทน — In His Own Words',tag:'interview',y:2025},
+  {c:'beauty',id:'1H2Y8E7RVUSZP5gdCl4rQ2NFRcW59Noef',t:'f',en:'Hair Restart — Motion Identity',th:'Hair Restart — Motion Identity',tag:'motion',y:2025},
+  {c:'beauty',id:'1uaoNTXb1Ki-hqXu3QccobY1K-d6fykp6',t:'f',en:'Hair Restart — The Compilation',th:'Hair Restart — รวมผลงาน',tag:'patient',y:2025},
+  {c:'beauty',id:'1kaoJuh_bV3v4VejnjoayfzP7w-C5SYI-',t:'f',en:'Arm Chutima — A New Crown',th:'อาร์ม ชุติมา — A New Crown',tag:'celeb',y:2026},
+
+  /* ── MUSIC & FESTIVAL ──────────────────── */
+  {c:'festival',id:'1yTQEY2QVsy1GRIUlHG368XpRtBzMr4Ds',t:'f',en:'Thai Lizm — The After Movie',th:'Thai Lizm — The After Movie',tag:'event',y:2026},
+  {c:'festival',id:'1Vp9vCD_AIe1ZVQY1qSqMS-6I1Tx8Y4l1',t:'f',en:'Thai Lizm — After Movie, Vertical Cut',th:'Thai Lizm — After Movie ฉบับแนวตั้ง',tag:'event',y:2026},
+  {c:'festival',id:'14SCk2rorMAb2wwbWkuuK1TaHC_K9wkxy',t:'f',en:'Thai Lizm · CentralWorld',th:'Thai Lizm · CentralWorld',tag:'event',y:2026},
+  {c:'festival',id:'1QZtVv_85KbfsDaNZ_JSDBSSsLy71KvWO',t:'f',en:'Thai Lizm — Vertical Cut',th:'Thai Lizm — ฉบับแนวตั้ง',tag:'promo',y:2026},
+  {c:'festival',id:'1qjp-e1HJzD6v2v9s19jeNFFxKG-wUyAF',t:'d',cov:'1hGajvuaAqBhjqCR-WEMGNgWhnAkuxUTu',en:'Artist Promos',th:'ศิลปินพูดโปรโมท',tag:'interview',y:2026},
+  {c:'festival',id:'12oVH9SjPrRTeIUvVT659lEvNq2c-THzx',t:'d',cov:'1LTQ8_CUd4shbC1KKOqnSfKeej-wNehSN',en:'Lineup in Motion',th:'Motion แยกศิลปิน',tag:'motion',y:2026},
+  {c:'festival',id:'1PR4umQNZj8b9A3jAHwQoNRGv3l0aJTsv',t:'f',en:'The Lineup',th:'Line Up Poster',tag:'keyart',y:2026},
+  {c:'festival',id:'19fcR4d168zxsNKHX1M9Myr_y7j_Z7n-5',t:'d',cov:'1t6tuRQ_w3YPjL6exm07Lkp9lwxKHtbnc',en:'Songkran in Motion',th:'สงกรานต์นี้ไปไหน — Motion',tag:'motion',y:2026},
+
+  /* ── AI CINEMATIC ────────────────────────
+     mirrors the EDDYSIBAW AI portfolio (portfolio/index.html `P` array).
+     `v` = episode/cut list shown as buttons inside the player;
+     `id` = the first video, also used for the card cover. */
+  {c:'ai',id:'1qzUwf9W5vr60Mscqub2FPYzMzHIy5yHK',t:'f',en:'FRACTURED GOD: THE DARK ASCENT',th:'FRACTURED GOD: THE DARK ASCENT',tag:'aiseries',y:2026,
+   v:[{l:'EP 01',id:'1qzUwf9W5vr60Mscqub2FPYzMzHIy5yHK'},{l:'EP 02',id:'10WESchb6E1e7AiI6_G4bz9uqA1u6EedJ'},{l:'EP 03',id:'1qs8UzmV4PZOC3P6R5bEFgYBbcNu6GSdN'},{l:'EP 04',id:'1R35-nprwzS2KrBxb7ZzGW9hmsEJeNGib'},{l:'EP 05',id:'1FpFi_iAEFmmLOvmaUDku-nrgul4cO9ZY'},{l:'EP 06',id:'127xVlDSgR4nht5w4WkykJqupaODzk4LZ'},{l:'EP 07',id:'1tP4T-OCspMWdzdAMqM_6KI0L5G9b4kDG'},{l:'EP 08',id:'1LXpV0X10F2JecGoRBO5GbHnP7-ZAgX0S'}]},
+  {c:'ai',id:'1ovN-kkgcujiFyylFSbvidjTLaX_VPJlR',t:'f',en:'CELESTIAL ASCENT &amp; THE VESSEL HUNT',th:'CELESTIAL ASCENT &amp; THE VESSEL HUNT',tag:'aicine',y:2026,
+   v:[{l:'FULL MOVIE',id:'1ovN-kkgcujiFyylFSbvidjTLaX_VPJlR'},{l:'TEASER',id:'1B9tl7zl41AfSo6NVTk3dnnCaPj_UjGVS'}]},
+  {c:'ai',id:'1BymIOrJdfa1y6cpCOaS7r8siLuccnfWL',t:'f',en:'EDDY &amp; MORTY: ACROSS THE FRAY',th:'EDDY &amp; MORTY: ACROSS THE FRAY',tag:'aiseries',y:2026,ar:'9:16',
+   v:[{l:'EP 1',id:'1BymIOrJdfa1y6cpCOaS7r8siLuccnfWL'},{l:'EP 2',id:'1n5R9qwvyM8LI2cHDQ47AHTtHxNHVeTnr'},{l:'EP 3',id:'1ymKR3E1qhzUeZuUZLLMHU_CQLEb_ZzYV'},{l:'EP 4',id:'1UoWo-5Z1XbTtXd1_29yaVXll9CO5A_Ij'},{l:'EP 5',id:'1KRy48pMSctFO_7g9i2jalk5PSrkynOkl'},{l:'EP 6',id:'1jjEGpAwy9QUGiL3ofxqRqHeB4ULItvbH'},{l:'EP 7',id:'1cd4Rz2WtjbPtuwsx4zzBtxIYDVQi5ynV'},{l:'EP 8',id:'1u08uM6WEvYwyiuHs5tpFQBAKTYUykilo'},{l:'EP 9 FINALE',id:'1WMWBLPDlSoY97WBVaqiJiye1VklXLVjX'}]},
+  {c:'ai',id:'1IMu1twfF5CmlyjrCV8scbzvTHb5hX8RS',t:'f',en:'WAR OF GODS',th:'WAR OF GODS',tag:'aicine',y:2026},
+  {c:'ai',id:'1SvYgPEs2paCfyD5Rj7bymcUuYPThlmF2',t:'f',en:'WAR Z: THE FALLEN HEROES',th:'WAR Z: THE FALLEN HEROES',tag:'aiseries',y:2026,ar:'9:16',
+   v:[{l:'EP 1',id:'1SvYgPEs2paCfyD5Rj7bymcUuYPThlmF2'},{l:'EP 2 BLOODLINE',id:'1BsnAn5b1Ic44KR3jdXv40MMoNXmKJVW7'},{l:'EP 3 THE FOUR',id:'16DXEgEWv7jTa4MbOuGd2xNAF4rsQnGcy'}]},
+  {c:'ai',id:'12AsgBrZ8r8z_mBDvHuDZN6PJg58ipJyX',t:'f',en:"IMAGE &amp; DIAR: THE GIANT'S BACKPACK",th:"IMAGE &amp; DIAR: THE GIANT'S BACKPACK",tag:'aicine',y:2026},
+  {c:'ai',id:'1bSZ_aOTTRQ632h6qh2QN0AvSWasTojBH',t:'f',en:'IMAGE DIAR &amp; THE DREAMSCAPE DRAGON',th:'IMAGE DIAR &amp; THE DREAMSCAPE DRAGON',tag:'aicine',y:2026},
+  {c:'ai',id:'1IknOHetR2BYNsCeiNTZzIP0TsfY-k0C3',t:'f',en:'LAST PACE: RUN FOR YOUR LIFE',th:'LAST PACE: RUN FOR YOUR LIFE',tag:'aicine',y:2026},
+  {c:'ai',id:'1V3K3GucQOVUzjURR7l_qTOclU8z7M7Hi',t:'f',en:'THE LAST ROUTE',th:'THE LAST ROUTE',tag:'aicine',y:2026},
+  {c:'ai',id:'1Gqv1D5sK1OKe0s4bwy-p7u4N1JgJvrEH',t:'f',en:'DEAD MONEY',th:'DEAD MONEY',tag:'aicine',y:2026},
+  {c:'ai',id:'1t5L9afOjS3khQMIJcS84E2_QVjxGQBgC',t:'f',en:'AFTERLIGHT',th:'AFTERLIGHT',tag:'aicine',y:2026},
+  {c:'ai',id:'16v_nQQJojFC8gpxlToZOF__rPKN5fZPk',t:'f',en:'THE CRESCENT STARS',th:'THE CRESCENT STARS',tag:'aicine',y:2026},
+  {c:'ai',id:'1vzFCY3xddG5URWSQ4eguiBAgYFC7069m',t:'f',en:"JOJO'S KAI AND THE PATTERN HERALD",th:"JOJO'S KAI AND THE PATTERN HERALD",tag:'aicine',y:2026},
+  {c:'ai',id:'1c4ylKc3YgT1xwame_ldNTMgazStJ7Gq0',t:'f',en:'TANK TOP MASTERS: WORLD SAVERS',th:'TANK TOP MASTERS: WORLD SAVERS',tag:'aicine',y:2026},
+  {c:'ai',id:'1XFgRlZPKolrg3NPIxMC6b7M1L9hk2nAJ',t:'f',en:'TANK TOP MASTERS: TITAN HUNTERS',th:'TANK TOP MASTERS: TITAN HUNTERS',tag:'aicine',y:2026},
+  {c:'ai',id:'1H1Z_iDZfTDm03wqPPZYfpJPUZ9w6QoDU',t:'f',en:'TANK TOP MASTERS: DEMON SLAYER',th:'TANK TOP MASTERS: DEMON SLAYER',tag:'aicine',y:2026},
+  {c:'ai',id:'1EHCCds8FsqNnUK8FvGihIlBLnUO_JHL3',t:'f',en:'TANK TOP MASTERS: KIZUNA PROTOCOL',th:'TANK TOP MASTERS: KIZUNA PROTOCOL',tag:'aiseries',y:2026,ar:'9:16',
+   v:[{l:'MAIN',id:'1EHCCds8FsqNnUK8FvGihIlBLnUO_JHL3'},{l:'EP 0',id:'1bZy5YVHZtcvtNy5D1Q5A5Ve4AN3ure2o'}]},
+  {c:'ai',id:'1GPmetiA1zJPFCc_RUVytLrLbMuajIKeO',t:'f',en:'BLAZE FIST: OASIS UNDERGROUND',th:'BLAZE FIST: OASIS UNDERGROUND',tag:'aicine',y:2026},
+  {c:'ai',id:'1t-CyJv_dAADN_0KpTIqgsDGOk6yvgffM',t:'f',en:'TRIAD COSMIC RECKONING',th:'TRIAD COSMIC RECKONING',tag:'aicine',y:2026},
+  {c:'ai',id:'17NmbKlQ1Zk0Wtf212mSunqobpaUU9h1X',t:'f',en:'NARUTO VS SASUKE',th:'NARUTO VS SASUKE',tag:'aishort',y:2026},
+  {c:'ai',id:'1fmptPvDt4Zb4xWF24WPk515BiSpaKbBD',t:'f',en:'RESIDENT EVIL',th:'RESIDENT EVIL',tag:'aishort',y:2026,ar:'9:16'},
+  {c:'ai',id:'1vyywktN_F2ATVMshd_YofnLe2XgHxW9H',t:'f',en:'THE AVENGERS NEED OUR HELP',th:'THE AVENGERS NEED OUR HELP',tag:'aicine',y:2026,
+   v:[{l:'16:9',id:'1vyywktN_F2ATVMshd_YofnLe2XgHxW9H'},{l:'9:16',id:'1QMLxRwBfDElTCMVDJWPsTh0OmnJ_Gj-b',a:'9:16'}]},
+  {c:'ai',id:'1jqIAfLz3Cse2oDWIiJWmgScbBwn5CvG6',t:'f',en:'SAINT SEIYA',th:'SAINT SEIYA',tag:'aicine',y:2026},
+  {c:'ai',id:'1IMhQaaE4vSLJvJXL7T3kuH82GSVCvCD2',t:'f',en:'THE ROWDYRUFF BOYS',th:'THE ROWDYRUFF BOYS',tag:'aicine',y:2026,
+   v:[{l:'16:9',id:'1IMhQaaE4vSLJvJXL7T3kuH82GSVCvCD2'},{l:'9:16',id:'1Hp9g_7MuMB-weIrJfEIRc8sw4yiJrBJS',a:'9:16'}]},
+  {c:'ai',id:'1TkkqIOTffMg17xncXnMIZJLbI83Sojer',t:'f',en:'TRIPLE SPELL CLASH',th:'TRIPLE SPELL CLASH',tag:'aicine',y:2026,
+   v:[{l:'16:9',id:'1TkkqIOTffMg17xncXnMIZJLbI83Sojer'},{l:'9:16',id:'1m7_qz4Ue8T_WpQs_W6u0fr69iD_Tq8jG',a:'9:16'}]},
+  {c:'ai',id:'1hf9bJVRvFH_udnSeF-j2N_VkLE9JBbKL',t:'f',en:'RAISE THE DRAGON DOG',th:'RAISE THE DRAGON DOG',tag:'aicine',y:2026,
+   v:[{l:'16:9',id:'1hf9bJVRvFH_udnSeF-j2N_VkLE9JBbKL'},{l:'9:16',id:'1NRbA53GQr5XrVxD8MafSgKgsRW-xCY5C',a:'9:16'}]},
+  {c:'ai',id:'1p2ugqbji16v4T6ajTpJWfMi4I8qHhoZ6',t:'f',en:'LAST HIT, BRO.',th:'เอาดิ ใครจะล้มก่อน',tag:'aishort',y:2026,ar:'9:16',
+   v:[{l:'LAST HIT',id:'1p2ugqbji16v4T6ajTpJWfMi4I8qHhoZ6'},{l:'3 สิงห์',id:'10Gotejk9fqzQ7yk0S6VUZDMK1r7DSrgF'}]},
+  {c:'ai',id:'1M8Vm-5BFNUWJ6OvVpu8jOgSeXlh3diin',t:'f',en:'POWERED BY PAWS',th:'POWERED BY PAWS',tag:'aishort',y:2026},
+  {c:'ai',id:'1gUjzI-_utoSgmWXHA2lXBKd6n-Vytn3M',t:'f',en:'EDDY MORTY &amp; MONSTER ENERGY',th:'EDDY MORTY &amp; MONSTER ENERGY',tag:'brandai',y:2026,
+   v:[{l:'16:9',id:'1gUjzI-_utoSgmWXHA2lXBKd6n-Vytn3M'},{l:'9:16',id:'1CCYygdFnFAflLomGMLMV50Opi3RVP1wm',a:'9:16'}]},
+  {c:'ai',id:'1RvbdkAOyDlKzm360zz0wf7pt6rnYwZ1g',t:'f',en:'EDDY VS 4 GIANTS',th:'EDDY VS 4 GIANTS',tag:'aicine',y:2026,
+   v:[{l:'16:9',id:'1RvbdkAOyDlKzm360zz0wf7pt6rnYwZ1g'},{l:'9:16',id:'1GfGxebfQDPDwvBjjzI4l2OaG2at74-jz',a:'9:16'}]},
+  {c:'ai',id:'1g5c3Z2oVcQKXSYpjPOjp0cf7kE2s4U12',t:'f',en:'BLUE ZORO',th:'BLUE ZORO',tag:'aishort',y:2026},
+  {c:'ai',id:'1kHMS-6b6jHK85yXkmyfgsCaOlrX56twm',t:'f',en:'"SHALL WE PLAY?"',th:'"SHALL WE PLAY?"',tag:'aishort',y:2026},
+  {c:'ai',id:'1aqF9g6b1GNRevn_YNb7Ih-9fEtNwTpVp',t:'f',en:'DOG PLAYING PHONE SECRETLY',th:'เจ้าตูบแอบเล่นมือถือ',tag:'aishort',y:2026},
+  {c:'ai',id:'1-kKnNXeH-ZcWkKcC6RM3APkqI7UhpwN6',t:'f',en:'SORRY, AMANAI',th:'ขอโทษเด้อ อมาไน',tag:'aishort',y:2026}
+];
+
+/* ═══════════════════════════════════════════
+   HELPERS
+   ═══════════════════════════════════════════ */
+let LANG = localStorage.getItem('eddy-lang') || 'en';
+
+const url   = w => w.t === 'd'
+  ? `https://drive.google.com/drive/folders/${w.id}`
+  : `https://drive.google.com/file/d/${w.id}/view`;
+
+/* Covers are pre-fetched into covers/ so the page never depends on Drive
+   serving 80+ thumbnails at once — it throttles and they come back blank.
+   `cov` overrides the id for folder entries, whose cover is a file inside. */
+const coverId    = w => w.cov || w.id;
+const cover      = w => `covers/${coverId(w)}.jpg`;
+const driveThumb = (w,size) => `https://drive.google.com/thumbnail?id=${coverId(w)}&sz=w${size}`;
+const esc   = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* Titles may legitimately contain &amp; and &nbsp; — strip tags only for alt text */
+const plain = s => s.replace(/<[^>]*>/g,'').replace(/&amp;/g,'&').replace(/&nbsp;/g,' ');
+
+/* ═══════════════════════════════════════════
+   RENDER — client strip
+   ═══════════════════════════════════════════ */
+document.getElementById('strip').innerHTML =
+  [...CLIENTS, ...CLIENTS]
+    .map(c => `<span>${c}</span><i>/</i>`)
+    .join('');
+
+/* ═══════════════════════════════════════════
+   RENDER — featured
+   ═══════════════════════════════════════════ */
+document.getElementById('features').innerHTML = FEATURES.map(f => `
+  <a class="feat rv" href="${url(f)}" target="_blank" rel="noopener">
+    <div class="feat-img">
+      <img src="${cover(f)}" data-drive="${driveThumb(f,1600)}" alt="${esc(plain(f.title_en))}" loading="lazy" referrerpolicy="no-referrer">
+      <div class="veil"></div>
+      <span class="pin">${f.pin}</span>
+      <div class="play">▶</div>
+    </div>
+    <div class="feat-txt">
+      <span class="label" data-en="Featured Film" data-th="งานเด่น">Featured Film</span>
+      <h3 data-en="${esc(f.title_en)}" data-th="${esc(f.title_th)}">${f.title_en}</h3>
+      <p data-en="${esc(f.body_en)}" data-th="${esc(f.body_th)}">${f.body_en}</p>
+      <ul class="specs">
+        ${f.specs.map(([k,v]) => `
+          <li>
+            <span data-en="${esc(k.en)}" data-th="${esc(k.th)}">${k.en}</span>
+            <span data-en="${esc(v.en)}" data-th="${esc(v.th)}">${v.en}</span>
+          </li>`).join('')}
+      </ul>
+    </div>
+  </a>
+`).join('');
+
+/* ═══════════════════════════════════════════
+   RENDER — filters
+   ═══════════════════════════════════════════ */
+const counts = WORKS.reduce((a,w) => (a[w.c] = (a[w.c]||0)+1, a), {});
+
+document.getElementById('filters').innerHTML = `
+  <button class="on" data-f="all" data-en="All Work" data-th="ทั้งหมด">All Work<b>${WORKS.length}</b></button>
+  ${Object.entries(CATS).map(([k,v]) =>
+    `<button data-f="${k}" data-en="${v.en}" data-th="${v.th}">${v.en}<b>${counts[k]}</b></button>`
+  ).join('')}
+`;
+/* re-append the counter <b> after a language swap wipes innerHTML */
+document.querySelectorAll('#filters button').forEach(b => {
+  const n = b.dataset.f === 'all' ? WORKS.length : counts[b.dataset.f];
+  b.dataset.n = n;
+});
+
+document.getElementById('total').textContent = WORKS.length;
+document.getElementById('heroCount').textContent = WORKS.length;
+
+/* ═══════════════════════════════════════════
+   RENDER — grid
+   ═══════════════════════════════════════════ */
+document.getElementById('grid').innerHTML = WORKS.map((w,i) => {
+  const tag = TAGS[w.tag];
+  const g   = 'g' + (i % 4 + 1);
+  const fbEn = plain(w.en).split(' — ')[0];
+  const fbTh = plain(w.th).split(' — ')[0];
+  return `
+  <a class="card rv" data-c="${w.c}"${w.v ? ` data-v="${encodeURIComponent(JSON.stringify(w.v))}"` : ''}${w.ar ? ` data-ar="${w.ar}"` : ''} href="${url(w)}" target="_blank" rel="noopener">
+    <div class="thumb">
+      ${w.v ? `<span class="epb">${w.v.length} EP</span>` : ''}
+      <div class="fb ${g}"><b data-en="${esc(fbEn)}" data-th="${esc(fbTh)}">${fbEn}</b><i>${w.y}</i></div>
+      <img src="${cover(w)}" data-drive="${driveThumb(w,1000)}" alt="${esc(plain(w.en))}" loading="lazy" referrerpolicy="no-referrer">
+      <div class="play">▶</div>
+      <div class="chips">
+        <span class="chip" data-en="${esc(CATS[w.c].en)}" data-th="${esc(CATS[w.c].th)}">${CATS[w.c].en}</span>
+        <span class="chip">${w.t === 'd' ? 'Folder ↗' : '▶ Play'}</span>
+      </div>
+    </div>
+    <h3 data-en="${esc(w.en)}" data-th="${esc(w.th)}">${w.en}</h3>
+    <div class="row">
+      <span class="cat" data-en="${esc(tag.en)}" data-th="${esc(tag.th)}">${tag.en}</span>
+      <span class="yr">${w.y}</span>
+    </div>
+  </a>`;
+}).join('');
+
+/* Cover chain: local file → live Drive thumbnail → gradient title card.
+   A Drive thumbnail for a private file returns an HTML sign-in page, which
+   fails to decode as an image, so this lands on the gradient either way. */
+document.querySelectorAll('.thumb img, .feat-img img').forEach(img => {
+  img.addEventListener('error', () => {
+    const fallback = img.dataset.drive;
+    if (fallback && img.src !== fallback) { img.src = fallback; return; }
+    img.style.display = 'none';
+  });
+
+  const markPortrait = () => {
+    if (img.naturalHeight > img.naturalWidth * 1.1) img.classList.add('portrait');
+  };
+  if (img.complete && img.naturalWidth) markPortrait();   // already cached
+  else img.addEventListener('load', markPortrait);
+});
+const qr = document.querySelector('.qr-frame img');
+if (qr) qr.addEventListener('error', () => {
+  qr.style.display = 'none';
+  document.querySelector('.qr-fb').style.display = 'block';
+});
+
+/* ═══════════════════════════════════════════
+   LANGUAGE
+   ═══════════════════════════════════════════ */
+function applyLang(l){
+  LANG = l;
+  localStorage.setItem('eddy-lang', l);
+  document.documentElement.lang = l;
+
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const v = el.dataset[l];
+    if (v != null) el.innerHTML = v;
+  });
+  /* filter buttons lost their count badge in the swap — put it back */
+  document.querySelectorAll('#filters button').forEach(b => {
+    b.innerHTML += `<b>${b.dataset.n}</b>`;
+  });
+  document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.lang === l));
+}
+document.querySelectorAll('.lang button').forEach(b =>
+  b.addEventListener('click', () => applyLang(b.dataset.lang))
+);
+applyLang(LANG);
+
+/* ═══════════════════════════════════════════
+   FILTER
+   ═══════════════════════════════════════════ */
+const cards = [...document.querySelectorAll('.card')];
+const empty = document.getElementById('empty');
+
+document.getElementById('filters').addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+
+  document.querySelectorAll('#filters button').forEach(b => b.classList.toggle('on', b === btn));
+
+  const f = btn.dataset.f;
+  let shown = 0;
+  cards.forEach(c => {
+    const hit = f === 'all' || c.dataset.c === f;
+    c.style.display = hit ? '' : 'none';
+    if (hit) shown++;
+  });
+  empty.style.display = shown ? 'none' : 'block';
+});
+
+/* ═══════════════════════════════════════════
+   NAV + REVEAL
+   ═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════
+   IN-SITE PLAYER
+   Files open in a lightbox via Drive's embed endpoint (/preview).
+   The 3 folder entries have no embeddable player — they still open Drive.
+   Ctrl/⌘-click keeps its browser meaning (open in new tab).
+   ═══════════════════════════════════════════ */
+const player   = document.getElementById('player');
+const plBox    = document.getElementById('plBox');
+const plTitle  = document.getElementById('plTitle');
+const plMeta   = document.getElementById('plMeta');
+const plExt    = document.getElementById('plExt');
+const plIframe = document.getElementById('plIframe');
+const plPrev   = document.getElementById('plPrev');
+const plNext   = document.getElementById('plNext');
+const plEps    = document.getElementById('plEps');
+
+let playlist = [], plIdx = -1;
+let clipVids = [], clipDefaultPortrait = false;
+
+const playable = a => /\/file\/d\//.test(a.href);
+const visibleClips = () =>
+  [...document.querySelectorAll('#features a.feat, #grid a.card')]
+    .filter(a => playable(a) && a.offsetParent !== null);
+
+function setEp(i){
+  const v = clipVids[i];
+  if (!v) return;
+  plIframe.src = `https://drive.google.com/file/d/${v.id}/preview`;
+  /* per-cut aspect override (e.g. a 9:16 alt of a 16:9 film);
+     otherwise inherit the card cover's orientation */
+  const portrait = v.a === '9:16' ? true : v.a === '16:9' ? false : clipDefaultPortrait;
+  plBox.classList.toggle('portrait', portrait);
+  [...plEps.children].forEach((b, bi) => b.classList.toggle('on', bi === i));
+}
+function showClip(){
+  const a = playlist[plIdx];
+  if (!a) return;
+  /* explicit data-ar wins; else the cover image's detected orientation
+     (which can lose the race against lazy loading — hence data-ar) */
+  clipDefaultPortrait = a.dataset.ar
+    ? a.dataset.ar === '9:16'
+    : !!a.querySelector('img')?.classList.contains('portrait');
+  clipVids = a.dataset.v
+    ? JSON.parse(decodeURIComponent(a.dataset.v))
+    : [{l:'WATCH', id: a.href.match(/\/file\/d\/([^/]+)/)[1]}];
+  plTitle.textContent = a.querySelector('h3').textContent;
+  const cat = a.querySelector('.cat')?.textContent || a.querySelector('.label')?.textContent || '';
+  const yr  = a.querySelector('.yr')?.textContent || '';
+  plMeta.textContent = [cat, yr].filter(Boolean).join(' · ');
+  plExt.href = a.href;
+  plEps.innerHTML = clipVids.map(v => `<button type="button">${esc(v.l)}</button>`).join('');
+  plEps.hidden = clipVids.length < 2;
+  setEp(0);
+  plPrev.disabled = plIdx <= 0;
+  plNext.disabled = plIdx >= playlist.length - 1;
+}
+plEps.addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (b) setEp([...plEps.children].indexOf(b));
+});
+function openPlayer(a){
+  playlist = visibleClips();
+  plIdx = playlist.indexOf(a);
+  if (plIdx < 0) return;
+  showClip();
+  player.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePlayer(){
+  player.classList.remove('open');
+  plIframe.src = '';                    // stops playback
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('click', e => {
+  const a = e.target.closest('#features a.feat, #grid a.card');
+  if (!a || !playable(a) || e.metaKey || e.ctrlKey || e.shiftKey) return;
+  e.preventDefault();
+  openPlayer(a);
+});
+player.addEventListener('click', e => { if (e.target.closest('[data-close]')) closePlayer(); });
+plPrev.addEventListener('click', () => { if (plIdx > 0){ plIdx--; showClip(); } });
+plNext.addEventListener('click', () => { if (plIdx < playlist.length - 1){ plIdx++; showClip(); } });
+document.addEventListener('keydown', e => {
+  if (!player.classList.contains('open')) return;
+  if (e.key === 'Escape') closePlayer();
+  if (e.key === 'ArrowLeft'  && plIdx > 0){ plIdx--; showClip(); }
+  if (e.key === 'ArrowRight' && plIdx < playlist.length - 1){ plIdx++; showClip(); }
+});
+
+/* the sticky filter bar and anchor offsets track the real nav height */
+const navEl = document.querySelector('.nav');
+const setNavH = () => document.documentElement.style.setProperty(
+  '--navh', Math.round(navEl.getBoundingClientRect().height) + 'px'
+);
+setNavH();
+addEventListener('resize', setNavH, {passive:true});
+
+const menu = document.getElementById('menu');
+document.getElementById('burger').addEventListener('click', () => menu.classList.toggle('open'));
+menu.addEventListener('click', e => { if (e.target.tagName === 'A') menu.classList.remove('open'); });
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, {threshold:.06, rootMargin:'0px 0px -50px 0px'});
+
+document.querySelectorAll('.rv').forEach((el,i) => {
+  el.style.transitionDelay = Math.min((i % 6) * .05, .3) + 's';
+  io.observe(el);
+});
+</script>
+
+</body>
+</html>
