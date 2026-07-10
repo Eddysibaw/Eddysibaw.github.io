@@ -1,0 +1,51 @@
+{
+  "name": "EDDYSIBAW — Video Editor & Post Production",
+  "short_name": "EDDYSIBAW",
+  "description": "ผลงานตัดต่อวิดีโอของ EDDYSIBAW (Tanapon Ploenjit) — Brand Film, Event Highlight, Social Cuts และ AI Cinematic",
+  "lang": "th",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "categories": ["photo", "entertainment", "business"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Selected Work",
+      "short_name": "Work",
+      "url": "./#work"
+    },
+    {
+      "name": "AI Cinematic",
+      "short_name": "AI",
+      "url": "./#ai"
+    },
+    {
+      "name": "Request a Quote",
+      "short_name": "Contact",
+      "url": "./#contact"
+    }
+  ]
+}

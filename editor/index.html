@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EDDYSIBAW — Video Editor &amp; Post Production · Bangkok</title>
 <meta name="description" content="EDDYSIBAW (Tanapon Ploenjit) — รับตัดต่อวิดีโอ Brand Film · Event Highlight · Social Cuts · AI Cinematic. ผลงานให้ Supersports, Nike, PUMA, ASICS, Under Armour, Dermaster Hospital. คลิป 1–2 นาที เริ่มต้น ฿3,000">
-<meta name="theme-color" content="#0A0D13">
+<meta name="theme-color" content="#000000">
+
+<!-- installable app (PWA) -->
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="EDDYSIBAW">
 
 <!-- social sharing card (LINE / Facebook / X) -->
 <meta property="og:type" content="website">
@@ -16,7 +24,7 @@
 <meta property="og:locale" content="th_TH">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="%230A0D13"/><rect width="64" height="64" rx="12" fill="none" stroke="%2341C2B3" stroke-width="2"/><text x="32" y="45" font-family="Arial,sans-serif" font-size="38" font-weight="bold" text-anchor="middle" fill="%23EFA43F">E</text></svg>'>
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="p" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="%237CE7FF"/><stop offset=".34" stop-color="%237B8CFF"/><stop offset=".66" stop-color="%23B478FF"/><stop offset="1" stop-color="%23FF7BD5"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="%23000"/><text x="32" y="45" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="38" font-weight="600" text-anchor="middle" fill="%23F5F5F7">E</text><rect x="20" y="50" width="24" height="3" rx="1.5" fill="url(%23p)"/></svg>'>
 
 <!-- Analytics (GoatCounter — free, no cookies): sign up at goatcounter.com,
      pick the code "eddysibaw", then delete this comment wrapper to activate.
@@ -24,31 +32,49 @@
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Kanit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* cinematic teal-and-amber grade on a blue-black base */
-    --bg:#0A0D13;
-    --bg-2:#0D1119;
-    --panel:#111826;
-    --panel-2:#172131;
-    --line:rgba(164,198,224,.10);
-    --line-2:rgba(164,198,224,.18);
-    --ink:#F2EFE7;
-    --ink-2:#C9C5BA;
-    --muted:#8B93A1;
-    --muted-2:#5B6472;
-    --sand:#EFA43F;
-    --sand-dim:rgba(239,164,63,.14);
-    --teal:#41C2B3;
-    --teal-dim:rgba(65,194,179,.12);
+    /* Apple dark: true black canvas, one elevated surface, one blue accent */
+    --bg:#000;
+    --bg-2:#0A0A0A;      /* alternating band */
+    --panel:#1D1D1F;     /* card surface */
+    --panel-2:#232325;   /* card surface, hovered */
+    --line:rgba(255,255,255,.09);
+    --line-2:rgba(255,255,255,.18);
+    --ink:#F5F5F7;
+    --ink-2:#D2D2D7;
+    --muted:#86868B;
+    --muted-2:#6E6E73;
 
-    /* same pairing as the EDDYSIBAW AI portfolio: Space Grotesk carries
-       Latin, Kanit picks up every Thai glyph by fallback */
-    --serif:'Space Grotesk','Kanit',Georgia,serif;
-    --sans:'Space Grotesk','Kanit','Helvetica Neue',Arial,sans-serif;
-    --mono:'Space Grotesk','Kanit','Courier New',monospace;
+    /* accent: a prism — refracted ice → violet → magenta.
+       --grad paints surfaces and clipped text; --blue is the solid tone used
+       wherever a gradient can't go (borders, glyph colour, box-shadow). */
+    --iris-1:#7CE7FF;    /* crystal ice */
+    --iris-2:#7B8CFF;    /* periwinkle */
+    --iris-3:#B478FF;    /* violet */
+    --iris-4:#FF7BD5;    /* magenta */
+    --grad:linear-gradient(100deg,var(--iris-1) 0%,var(--iris-2) 34%,var(--iris-3) 66%,var(--iris-4) 100%);
+    --glow:rgba(140,180,255,.22);
+    --glow-2:rgba(180,120,255,.34);
 
+    --sand:#7CE7FF;      /* legacy name, kept so existing rules still resolve */
+    --sand-dim:rgba(124,231,255,.14);
+    --teal:#7CE7FF;
+    --teal-dim:rgba(124,231,255,.12);
+    --blue:#7CE7FF;
+    --blue-fill:#7B8CFF;
+    --blue-fill-h:#8F9DFF;
+    --on-blue:#06060A;   /* near-black ink: the prism fill is too bright for white */
+
+    /* SF Pro is licensed to Apple platforms only — Inter is its closest
+       metric-compatible stand-in; Noto Sans Thai matches its unlooped tone */
+    --serif:'Inter','Noto Sans Thai',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+    --sans:'Inter','Noto Sans Thai',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+    --mono:'Inter','Noto Sans Thai',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+
+    --r:18px;            /* card radius */
+    --r-pill:980px;      /* Apple's button radius */
     --pad:clamp(20px,5vw,80px);
     --maxw:1440px;
   }
@@ -57,28 +83,18 @@
   body{
     font-family:var(--sans);
     background:var(--bg);color:var(--ink);
-    font-weight:300;line-height:1.6;
+    font-weight:400;line-height:1.47;
     -webkit-font-smoothing:antialiased;
     /* clip, not hidden: `hidden` forces overflow-y to `auto`, making body a
        scroll container. `clip` leaves overflow-y visible. */
     overflow-x:clip;
   }
-  /* cinematic grade: teal falls from the top, amber rises from the bottom */
-  body::before{
-    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
-    background:
-      radial-gradient(ellipse 120% 90% at 50% -10%,rgba(65,194,179,.055),transparent 55%),
-      radial-gradient(ellipse 120% 100% at 50% 115%,rgba(239,164,63,.05),transparent 55%);
-  }
-  /* film grain — above content, below the player (z 1600) */
-  body::after{
-    content:"";position:fixed;inset:0;pointer-events:none;z-index:1500;opacity:.05;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence baseFrequency='.9'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
-  }
-  html[lang="th"] body{line-height:1.75}
+  /* the cinematic grade + film grain that used to live on body::before /
+     body::after are gone: Apple's dark canvas is flat, untextured black. */
+  html[lang="th"] body{line-height:1.65}
   a{color:inherit;text-decoration:none}
   img{display:block;max-width:100%}
-  ::selection{background:var(--sand);color:#0C0C0D}
+  ::selection{background:var(--blue);color:#FFF}
 
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
   section[id]{scroll-margin-top:var(--navh,66px)}
@@ -137,12 +153,6 @@
   .hero{
     min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
     padding:140px 0 44px;position:relative;border-bottom:1px solid var(--line);
-  }
-  .hero::after{
-    content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
-    background:
-      radial-gradient(ellipse 80% 60% at 70% 10%,rgba(65,194,179,.07),transparent 70%),
-      radial-gradient(ellipse 70% 50% at 15% 90%,rgba(239,164,63,.05),transparent 65%);
   }
   .hero .wrap{position:relative;z-index:2;width:100%}
   .hero-top{
@@ -264,7 +274,8 @@
   .filters{
     display:flex;flex-wrap:wrap;gap:8px;margin-bottom:38px;
     position:sticky;top:var(--navh,66px);z-index:40;
-    background:rgba(12,12,13,.9);backdrop-filter:blur(14px);
+    background:rgba(0,0,0,.82);
+    backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);
     padding:14px 0;margin-top:-14px;
   }
   .filters button{
@@ -305,10 +316,11 @@
     display:block;margin-top:8px;font-family:var(--mono);font-style:normal;
     font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-2);
   }
-  .g1{background:linear-gradient(150deg,#14202E,#0B0F16)}
-  .g2{background:linear-gradient(150deg,#26190E,#130D07)}
-  .g3{background:linear-gradient(150deg,#0F2724,#0A1013)}
-  .g4{background:linear-gradient(150deg,#1E1626,#0F0C14)}
+  /* title-card fallbacks when a cover is missing — neutral greys, not tints */
+  .g1{background:linear-gradient(150deg,#2A2A2E,#161618)}
+  .g2{background:linear-gradient(150deg,#242428,#131315)}
+  .g3{background:linear-gradient(150deg,#2E2E33,#1A1A1D)}
+  .g4{background:linear-gradient(150deg,#202024,#111113)}
 
   .thumb .chips{position:absolute;inset:auto 12px 12px;z-index:3;display:flex;justify-content:space-between;align-items:flex-end;gap:8px;opacity:0;transform:translateY(6px);transition:.4s}
   .card:hover .thumb .chips{opacity:1;transform:none}
@@ -383,9 +395,6 @@
 
   /* ── CONTACT ─────────────────────────────── */
   .contact{padding:clamp(80px,14vh,170px) 0;text-align:center;position:relative;overflow:hidden}
-  .contact::after{content:"";position:absolute;inset:0;pointer-events:none;background:
-    radial-gradient(ellipse 60% 50% at 50% 0%,rgba(239,164,63,.08),transparent 70%),
-    radial-gradient(ellipse 80% 60% at 50% 110%,rgba(65,194,179,.06),transparent 65%)}
   .contact .wrap{position:relative;z-index:2}
   .contact h2{
     font-family:var(--serif);font-size:clamp(34px,5.6vw,88px);
@@ -429,19 +438,20 @@
      drop-shadows so it scales from the 19px nav mark to the 54px sign */
   .neon{
     background:linear-gradient(100deg,
-      #EAFFFB 0%, #9BEFE6 22%, #41C2B3 45%,
-      #F4FFFD 58%, #7EE4D9 78%, #C9FBF4 100%);
+      #F2F8FF 0%, #A8D3FF 22%, #2997FF 45%,
+      #FBFDFF 58%, #6FB6FF 78%, #D6E9FF 100%);
     background-size:220% 100%;
     -webkit-background-clip:text;background-clip:text;color:transparent;
-    filter:drop-shadow(0 0 .18em rgba(120,240,226,.6))
-           drop-shadow(0 0 .6em rgba(65,194,179,.35));
+    /* softer than the old teal glow — Apple's dark UI never blooms this hard */
+    filter:drop-shadow(0 0 .16em rgba(120,180,255,.42))
+           drop-shadow(0 0 .5em rgba(41,151,255,.22));
     animation:neonShimmer 7s linear infinite;
   }
   @keyframes neonShimmer{to{background-position:-220% 0}}
   .neon-name{
     font-family:var(--sans);font-weight:600;text-transform:uppercase;
-    font-size:clamp(26px,4vw,54px);letter-spacing:.3em;
-    text-indent:.3em; /* recentre: tracking adds a trailing gap */
+    font-size:clamp(26px,4vw,54px);letter-spacing:.22em;
+    text-indent:.22em; /* recentre: tracking adds a trailing gap */
     margin-bottom:24px;
   }
 
@@ -517,23 +527,8 @@
     .pl-ext span{display:none} /* keep just the arrow on tiny screens */
   }
 
-  /* ── LATIN TRACKING ──────────────────────── */
-  /* base heading tracking was tuned for the original serif; Space Grotesk
-     sits best just slightly tight. TH mode keeps its own rules for Kanit. */
-  html[lang="en"] .hero h1,
-  html[lang="en"] .sec-head h2,
-  html[lang="en"] .feat-txt h3,
-  html[lang="en"] .card h3,
-  html[lang="en"] .contact h2,
-  html[lang="en"] .pull blockquote,
-  html[lang="en"] .about-lede,
-  html[lang="en"] .stats div strong,
-  html[lang="en"] .brand,
-  html[lang="en"] .pl-title,
-  html[lang="en"] .ch .ch-v,
-  html[lang="en"] .craft-grid .mark,
-  html[lang="en"] .step h4,
-  html[lang="en"] .thumb .fb b{letter-spacing:-.01em}
+  /* the old html[lang="en"] tracking block lived here — it existed to tame
+     Space Grotesk. Inter is tracked per-element in the Apple layer instead. */
 
   /* ── CASE STUDIES ────────────────────────── */
   .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.8vw,28px)}
@@ -559,12 +554,7 @@
   .case-cta:hover{color:var(--teal);gap:13px}
 
   /* ── AI BAND ─────────────────────────────── */
-  .ai-band{
-    background:
-      radial-gradient(ellipse 90% 70% at 20% 0%,rgba(65,194,179,.06),transparent 60%),
-      radial-gradient(ellipse 90% 70% at 90% 100%,rgba(239,164,63,.05),transparent 60%),
-      var(--bg-2);
-  }
+  .ai-band{background:var(--bg-2)}
   .ai-more{
     display:flex;align-items:center;gap:10px;margin:38px auto 0;
     background:none;border:1px solid var(--line-2);border-radius:2px;cursor:pointer;
@@ -644,6 +634,295 @@
     body{padding-bottom:47px} /* keep the footer clear of the bar */
   }
 
+  /* ── INSTALL (PWA) ───────────────────────── */
+  .install{
+    position:fixed;right:14px;bottom:20px;z-index:90;display:none;
+    align-items:center;gap:10px;max-width:min(340px,calc(100vw - 28px));
+    padding:11px 12px 11px 14px;border-radius:12px;
+    background:var(--panel-2);border:1px solid var(--line-2);
+    box-shadow:0 14px 40px rgba(0,0,0,.55);
+  }
+  .install.show{display:flex}
+  .install .i-txt{font-size:12.5px;line-height:1.5;color:var(--ink-2)}
+  .install .i-txt b{color:var(--ink);font-weight:500}
+  .install button{
+    flex:none;font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;font-weight:600;cursor:pointer;border:0;
+  }
+  .install .i-go{padding:9px 13px;border-radius:8px;background:var(--sand);color:#14100A}
+  .install .i-x{background:none;color:var(--muted);padding:6px;font-size:15px;letter-spacing:0}
+  .install .i-x:hover{color:var(--ink)}
+  @media(max-width:860px){ .install{bottom:61px;left:14px;max-width:none} }
+  @media(display-mode:standalone){ .install{display:none!important} }
+
+  /* ═══════════════════════════════════════════════════════════════════
+     APPLE LAYER
+     Everything above is the original editorial/cinematic sheet. This block
+     restates typography, colour and shape in Apple's dark-UI idiom:
+       · no uppercase micro-caps, no letter-spaced eyebrows
+       · headlines are semibold and tightly tracked, never italic
+       · one blue accent, pill buttons, 18px card radius
+       · flat black canvas, a single elevated surface (#1D1D1F)
+     Kept last (before RESPONSIVE) so it wins the cascade without touching
+     the class names the JS depends on.
+     ═══════════════════════════════════════════════════════════════════ */
+
+  /* ── kill the micro-caps ─────────────────── */
+  .label,.brand small,.nav nav a,.lang button,.sec-head .idx,.feat-img .pin,
+  .specs li span:first-child,.filters button,.chip,.card .cat,.card .yr,.empty,
+  .cta,.socials a,.pl-eps button,.pl-nav,.case-cta,.ai-more,.pkg-name,.pkg-badge,
+  .mcta a,.install button,.step .n,.thumb .fb i,.facts li span:first-child,
+  .thumb .epb,.case-k,.pl-ext,.pkg-per,.pl-meta,.case-body > div span{
+    text-transform:none;letter-spacing:-.01em;font-family:var(--sans);
+  }
+  .label{font-size:13px;font-weight:400;color:var(--muted)}
+  .sec-head .idx{font-size:13px;font-weight:600;color:var(--blue)}
+  .step .n{font-size:13px;font-weight:600;color:var(--blue);margin-bottom:12px}
+  .case-k{font-size:13px;font-weight:600;color:var(--blue)}
+  /* blue is reserved for things you can tap — these are just field headings */
+  .case-body > div span{font-size:13px;font-weight:600;color:var(--muted)}
+  .card .cat,.card .yr,.chip,.specs li span:first-child,
+  .facts li span:first-child,.thumb .fb i{font-size:13px;color:var(--muted)}
+  .brand small{font-size:12px;color:var(--muted)}
+
+  /* ── headline scale ──────────────────────── */
+  .hero h1,html[lang="th"] .hero h1{
+    font-weight:600;font-size:clamp(44px,7.4vw,116px);
+    line-height:1.05;letter-spacing:-.018em;
+  }
+  html[lang="th"] .hero h1{line-height:1.18;letter-spacing:-.005em}
+  .sec-head h2,html[lang="th"] .sec-head h2{
+    font-weight:600;font-size:clamp(30px,3.5vw,58px);
+    line-height:1.08;letter-spacing:-.014em;
+  }
+  html[lang="th"] .sec-head h2{line-height:1.24;letter-spacing:-.003em}
+  .feat-txt h3,html[lang="th"] .feat-txt h3{
+    font-weight:600;font-size:clamp(24px,2.4vw,40px);
+    line-height:1.1;letter-spacing:-.014em;
+  }
+  html[lang="th"] .feat-txt h3{line-height:1.28;letter-spacing:-.003em}
+  .contact h2,html[lang="th"] .contact h2{
+    font-weight:600;font-size:clamp(34px,5vw,80px);
+    line-height:1.05;letter-spacing:-.018em;
+  }
+  html[lang="th"] .contact h2{line-height:1.2;letter-spacing:-.005em}
+  .card h3,html[lang="th"] .card h3{font-weight:500;font-size:19px;letter-spacing:-.01em;line-height:1.3}
+  .step h4,html[lang="th"] .step h4{font-weight:600;font-size:21px;letter-spacing:-.01em}
+  .case-top h3,html[lang="th"] .case-top h3{font-weight:600;letter-spacing:-.01em}
+  .craft-grid h4{font-weight:600;font-size:17px;letter-spacing:-.01em}
+  .stats div strong,.sec-head .count strong{font-weight:600;letter-spacing:-.015em}
+  .pl-title{font-weight:600;letter-spacing:-.01em}
+  .ch .ch-v{font-weight:600;letter-spacing:-.012em}
+  .thumb .fb b{font-weight:600;letter-spacing:-.012em;color:var(--ink-2)}
+
+  /* Apple sets headlines upright and lets colour carry the emphasis */
+  .hero h1 em,.sec-head h2 em,.feat-txt h3 em,.about-lede em,
+  .pull blockquote em,.contact h2 em,html[lang="th"] .pull blockquote,
+  html[lang="th"] .about-lede em,html[lang="th"] .contact h2 em{
+    font-style:normal;font-weight:inherit;
+  }
+  /* .hero h1 em ("sell.") is the prism payoff — coloured in the PRISM LAYER.
+     The other two stay grey: they de-emphasise a word, they don't spotlight it. */
+  .sec-head h2 em,.feat-txt h3 em{color:var(--muted)}
+  .about-lede em,.pull blockquote em,.contact h2 em{color:var(--blue)}
+  .about-lede,html[lang="th"] .about-lede{
+    font-weight:500;font-size:clamp(21px,1.9vw,30px);
+    letter-spacing:-.012em;line-height:1.4;
+  }
+  .pull blockquote,html[lang="th"] .pull blockquote{
+    font-weight:600;font-style:normal;font-size:clamp(26px,3.2vw,48px);
+    letter-spacing:-.016em;line-height:1.2;max-width:22ch;
+  }
+
+  /* ── body copy ───────────────────────────── */
+  .hero-lede{font-size:clamp(17px,1.2vw,21px);font-weight:400;color:var(--ink-2);line-height:1.5}
+  .hero-lede strong{font-weight:600;color:var(--ink)}
+  .feat-txt p,.contact .lede{font-size:17px;line-height:1.55;color:var(--ink-2)}
+  .about-body p{font-size:17px;line-height:1.55}
+  .step p,.craft-grid p{font-size:15px;line-height:1.6;color:var(--muted)}
+  .case-body > div p{font-size:15px;line-height:1.55}
+  .faq summary{font-size:19px;font-weight:600;letter-spacing:-.01em}
+  .faq .a{font-size:17px;line-height:1.6}
+  .specs li,.facts li{font-size:15px}
+
+  /* ── nav ─────────────────────────────────── */
+  .nav{background:rgba(0,0,0,.72);
+    backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-in{padding:11px var(--pad)}
+  .brand{font-weight:600;font-size:20px;letter-spacing:-.015em}
+  .nav nav{gap:32px}
+  .nav nav a{font-size:13px;font-weight:400;color:var(--ink-2)}
+  .nav nav a::after{background:var(--blue)}
+  .lang{border-radius:var(--r-pill);border-color:var(--line-2);overflow:hidden}
+  .lang button{font-size:12px;font-weight:500;padding:6px 12px}
+  .lang button.on{background:var(--ink);color:#000}
+
+  /* ── buttons: Apple pills ────────────────── */
+  .cta{
+    border-radius:var(--r-pill);background:var(--blue-fill);color:var(--on-blue);
+    font-size:15px;font-weight:500;padding:12px 24px;gap:8px;
+    transition:background .2s ease,transform .2s ease;
+  }
+  .cta:hover{background:var(--blue-fill-h);gap:8px;transform:none}
+  .cta.ghost{
+    background:transparent;border:1px solid var(--line-2);color:var(--blue);
+  }
+  .cta.ghost:hover{background:rgba(41,151,255,.1);border-color:var(--blue);color:var(--blue)}
+  .filters button,.socials a,.ai-more,.pl-eps button,.pl-x{border-radius:var(--r-pill)}
+  .filters button{font-size:13px;font-weight:400;padding:8px 16px}
+  .filters button.on{background:var(--ink);color:#000;border-color:var(--ink)}
+  .filters button b{opacity:.45;margin-left:7px}
+  .socials a{font-size:14px;font-weight:400;padding:10px 18px}
+  .socials a:hover{border-color:var(--blue);color:var(--blue);box-shadow:none;background:rgba(41,151,255,.08)}
+  .ai-more{font-size:15px;font-weight:500;padding:13px 26px}
+  .ai-more:hover{background:var(--blue-fill);border-color:var(--blue-fill);color:#FFF;gap:10px}
+  .ai-more b,.ai-more:hover b{color:inherit;font-weight:600}
+  .case-cta,.pl-nav,.pl-ext{font-size:14px;font-weight:400;color:var(--blue)}
+  .case-cta:hover,.pl-nav:hover:not(:disabled),.pl-ext:hover{color:var(--blue);text-decoration:underline;gap:8px}
+  .pl-eps button{font-size:13px;padding:7px 14px}
+  .pl-eps button.on{background:var(--blue-fill);border-color:var(--blue-fill);color:#FFF}
+  .pl-eps button:not(.on):hover{color:var(--blue);border-color:var(--blue)}
+  .install .i-go{border-radius:var(--r-pill);background:var(--blue-fill);color:#FFF;font-size:13px;font-weight:500;letter-spacing:-.01em;padding:8px 16px}
+  .install{border-radius:var(--r)}
+  .install .i-txt{font-size:14px}
+  .mcta a{font-size:15px;font-weight:500}
+  .mcta .m-line{background:var(--blue-fill);color:#FFF}
+  .mcta .m-quote{background:var(--ink);color:#000}
+
+  /* ── surfaces: rounded, borderless, elevated ── */
+  .thumb,.feat-img{border-radius:var(--r);background:var(--panel)}
+  .thumb img,.feat-img img{filter:none}
+  .card:hover .thumb img,.feat:hover .feat-img img{filter:none;transform:scale(1.04)}
+  .card:hover h3{color:var(--ink)}
+  .card .row{border-top:1px solid var(--line)}
+  .case,.pkg,.ch{border:0;background:var(--panel);border-radius:var(--r)}
+  .case:hover,.pkg:hover,.ch:hover{background:var(--panel-2);border:0;transform:none}
+  .pkg.feat{background:var(--panel-2);border:0;outline:1px solid var(--blue)}
+  .pkg.feat .pkg-price{color:var(--ink)}
+  .pkg-badge{background:var(--blue-fill);color:#FFF;border-radius:var(--r-pill);top:16px;right:16px;font-size:12px;font-weight:500;padding:5px 12px}
+  .pkg-price{font-weight:600;letter-spacing:-.018em}
+  .pkg-list li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--blue);top:19px}
+  .pkg-list li{font-size:15px}
+  .pl-box{border-radius:var(--r);border:0;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.7)}
+  .pl-back{background:rgba(0,0,0,.72)}
+  .pl-x{border-radius:50%;border-color:var(--line-2)}
+  .pl-x:hover{background:var(--panel-2);border-color:var(--line-2);color:var(--ink)}
+  .chip,.feat-img .pin,.thumb .epb{
+    border-radius:var(--r-pill);background:rgba(0,0,0,.55);border:0;
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    font-size:12px;padding:5px 11px;color:var(--ink);
+  }
+  .feat-img .pin,.thumb .epb{color:var(--ink)}
+  .play{border:0;background:rgba(255,255,255,.18);backdrop-filter:blur(12px)}
+  .feat:hover .play,.card:hover .play{background:#FFF;color:#000;border:0;transform:translate(-50%,-50%) scale(1.06)}
+  .craft-grid{border:0;background:transparent;gap:clamp(16px,1.6vw,24px)}
+  .craft-grid .cell{background:var(--panel);border-radius:var(--r)}
+  .craft-grid .cell:hover{background:var(--panel-2)}
+  .craft-grid .mark{color:var(--blue);font-weight:600;font-size:24px;margin-bottom:18px}
+  .qr-frame{border-radius:12px}
+  .faq summary::after{color:var(--muted);font-weight:300}
+  .strip .track i{color:var(--muted-2)}
+  .strip .track span{font-weight:500;letter-spacing:-.012em}
+  footer a:hover{color:var(--blue)}
+  .line-go:hover,.line-go:hover strong{color:var(--blue)}
+  .ch .ch-v em{color:var(--blue)}
+
+  /* ═══════════════════════════════════════════════════════════════════
+     PRISM LAYER — crystal-neon accent on the Apple dark canvas.
+     A flat blue can be one CSS variable; a prism cannot, because a gradient
+     is only legal on `background`. So every accent splits in two: surfaces
+     take --grad, and anything that needs a *colour* (border, glyph, shadow)
+     takes the solid --blue / --iris-* stops.
+     ═══════════════════════════════════════════════════════════════════ */
+
+  ::selection{background:var(--iris-3);color:#FFF}
+
+  /* Clipped-gradient text, but only where the box is wide enough to show the
+     sweep. On a narrow box ("03", a 6px dot) a 100deg gradient exposes one
+     dim slice and the element reads as muddy purple — those stay solid ice. */
+  .case-k,.craft-grid .mark,.hero h1 em,
+  .contact h2 em,.pull blockquote em,.about-lede em,.ch .ch-v em{
+    background:var(--grad);background-size:150% 100%;
+    -webkit-background-clip:text;background-clip:text;
+    color:transparent;
+  }
+  .sec-head .idx,.step .n{color:var(--blue);background:none;-webkit-text-fill-color:currentColor}
+  .pkg-list li::before{background:var(--blue)}
+
+  /* filled buttons become the prism itself */
+  .cta,.install .i-go,.mcta .m-line,.pkg-badge,.pl-eps button.on{
+    background:var(--grad);background-size:180% 100%;
+    color:var(--on-blue);border-color:transparent;
+    transition:background-position .5s cubic-bezier(.16,1,.3,1),box-shadow .3s,filter .3s;
+  }
+  .cta{box-shadow:0 0 0 1px rgba(255,255,255,.06) inset,0 8px 30px var(--glow)}
+  .cta:hover{background-position:100% 0;box-shadow:0 0 0 1px rgba(255,255,255,.1) inset,0 10px 40px var(--glow-2)}
+  .install .i-go:hover,.mcta .m-line:hover{background-position:100% 0}
+  .cta span,.mcta .m-line span{position:relative}
+
+  /* ghost buttons: ice text on a violet-tinted hairline */
+  .cta.ghost{
+    background:transparent;color:var(--blue);
+    border:1px solid rgba(150,140,255,.38);box-shadow:none;
+  }
+  .cta.ghost:hover{
+    background:rgba(124,231,255,.08);border-color:var(--blue);
+    color:var(--blue);box-shadow:0 0 24px rgba(124,231,255,.14);
+  }
+
+  .ai-more:hover{background:var(--grad);border-color:transparent;color:var(--on-blue)}
+  .ai-more:hover b{color:var(--on-blue)}
+  .pl-eps button.on:hover{filter:brightness(1.06)}
+  .pkg.feat{outline:1px solid rgba(150,140,255,.45)}
+  .nav nav a::after{background:var(--grad)}
+  .filters button.on{background:var(--ink);color:#000}
+
+  /* the wordmark is the purest expression of the idea */
+  .neon{
+    background:linear-gradient(100deg,
+      #E9FBFF 0%, var(--iris-1) 20%, var(--iris-2) 42%,
+      #FFFFFF 55%, var(--iris-3) 72%, var(--iris-4) 100%);
+    background-size:220% 100%;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 0 .16em rgba(150,190,255,.42))
+           drop-shadow(0 0 .55em rgba(180,120,255,.26));
+  }
+
+  /* interactive text: ice at rest, violet on hover */
+  .case-cta,.pl-nav,.pl-ext,.socials a:hover,footer a:hover,
+  .line-go:hover,.line-go:hover strong{color:var(--blue)}
+  .case-cta:hover,.pl-nav:hover:not(:disabled),.pl-ext:hover{color:var(--iris-3)}
+  .socials a:hover{border-color:var(--blue);background:rgba(124,231,255,.07);box-shadow:0 0 20px rgba(124,231,255,.12)}
+  .faq summary::after{color:var(--muted)}
+
+  @media(prefers-reduced-motion:reduce){
+    .cta,.install .i-go,.mcta .m-line{transition:none}
+  }
+
+  /* ── POLISH: focus, scrollbar, native controls ── */
+  /* tell the UA every built-in surface (scrollbars, form controls, the
+     lightbox iframe's own chrome) is dark — stops white flashes */
+  :root{color-scheme:dark}
+
+  /* keyboard focus was invisible before. :focus-visible fires only for
+     keyboard/AT users, so mouse clicks stay ring-free. */
+  a:focus-visible,button:focus-visible,summary:focus-visible,
+  input:focus-visible,[tabindex]:focus-visible{
+    outline:2px solid var(--blue);outline-offset:3px;border-radius:6px;
+  }
+  .cta:focus-visible,.filters button:focus-visible,.socials a:focus-visible,
+  .lang button:focus-visible{outline-offset:3px;border-radius:var(--r-pill)}
+
+  /* slim, self-effacing scrollbar — neutral grey, not prism (a coloured bar
+     would compete with the content it's scrolling past) */
+  ::-webkit-scrollbar{width:12px;height:12px}
+  ::-webkit-scrollbar-track{background:var(--bg)}
+  ::-webkit-scrollbar-thumb{background:#2C2C2E;border-radius:8px;border:3px solid var(--bg)}
+  ::-webkit-scrollbar-thumb:hover{background:#3A3A3D}
+  html{scrollbar-width:thin;scrollbar-color:#2C2C2E var(--bg)}
+
   /* ── REVEAL ──────────────────────────────── */
   .rv{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
   .rv.in{opacity:1;transform:none}
@@ -683,6 +962,8 @@
     .info{grid-template-columns:1fr;gap:18px}
   }
   @media(max-width:560px){
+    /* "Video Editor" wraps and crowds the lang toggle at this width */
+    .brand small{display:none}
     .grid{grid-template-columns:1fr;gap:26px}
     .craft-grid,.steps{grid-template-columns:1fr}
     .stats{grid-template-columns:1fr;gap:16px;border-top:1px solid var(--line);padding-top:20px}
@@ -752,8 +1033,7 @@
     </div>
 
     <div class="hero-ctas">
-      <button class="cta" id="showreelBtn" type="button"><span>▶</span><span data-en="Watch Showreel" data-th="ดู Showreel">Watch Showreel</span></button>
-      <a class="cta ghost" href="mailto:tanaponploenjit@gmail.com?subject=Request%20a%20Quote%20—%20Video%20Editing&amp;body=Hi%20Eddy%2C%20I%27d%20like%20a%20quote.%0A%0AProject%3A%20%0AClip%20length%3A%20%0ADeadline%3A%20%0AReference%3A%20"><span data-en="Request a Quote" data-th="ขอใบเสนอราคา">Request a Quote</span><span>→</span></a>
+      <a class="cta" href="mailto:tanaponploenjit@gmail.com?subject=Request%20a%20Quote%20—%20Video%20Editing&amp;body=Hi%20Eddy%2C%20I%27d%20like%20a%20quote.%0A%0AProject%3A%20%0AClip%20length%3A%20%0ADeadline%3A%20%0AReference%3A%20"><span data-en="Request a Quote" data-th="ขอใบเสนอราคา">Request a Quote</span><span>→</span></a>
     </div>
 
     <div class="scroll-cue">
@@ -1335,52 +1615,52 @@ const WORKS = [
      mirrors the EDDYSIBAW AI portfolio (portfolio/index.html `P` array).
      `v` = episode/cut list shown as buttons inside the player;
      `id` = the first video, also used for the card cover. */
-  {c:'ai',id:'1qzUwf9W5vr60Mscqub2FPYzMzHIy5yHK',t:'f',en:'FRACTURED GOD: THE DARK ASCENT',th:'FRACTURED GOD: THE DARK ASCENT',tag:'aiseries',y:2026,
+  {c:'ai',id:'1qzUwf9W5vr60Mscqub2FPYzMzHIy5yHK',t:'f',en:'Fractured God: The Dark Ascent',th:'Fractured God: The Dark Ascent',tag:'aiseries',y:2026,
    v:[{l:'EP 01',id:'1qzUwf9W5vr60Mscqub2FPYzMzHIy5yHK'},{l:'EP 02',id:'10WESchb6E1e7AiI6_G4bz9uqA1u6EedJ'},{l:'EP 03',id:'1qs8UzmV4PZOC3P6R5bEFgYBbcNu6GSdN'},{l:'EP 04',id:'1R35-nprwzS2KrBxb7ZzGW9hmsEJeNGib'},{l:'EP 05',id:'1FpFi_iAEFmmLOvmaUDku-nrgul4cO9ZY'},{l:'EP 06',id:'127xVlDSgR4nht5w4WkykJqupaODzk4LZ'},{l:'EP 07',id:'1tP4T-OCspMWdzdAMqM_6KI0L5G9b4kDG'},{l:'EP 08',id:'1LXpV0X10F2JecGoRBO5GbHnP7-ZAgX0S'}]},
-  {c:'ai',id:'1ovN-kkgcujiFyylFSbvidjTLaX_VPJlR',t:'f',en:'CELESTIAL ASCENT &amp; THE VESSEL HUNT',th:'CELESTIAL ASCENT &amp; THE VESSEL HUNT',tag:'aicine',y:2026,
-   v:[{l:'FULL MOVIE',id:'1ovN-kkgcujiFyylFSbvidjTLaX_VPJlR'},{l:'TEASER',id:'1B9tl7zl41AfSo6NVTk3dnnCaPj_UjGVS'}]},
-  {c:'ai',id:'1BymIOrJdfa1y6cpCOaS7r8siLuccnfWL',t:'f',en:'EDDY &amp; MORTY: ACROSS THE FRAY',th:'EDDY &amp; MORTY: ACROSS THE FRAY',tag:'aiseries',y:2026,ar:'9:16',
-   v:[{l:'EP 1',id:'1BymIOrJdfa1y6cpCOaS7r8siLuccnfWL'},{l:'EP 2',id:'1n5R9qwvyM8LI2cHDQ47AHTtHxNHVeTnr'},{l:'EP 3',id:'1ymKR3E1qhzUeZuUZLLMHU_CQLEb_ZzYV'},{l:'EP 4',id:'1UoWo-5Z1XbTtXd1_29yaVXll9CO5A_Ij'},{l:'EP 5',id:'1KRy48pMSctFO_7g9i2jalk5PSrkynOkl'},{l:'EP 6',id:'1jjEGpAwy9QUGiL3ofxqRqHeB4ULItvbH'},{l:'EP 7',id:'1cd4Rz2WtjbPtuwsx4zzBtxIYDVQi5ynV'},{l:'EP 8',id:'1u08uM6WEvYwyiuHs5tpFQBAKTYUykilo'},{l:'EP 9 FINALE',id:'1WMWBLPDlSoY97WBVaqiJiye1VklXLVjX'}]},
-  {c:'ai',id:'1IMu1twfF5CmlyjrCV8scbzvTHb5hX8RS',t:'f',en:'WAR OF GODS',th:'WAR OF GODS',tag:'aicine',y:2026},
-  {c:'ai',id:'1SvYgPEs2paCfyD5Rj7bymcUuYPThlmF2',t:'f',en:'WAR Z: THE FALLEN HEROES',th:'WAR Z: THE FALLEN HEROES',tag:'aiseries',y:2026,ar:'9:16',
-   v:[{l:'EP 1',id:'1SvYgPEs2paCfyD5Rj7bymcUuYPThlmF2'},{l:'EP 2 BLOODLINE',id:'1BsnAn5b1Ic44KR3jdXv40MMoNXmKJVW7'},{l:'EP 3 THE FOUR',id:'16DXEgEWv7jTa4MbOuGd2xNAF4rsQnGcy'}]},
-  {c:'ai',id:'12AsgBrZ8r8z_mBDvHuDZN6PJg58ipJyX',t:'f',en:"IMAGE &amp; DIAR: THE GIANT'S BACKPACK",th:"IMAGE &amp; DIAR: THE GIANT'S BACKPACK",tag:'aicine',y:2026},
-  {c:'ai',id:'1bSZ_aOTTRQ632h6qh2QN0AvSWasTojBH',t:'f',en:'IMAGE DIAR &amp; THE DREAMSCAPE DRAGON',th:'IMAGE DIAR &amp; THE DREAMSCAPE DRAGON',tag:'aicine',y:2026},
-  {c:'ai',id:'1IknOHetR2BYNsCeiNTZzIP0TsfY-k0C3',t:'f',en:'LAST PACE: RUN FOR YOUR LIFE',th:'LAST PACE: RUN FOR YOUR LIFE',tag:'aicine',y:2026},
-  {c:'ai',id:'1V3K3GucQOVUzjURR7l_qTOclU8z7M7Hi',t:'f',en:'THE LAST ROUTE',th:'THE LAST ROUTE',tag:'aicine',y:2026},
-  {c:'ai',id:'1Gqv1D5sK1OKe0s4bwy-p7u4N1JgJvrEH',t:'f',en:'DEAD MONEY',th:'DEAD MONEY',tag:'aicine',y:2026},
-  {c:'ai',id:'1t5L9afOjS3khQMIJcS84E2_QVjxGQBgC',t:'f',en:'AFTERLIGHT',th:'AFTERLIGHT',tag:'aicine',y:2026},
-  {c:'ai',id:'16v_nQQJojFC8gpxlToZOF__rPKN5fZPk',t:'f',en:'THE CRESCENT STARS',th:'THE CRESCENT STARS',tag:'aicine',y:2026},
-  {c:'ai',id:'1vzFCY3xddG5URWSQ4eguiBAgYFC7069m',t:'f',en:"JOJO'S KAI AND THE PATTERN HERALD",th:"JOJO'S KAI AND THE PATTERN HERALD",tag:'aicine',y:2026},
-  {c:'ai',id:'1c4ylKc3YgT1xwame_ldNTMgazStJ7Gq0',t:'f',en:'TANK TOP MASTERS: WORLD SAVERS',th:'TANK TOP MASTERS: WORLD SAVERS',tag:'aicine',y:2026},
-  {c:'ai',id:'1XFgRlZPKolrg3NPIxMC6b7M1L9hk2nAJ',t:'f',en:'TANK TOP MASTERS: TITAN HUNTERS',th:'TANK TOP MASTERS: TITAN HUNTERS',tag:'aicine',y:2026},
-  {c:'ai',id:'1H1Z_iDZfTDm03wqPPZYfpJPUZ9w6QoDU',t:'f',en:'TANK TOP MASTERS: DEMON SLAYER',th:'TANK TOP MASTERS: DEMON SLAYER',tag:'aicine',y:2026},
-  {c:'ai',id:'1EHCCds8FsqNnUK8FvGihIlBLnUO_JHL3',t:'f',en:'TANK TOP MASTERS: KIZUNA PROTOCOL',th:'TANK TOP MASTERS: KIZUNA PROTOCOL',tag:'aiseries',y:2026,ar:'9:16',
-   v:[{l:'MAIN',id:'1EHCCds8FsqNnUK8FvGihIlBLnUO_JHL3'},{l:'EP 0',id:'1bZy5YVHZtcvtNy5D1Q5A5Ve4AN3ure2o'}]},
-  {c:'ai',id:'1GPmetiA1zJPFCc_RUVytLrLbMuajIKeO',t:'f',en:'BLAZE FIST: OASIS UNDERGROUND',th:'BLAZE FIST: OASIS UNDERGROUND',tag:'aicine',y:2026},
-  {c:'ai',id:'1t-CyJv_dAADN_0KpTIqgsDGOk6yvgffM',t:'f',en:'TRIAD COSMIC RECKONING',th:'TRIAD COSMIC RECKONING',tag:'aicine',y:2026},
-  {c:'ai',id:'17NmbKlQ1Zk0Wtf212mSunqobpaUU9h1X',t:'f',en:'NARUTO VS SASUKE',th:'NARUTO VS SASUKE',tag:'aishort',y:2026},
-  {c:'ai',id:'1fmptPvDt4Zb4xWF24WPk515BiSpaKbBD',t:'f',en:'RESIDENT EVIL',th:'RESIDENT EVIL',tag:'aishort',y:2026,ar:'9:16'},
-  {c:'ai',id:'1vyywktN_F2ATVMshd_YofnLe2XgHxW9H',t:'f',en:'THE AVENGERS NEED OUR HELP',th:'THE AVENGERS NEED OUR HELP',tag:'aicine',y:2026,
+  {c:'ai',id:'1ovN-kkgcujiFyylFSbvidjTLaX_VPJlR',t:'f',en:'Celestial Ascent &amp; the Vessel Hunt',th:'Celestial Ascent &amp; the Vessel Hunt',tag:'aicine',y:2026,
+   v:[{l:'Full Movie',id:'1ovN-kkgcujiFyylFSbvidjTLaX_VPJlR'},{l:'Teaser',id:'1B9tl7zl41AfSo6NVTk3dnnCaPj_UjGVS'}]},
+  {c:'ai',id:'1BymIOrJdfa1y6cpCOaS7r8siLuccnfWL',t:'f',en:'Eddy &amp; Morty: Across the Fray',th:'Eddy &amp; Morty: Across the Fray',tag:'aiseries',y:2026,ar:'9:16',
+   v:[{l:'EP 1',id:'1BymIOrJdfa1y6cpCOaS7r8siLuccnfWL'},{l:'EP 2',id:'1n5R9qwvyM8LI2cHDQ47AHTtHxNHVeTnr'},{l:'EP 3',id:'1ymKR3E1qhzUeZuUZLLMHU_CQLEb_ZzYV'},{l:'EP 4',id:'1UoWo-5Z1XbTtXd1_29yaVXll9CO5A_Ij'},{l:'EP 5',id:'1KRy48pMSctFO_7g9i2jalk5PSrkynOkl'},{l:'EP 6',id:'1jjEGpAwy9QUGiL3ofxqRqHeB4ULItvbH'},{l:'EP 7',id:'1cd4Rz2WtjbPtuwsx4zzBtxIYDVQi5ynV'},{l:'EP 8',id:'1u08uM6WEvYwyiuHs5tpFQBAKTYUykilo'},{l:'EP 9 Finale',id:'1WMWBLPDlSoY97WBVaqiJiye1VklXLVjX'}]},
+  {c:'ai',id:'1IMu1twfF5CmlyjrCV8scbzvTHb5hX8RS',t:'f',en:'War of Gods',th:'War of Gods',tag:'aicine',y:2026},
+  {c:'ai',id:'1SvYgPEs2paCfyD5Rj7bymcUuYPThlmF2',t:'f',en:'War Z: The Fallen Heroes',th:'War Z: The Fallen Heroes',tag:'aiseries',y:2026,ar:'9:16',
+   v:[{l:'EP 1',id:'1SvYgPEs2paCfyD5Rj7bymcUuYPThlmF2'},{l:'EP 2 Bloodline',id:'1BsnAn5b1Ic44KR3jdXv40MMoNXmKJVW7'},{l:'EP 3 The Four',id:'16DXEgEWv7jTa4MbOuGd2xNAF4rsQnGcy'}]},
+  {c:'ai',id:'12AsgBrZ8r8z_mBDvHuDZN6PJg58ipJyX',t:'f',en:"Image &amp; Diar: The Giant's Backpack",th:"Image &amp; Diar: The Giant's Backpack",tag:'aicine',y:2026},
+  {c:'ai',id:'1bSZ_aOTTRQ632h6qh2QN0AvSWasTojBH',t:'f',en:'Image Diar &amp; the Dreamscape Dragon',th:'Image Diar &amp; the Dreamscape Dragon',tag:'aicine',y:2026},
+  {c:'ai',id:'1IknOHetR2BYNsCeiNTZzIP0TsfY-k0C3',t:'f',en:'Last Pace: Run for Your Life',th:'Last Pace: Run for Your Life',tag:'aicine',y:2026},
+  {c:'ai',id:'1V3K3GucQOVUzjURR7l_qTOclU8z7M7Hi',t:'f',en:'The Last Route',th:'The Last Route',tag:'aicine',y:2026},
+  {c:'ai',id:'1Gqv1D5sK1OKe0s4bwy-p7u4N1JgJvrEH',t:'f',en:'Dead Money',th:'Dead Money',tag:'aicine',y:2026},
+  {c:'ai',id:'1t5L9afOjS3khQMIJcS84E2_QVjxGQBgC',t:'f',en:'Afterlight',th:'Afterlight',tag:'aicine',y:2026},
+  {c:'ai',id:'16v_nQQJojFC8gpxlToZOF__rPKN5fZPk',t:'f',en:'The Crescent Stars',th:'The Crescent Stars',tag:'aicine',y:2026},
+  {c:'ai',id:'1vzFCY3xddG5URWSQ4eguiBAgYFC7069m',t:'f',en:"JoJo's Kai and the Pattern Herald",th:"JoJo's Kai and the Pattern Herald",tag:'aicine',y:2026},
+  {c:'ai',id:'1c4ylKc3YgT1xwame_ldNTMgazStJ7Gq0',t:'f',en:'Tank Top Masters: World Savers',th:'Tank Top Masters: World Savers',tag:'aicine',y:2026},
+  {c:'ai',id:'1XFgRlZPKolrg3NPIxMC6b7M1L9hk2nAJ',t:'f',en:'Tank Top Masters: Titan Hunters',th:'Tank Top Masters: Titan Hunters',tag:'aicine',y:2026},
+  {c:'ai',id:'1H1Z_iDZfTDm03wqPPZYfpJPUZ9w6QoDU',t:'f',en:'Tank Top Masters: Demon Slayer',th:'Tank Top Masters: Demon Slayer',tag:'aicine',y:2026},
+  {c:'ai',id:'1EHCCds8FsqNnUK8FvGihIlBLnUO_JHL3',t:'f',en:'Tank Top Masters: Kizuna Protocol',th:'Tank Top Masters: Kizuna Protocol',tag:'aiseries',y:2026,ar:'9:16',
+   v:[{l:'Main',id:'1EHCCds8FsqNnUK8FvGihIlBLnUO_JHL3'},{l:'EP 0',id:'1bZy5YVHZtcvtNy5D1Q5A5Ve4AN3ure2o'}]},
+  {c:'ai',id:'1GPmetiA1zJPFCc_RUVytLrLbMuajIKeO',t:'f',en:'Blaze Fist: Oasis Underground',th:'Blaze Fist: Oasis Underground',tag:'aicine',y:2026},
+  {c:'ai',id:'1t-CyJv_dAADN_0KpTIqgsDGOk6yvgffM',t:'f',en:'Triad Cosmic Reckoning',th:'Triad Cosmic Reckoning',tag:'aicine',y:2026},
+  {c:'ai',id:'17NmbKlQ1Zk0Wtf212mSunqobpaUU9h1X',t:'f',en:'Naruto vs Sasuke',th:'Naruto vs Sasuke',tag:'aishort',y:2026},
+  {c:'ai',id:'1fmptPvDt4Zb4xWF24WPk515BiSpaKbBD',t:'f',en:'Resident Evil',th:'Resident Evil',tag:'aishort',y:2026,ar:'9:16'},
+  {c:'ai',id:'1vyywktN_F2ATVMshd_YofnLe2XgHxW9H',t:'f',en:'The Avengers Need Our Help',th:'The Avengers Need Our Help',tag:'aicine',y:2026,
    v:[{l:'16:9',id:'1vyywktN_F2ATVMshd_YofnLe2XgHxW9H'},{l:'9:16',id:'1QMLxRwBfDElTCMVDJWPsTh0OmnJ_Gj-b',a:'9:16'}]},
-  {c:'ai',id:'1jqIAfLz3Cse2oDWIiJWmgScbBwn5CvG6',t:'f',en:'SAINT SEIYA',th:'SAINT SEIYA',tag:'aicine',y:2026},
-  {c:'ai',id:'1IMhQaaE4vSLJvJXL7T3kuH82GSVCvCD2',t:'f',en:'THE ROWDYRUFF BOYS',th:'THE ROWDYRUFF BOYS',tag:'aicine',y:2026,
+  {c:'ai',id:'1jqIAfLz3Cse2oDWIiJWmgScbBwn5CvG6',t:'f',en:'Saint Seiya',th:'Saint Seiya',tag:'aicine',y:2026},
+  {c:'ai',id:'1IMhQaaE4vSLJvJXL7T3kuH82GSVCvCD2',t:'f',en:'The Rowdyruff Boys',th:'The Rowdyruff Boys',tag:'aicine',y:2026,
    v:[{l:'16:9',id:'1IMhQaaE4vSLJvJXL7T3kuH82GSVCvCD2'},{l:'9:16',id:'1Hp9g_7MuMB-weIrJfEIRc8sw4yiJrBJS',a:'9:16'}]},
-  {c:'ai',id:'1TkkqIOTffMg17xncXnMIZJLbI83Sojer',t:'f',en:'TRIPLE SPELL CLASH',th:'TRIPLE SPELL CLASH',tag:'aicine',y:2026,
+  {c:'ai',id:'1TkkqIOTffMg17xncXnMIZJLbI83Sojer',t:'f',en:'Triple Spell Clash',th:'Triple Spell Clash',tag:'aicine',y:2026,
    v:[{l:'16:9',id:'1TkkqIOTffMg17xncXnMIZJLbI83Sojer'},{l:'9:16',id:'1m7_qz4Ue8T_WpQs_W6u0fr69iD_Tq8jG',a:'9:16'}]},
-  {c:'ai',id:'1hf9bJVRvFH_udnSeF-j2N_VkLE9JBbKL',t:'f',en:'RAISE THE DRAGON DOG',th:'RAISE THE DRAGON DOG',tag:'aicine',y:2026,
+  {c:'ai',id:'1hf9bJVRvFH_udnSeF-j2N_VkLE9JBbKL',t:'f',en:'Raise the Dragon Dog',th:'Raise the Dragon Dog',tag:'aicine',y:2026,
    v:[{l:'16:9',id:'1hf9bJVRvFH_udnSeF-j2N_VkLE9JBbKL'},{l:'9:16',id:'1NRbA53GQr5XrVxD8MafSgKgsRW-xCY5C',a:'9:16'}]},
-  {c:'ai',id:'1p2ugqbji16v4T6ajTpJWfMi4I8qHhoZ6',t:'f',en:'LAST HIT, BRO.',th:'เอาดิ ใครจะล้มก่อน',tag:'aishort',y:2026,ar:'9:16',
-   v:[{l:'LAST HIT',id:'1p2ugqbji16v4T6ajTpJWfMi4I8qHhoZ6'},{l:'3 สิงห์',id:'10Gotejk9fqzQ7yk0S6VUZDMK1r7DSrgF'}]},
-  {c:'ai',id:'1M8Vm-5BFNUWJ6OvVpu8jOgSeXlh3diin',t:'f',en:'POWERED BY PAWS',th:'POWERED BY PAWS',tag:'aishort',y:2026},
-  {c:'ai',id:'1gUjzI-_utoSgmWXHA2lXBKd6n-Vytn3M',t:'f',en:'EDDY MORTY &amp; MONSTER ENERGY',th:'EDDY MORTY &amp; MONSTER ENERGY',tag:'brandai',y:2026,
+  {c:'ai',id:'1p2ugqbji16v4T6ajTpJWfMi4I8qHhoZ6',t:'f',en:'Last Hit, Bro.',th:'เอาดิ ใครจะล้มก่อน',tag:'aishort',y:2026,ar:'9:16',
+   v:[{l:'Last Hit',id:'1p2ugqbji16v4T6ajTpJWfMi4I8qHhoZ6'},{l:'3 สิงห์',id:'10Gotejk9fqzQ7yk0S6VUZDMK1r7DSrgF'}]},
+  {c:'ai',id:'1M8Vm-5BFNUWJ6OvVpu8jOgSeXlh3diin',t:'f',en:'Powered by Paws',th:'Powered by Paws',tag:'aishort',y:2026},
+  {c:'ai',id:'1gUjzI-_utoSgmWXHA2lXBKd6n-Vytn3M',t:'f',en:'Eddy Morty &amp; Monster Energy',th:'Eddy Morty &amp; Monster Energy',tag:'brandai',y:2026,
    v:[{l:'16:9',id:'1gUjzI-_utoSgmWXHA2lXBKd6n-Vytn3M'},{l:'9:16',id:'1CCYygdFnFAflLomGMLMV50Opi3RVP1wm',a:'9:16'}]},
-  {c:'ai',id:'1RvbdkAOyDlKzm360zz0wf7pt6rnYwZ1g',t:'f',en:'EDDY VS 4 GIANTS',th:'EDDY VS 4 GIANTS',tag:'aicine',y:2026,
+  {c:'ai',id:'1RvbdkAOyDlKzm360zz0wf7pt6rnYwZ1g',t:'f',en:'Eddy vs 4 Giants',th:'Eddy vs 4 Giants',tag:'aicine',y:2026,
    v:[{l:'16:9',id:'1RvbdkAOyDlKzm360zz0wf7pt6rnYwZ1g'},{l:'9:16',id:'1GfGxebfQDPDwvBjjzI4l2OaG2at74-jz',a:'9:16'}]},
-  {c:'ai',id:'1g5c3Z2oVcQKXSYpjPOjp0cf7kE2s4U12',t:'f',en:'BLUE ZORO',th:'BLUE ZORO',tag:'aishort',y:2026},
-  {c:'ai',id:'1kHMS-6b6jHK85yXkmyfgsCaOlrX56twm',t:'f',en:'"SHALL WE PLAY?"',th:'"SHALL WE PLAY?"',tag:'aishort',y:2026},
-  {c:'ai',id:'1aqF9g6b1GNRevn_YNb7Ih-9fEtNwTpVp',t:'f',en:'DOG PLAYING PHONE SECRETLY',th:'เจ้าตูบแอบเล่นมือถือ',tag:'aishort',y:2026},
-  {c:'ai',id:'1-kKnNXeH-ZcWkKcC6RM3APkqI7UhpwN6',t:'f',en:'SORRY, AMANAI',th:'ขอโทษเด้อ อมาไน',tag:'aishort',y:2026}
+  {c:'ai',id:'1g5c3Z2oVcQKXSYpjPOjp0cf7kE2s4U12',t:'f',en:'Blue Zoro',th:'Blue Zoro',tag:'aishort',y:2026},
+  {c:'ai',id:'1kHMS-6b6jHK85yXkmyfgsCaOlrX56twm',t:'f',en:'"Shall We Play?"',th:'"Shall We Play?"',tag:'aishort',y:2026},
+  {c:'ai',id:'1aqF9g6b1GNRevn_YNb7Ih-9fEtNwTpVp',t:'f',en:'Dog Playing Phone Secretly',th:'เจ้าตูบแอบเล่นมือถือ',tag:'aishort',y:2026},
+  {c:'ai',id:'1-kKnNXeH-ZcWkKcC6RM3APkqI7UhpwN6',t:'f',en:'Sorry, Amanai',th:'ขอโทษเด้อ อมาไน',tag:'aishort',y:2026}
 ];
 
 /* ═══════════════════════════════════════════
@@ -1675,15 +1955,6 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight' && plIdx < playlist.length - 1){ plIdx++; showClip(); }
 });
 
-/* hero "Watch Showreel" → open the Supersports Showreel 2026 in the player.
-   Reset the filter first: a hidden card can't join the playlist. */
-document.getElementById('showreelBtn').addEventListener('click', () => {
-  setFilterButton('all');
-  applyFilter('all');
-  const reel = document.querySelector('#grid a.card[href*="1I4nkj9OaN7ocuWI6cDwlGkORPf4BN19L"]');
-  if (reel) openPlayer(reel);
-});
-
 /* the sticky filter bar and anchor offsets track the real nav height */
 const navEl = document.querySelector('.nav');
 const setNavH = () => document.documentElement.style.setProperty(
@@ -1706,6 +1977,74 @@ document.querySelectorAll('.rv').forEach((el,i) => {
   el.style.transitionDelay = Math.min((i % 6) * .05, .3) + 's';
   io.observe(el);
 });
+</script>
+
+<!-- ── INSTALL PROMPT (PWA) ─────────────────── -->
+<div class="install" id="install" role="dialog" aria-label="Install app">
+  <span class="i-txt" id="installTxt"
+        data-en="<b>Install EDDYSIBAW.</b> Keep the full portfolio one tap away, even offline."
+        data-th="<b>ติดตั้ง EDDYSIBAW</b> เก็บพอร์ตทั้งหมดไว้ในมือถือ เปิดได้แม้ออฟไลน์"></span>
+  <button class="i-go" id="installGo">Install</button>
+  <button class="i-x" id="installX" aria-label="Dismiss">&times;</button>
+</div>
+
+<script>
+(() => {
+  const bar = document.getElementById('install');
+  const txt = document.getElementById('installTxt');
+  const go  = document.getElementById('installGo');
+  const x   = document.getElementById('installX');
+
+  const DISMISSED = 'eddy-install-dismissed';
+  const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+
+  let deferred = null;
+
+  /* applyLang() already ran — it never saw this node, so seed the copy by hand */
+  const paint = () => { txt.innerHTML = txt.dataset[document.documentElement.lang] || txt.dataset.en; };
+  paint();
+
+  const hide = () => bar.classList.remove('show');
+  const show = () => {
+    if (standalone || localStorage.getItem(DISMISSED)) return;
+    bar.classList.add('show');
+  };
+
+  x.addEventListener('click', () => { localStorage.setItem(DISMISSED, '1'); hide(); });
+
+  /* Chrome / Edge / Samsung — a real install prompt is available */
+  addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferred = e;
+    show();
+  });
+
+  go.addEventListener('click', async () => {
+    if (!deferred) return;
+    deferred.prompt();
+    const { outcome } = await deferred.userChoice;
+    deferred = null;
+    if (outcome === 'accepted') hide();
+  });
+
+  addEventListener('appinstalled', () => { localStorage.setItem(DISMISSED, '1'); hide(); });
+
+  /* iOS Safari never fires beforeinstallprompt — spell out the Share-sheet steps */
+  if (ios && !standalone) {
+    go.remove();
+    txt.dataset.en = '<b>Install EDDYSIBAW.</b> Tap Share, then “Add to Home Screen”.';
+    txt.dataset.th = '<b>ติดตั้ง EDDYSIBAW</b> กดปุ่มแชร์ แล้วเลือก “เพิ่มลงในหน้าจอโฮม”';
+    paint();
+    setTimeout(show, 2500);
+  }
+
+  if ('serviceWorker' in navigator) {
+    addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js', { scope: './' }).catch(() => {});
+    });
+  }
+})();
 </script>
 
 </body>
