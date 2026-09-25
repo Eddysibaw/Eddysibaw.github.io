@@ -879,10 +879,17 @@
   /* ── NEON HOVER FLOURISH on work cards (wins over the flat layer above) ── */
   .card{transition:transform .5s cubic-bezier(.16,1,.3,1)}
   .card:hover{transform:translateY(-6px)}
-  .thumb,.feat-img{transition:box-shadow .45s ease,transform .5s cubic-bezier(.16,1,.3,1)}
-  .card:hover .thumb{box-shadow:0 0 0 1px rgba(208,123,255,.55),0 16px 46px rgba(208,123,255,.24)}
+  .thumb,.feat-img{transition:box-shadow .35s ease,transform .5s cubic-bezier(.16,1,.3,1)}
+  /* clear neon glow on hover — bright violet ring + wide bloom */
+  .card:hover .thumb,.feat:hover .feat-img{
+    box-shadow:0 0 0 1.5px var(--blue),
+               0 0 20px rgba(208,123,255,.65),
+               0 0 46px rgba(208,123,255,.45),
+               0 0 90px rgba(208,123,255,.28),
+               0 18px 50px rgba(0,0,0,.5);
+  }
   .card:hover .thumb img,.feat:hover .feat-img img{transform:scale(1.06)}
-  .card:hover h3{color:var(--sand)}
+  .card:hover h3{color:var(--sand);text-shadow:0 0 18px rgba(208,123,255,.5)}
   .feat:hover .play,.card:hover .play{background:var(--blue-fill);color:#fff;box-shadow:var(--neon-glow)}
   /* a light sheen sweeps across the cover on hover */
   .thumb::before{
@@ -1000,31 +1007,6 @@
   ::-webkit-scrollbar-thumb{background:#2C2C2E;border-radius:8px;border:3px solid var(--bg)}
   ::-webkit-scrollbar-thumb:hover{background:#3A3A3D}
   html{scrollbar-width:thin;scrollbar-color:#2C2C2E var(--bg)}
-
-  /* ── HOVER PREVIEW PEEK (desktop pointer only) ── */
-  #peek{
-    position:fixed;z-index:1400;top:0;left:0;width:280px;pointer-events:none;
-    background:rgba(16,14,20,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-    border:1px solid var(--line-2);border-radius:16px;overflow:hidden;
-    box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 0 1px rgba(208,123,255,.25),0 0 34px rgba(208,123,255,.28);
-    opacity:0;transform:translateY(8px) scale(.96);transform-origin:top left;
-    transition:opacity .18s ease,transform .22s cubic-bezier(.16,1,.3,1);
-  }
-  #peek.on{opacity:1;transform:none}
-  #peek .pk-img{position:relative;width:100%;aspect-ratio:16/10;background:var(--panel);overflow:hidden}
-  #peek .pk-img img{width:100%;height:100%;object-fit:cover}
-  #peek.portrait .pk-img{aspect-ratio:4/5}
-  #peek .pk-img img.portrait{object-position:50% 30%}
-  #peek .pk-play{
-    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-    width:48px;height:48px;border-radius:50%;display:grid;place-items:center;
-    background:var(--blue-fill);color:#fff;font-size:14px;box-shadow:var(--neon-glow);
-  }
-  #peek .pk-body{padding:13px 15px 15px}
-  #peek .pk-title{font-size:15px;font-weight:600;letter-spacing:-.01em;line-height:1.25;color:var(--ink)}
-  #peek .pk-meta{margin-top:5px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-  #peek .pk-cta{margin-top:11px;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
-  @media(hover:none){#peek{display:none!important}}
 
   /* ── REVEAL ──────────────────────────────── */
   .rv{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
@@ -2090,7 +2072,6 @@ function openPlayer(a){
   if (plIdx < 0) return;
   showClip();
   player.classList.add('open');
-  document.getElementById('peek')?.classList.remove('on');
   document.body.style.overflow = 'hidden';
 }
 function closePlayer(){
@@ -2106,56 +2087,6 @@ document.addEventListener('click', e => {
   openPlayer(a);
 });
 player.addEventListener('click', e => { if (e.target.closest('[data-close]')) closePlayer(); });
-
-/* ── HOVER PREVIEW PEEK ──────────────────────
-   Desktop pointers only: hovering a card floats a small preview window that
-   follows the cursor; clicking still opens the in-site player. */
-if (window.matchMedia('(hover:hover) and (pointer:fine)').matches){
-  const peek = document.createElement('div');
-  peek.id = 'peek';
-  peek.innerHTML =
-    '<div class="pk-img"><img alt=""><div class="pk-play">▶</div></div>' +
-    '<div class="pk-body"><div class="pk-title"></div><div class="pk-meta"></div>' +
-    '<div class="pk-cta" data-en="Click to play — in site" data-th="คลิกเพื่อเล่น — ในเว็บนี้">Click to play — in site</div></div>';
-  document.body.appendChild(peek);
-  const pkImg = peek.querySelector('img');
-  const pkTitle = peek.querySelector('.pk-title');
-  const pkMeta = peek.querySelector('.pk-meta');
-  let cur = null;
-
-  const place = (x, y) => {
-    const w = peek.offsetWidth, h = peek.offsetHeight, m = 16;
-    let nx = x + 20, ny = y + 20;
-    if (nx + w + m > innerWidth)  nx = x - w - 20;
-    if (ny + h + m > innerHeight) ny = innerHeight - h - m;
-    if (ny < m) ny = m;
-    peek.style.left = Math.max(m, nx) + 'px';
-    peek.style.top  = ny + 'px';
-  };
-
-  document.addEventListener('mouseover', e => {
-    const a = e.target.closest('#features a.feat, #grid a.card, #ai-grid a.card');
-    if (!a || a === cur || player.classList.contains('open')) return;
-    cur = a;
-    const img = a.querySelector('img');
-    pkImg.src = img ? img.currentSrc || img.src : '';
-    pkImg.classList.toggle('portrait', !!img?.classList.contains('portrait'));
-    peek.classList.toggle('portrait', !!img?.classList.contains('portrait'));
-    pkTitle.textContent = a.querySelector('h3, .feat-txt h3')?.textContent || '';
-    const cat = a.querySelector('.cat')?.textContent || a.querySelector('.chip')?.textContent || '';
-    const yr  = a.querySelector('.yr')?.textContent || '';
-    pkMeta.textContent = [cat, yr].filter(Boolean).join(' · ');
-    peek.querySelector('.pk-cta').textContent = peek.querySelector('.pk-cta').dataset[LANG] || 'Click to play';
-    peek.classList.add('on');
-  });
-  document.addEventListener('mouseout', e => {
-    const a = e.target.closest('#features a.feat, #grid a.card, #ai-grid a.card');
-    if (a && !a.contains(e.relatedTarget)){ cur = null; peek.classList.remove('on'); }
-  });
-  document.addEventListener('mousemove', e => {
-    if (peek.classList.contains('on')) place(e.clientX, e.clientY);
-  }, {passive:true});
-}
 
 plPrev.addEventListener('click', () => { if (plIdx > 0){ plIdx--; showClip(); } });
 plNext.addEventListener('click', () => { if (plIdx < playlist.length - 1){ plIdx++; showClip(); } });
