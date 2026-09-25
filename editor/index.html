@@ -1001,6 +1001,31 @@
   ::-webkit-scrollbar-thumb:hover{background:#3A3A3D}
   html{scrollbar-width:thin;scrollbar-color:#2C2C2E var(--bg)}
 
+  /* ── HOVER PREVIEW PEEK (desktop pointer only) ── */
+  #peek{
+    position:fixed;z-index:1400;top:0;left:0;width:280px;pointer-events:none;
+    background:rgba(16,14,20,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--line-2);border-radius:16px;overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 0 1px rgba(208,123,255,.25),0 0 34px rgba(208,123,255,.28);
+    opacity:0;transform:translateY(8px) scale(.96);transform-origin:top left;
+    transition:opacity .18s ease,transform .22s cubic-bezier(.16,1,.3,1);
+  }
+  #peek.on{opacity:1;transform:none}
+  #peek .pk-img{position:relative;width:100%;aspect-ratio:16/10;background:var(--panel);overflow:hidden}
+  #peek .pk-img img{width:100%;height:100%;object-fit:cover}
+  #peek.portrait .pk-img{aspect-ratio:4/5}
+  #peek .pk-img img.portrait{object-position:50% 30%}
+  #peek .pk-play{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:48px;height:48px;border-radius:50%;display:grid;place-items:center;
+    background:var(--blue-fill);color:#fff;font-size:14px;box-shadow:var(--neon-glow);
+  }
+  #peek .pk-body{padding:13px 15px 15px}
+  #peek .pk-title{font-size:15px;font-weight:600;letter-spacing:-.01em;line-height:1.25;color:var(--ink)}
+  #peek .pk-meta{margin-top:5px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  #peek .pk-cta{margin-top:11px;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
+  @media(hover:none){#peek{display:none!important}}
+
   /* ── REVEAL ──────────────────────────────── */
   .rv{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
   .rv.in{opacity:1;transform:none}
@@ -1873,7 +1898,7 @@ function cardHTML(w,i){
   const fbEn = plain(w.en).split(' — ')[0];
   const fbTh = plain(w.th).split(' — ')[0];
   return `
-  <a class="card rv" data-c="${w.c}"${w.v ? ` data-v="${encodeURIComponent(JSON.stringify(w.v))}"` : ''}${w.ar ? ` data-ar="${w.ar}"` : ''} href="${url(w)}" target="_blank" rel="noopener">
+  <a class="card rv" data-c="${w.c}" data-play="${w.t === 'd' ? (w.cov || '') : w.id}"${w.v ? ` data-v="${encodeURIComponent(JSON.stringify(w.v))}"` : ''}${w.ar ? ` data-ar="${w.ar}"` : ''} href="${url(w)}" target="_blank" rel="noopener">
     <div class="thumb">
       ${w.v ? `<span class="epb">${w.v.length} EP</span>` : ''}
       <div class="fb ${g}"><b data-en="${esc(fbEn)}" data-th="${esc(fbTh)}">${fbEn}</b><i>${w.y}</i></div>
@@ -1881,7 +1906,7 @@ function cardHTML(w,i){
       <div class="play">▶</div>
       <div class="chips">
         <span class="chip" data-en="${esc(CATS[w.c].en)}" data-th="${esc(CATS[w.c].th)}">${CATS[w.c].en}</span>
-        <span class="chip">${w.t === 'd' ? 'Folder ↗' : '▶ Play'}</span>
+        <span class="chip">${w.v ? '▶ ' + w.v.length + ' EP' : (w.t === 'd' ? '▶ Series' : '▶ Play')}</span>
       </div>
     </div>
     <h3 data-en="${esc(w.en)}" data-th="${esc(w.th)}">${w.en}</h3>
@@ -2011,9 +2036,11 @@ const plEps    = document.getElementById('plEps');
 let playlist = [], plIdx = -1;
 let clipVids = [], clipDefaultPortrait = false;
 
-const playable = a => /\/file\/d\//.test(a.href);
-/* playlist = the playable, currently-visible cards in the same container
-   as the clicked card (features, the Index grid, or the AI showcase) */
+/* a card is playable in-site if it carries a video id (data-play), an
+   episode list (data-v), or a /file/d/ link (features). Folder cards now
+   play their representative clip in-site instead of bouncing to Drive. */
+const vidId = a => a.dataset.play || (a.href.match(/\/file\/d\/([^/]+)/) || [])[1] || '';
+const playable = a => !!(a.dataset.v || vidId(a));
 const visibleClips = (scope) =>
   [...scope.querySelectorAll('a.feat, a.card')]
     .filter(a => playable(a) && a.offsetParent !== null);
@@ -2021,7 +2048,9 @@ const visibleClips = (scope) =>
 function setEp(i){
   const v = clipVids[i];
   if (!v) return;
-  plIframe.src = `https://drive.google.com/file/d/${v.id}/preview`;
+  /* autoplay=1 is best-effort — Drive honours it after a user gesture on
+     most browsers; where it doesn't, the player still plays in-site. */
+  plIframe.src = `https://drive.google.com/file/d/${v.id}/preview?autoplay=1`;
   /* per-cut aspect override (e.g. a 9:16 alt of a 16:9 film);
      otherwise inherit the card cover's orientation */
   const portrait = v.a === '9:16' ? true : v.a === '16:9' ? false : clipDefaultPortrait;
@@ -2038,7 +2067,7 @@ function showClip(){
     : !!a.querySelector('img')?.classList.contains('portrait');
   clipVids = a.dataset.v
     ? JSON.parse(decodeURIComponent(a.dataset.v))
-    : [{l:'WATCH', id: a.href.match(/\/file\/d\/([^/]+)/)[1]}];
+    : [{l:'WATCH', id: vidId(a)}];
   plTitle.textContent = a.querySelector('h3').textContent;
   const cat = a.querySelector('.cat')?.textContent || a.querySelector('.label')?.textContent || '';
   const yr  = a.querySelector('.yr')?.textContent || '';
@@ -2061,6 +2090,7 @@ function openPlayer(a){
   if (plIdx < 0) return;
   showClip();
   player.classList.add('open');
+  document.getElementById('peek')?.classList.remove('on');
   document.body.style.overflow = 'hidden';
 }
 function closePlayer(){
@@ -2076,6 +2106,57 @@ document.addEventListener('click', e => {
   openPlayer(a);
 });
 player.addEventListener('click', e => { if (e.target.closest('[data-close]')) closePlayer(); });
+
+/* ── HOVER PREVIEW PEEK ──────────────────────
+   Desktop pointers only: hovering a card floats a small preview window that
+   follows the cursor; clicking still opens the in-site player. */
+if (window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+  const peek = document.createElement('div');
+  peek.id = 'peek';
+  peek.innerHTML =
+    '<div class="pk-img"><img alt=""><div class="pk-play">▶</div></div>' +
+    '<div class="pk-body"><div class="pk-title"></div><div class="pk-meta"></div>' +
+    '<div class="pk-cta" data-en="Click to play — in site" data-th="คลิกเพื่อเล่น — ในเว็บนี้">Click to play — in site</div></div>';
+  document.body.appendChild(peek);
+  const pkImg = peek.querySelector('img');
+  const pkTitle = peek.querySelector('.pk-title');
+  const pkMeta = peek.querySelector('.pk-meta');
+  let cur = null;
+
+  const place = (x, y) => {
+    const w = peek.offsetWidth, h = peek.offsetHeight, m = 16;
+    let nx = x + 20, ny = y + 20;
+    if (nx + w + m > innerWidth)  nx = x - w - 20;
+    if (ny + h + m > innerHeight) ny = innerHeight - h - m;
+    if (ny < m) ny = m;
+    peek.style.left = Math.max(m, nx) + 'px';
+    peek.style.top  = ny + 'px';
+  };
+
+  document.addEventListener('mouseover', e => {
+    const a = e.target.closest('#features a.feat, #grid a.card, #ai-grid a.card');
+    if (!a || a === cur || player.classList.contains('open')) return;
+    cur = a;
+    const img = a.querySelector('img');
+    pkImg.src = img ? img.currentSrc || img.src : '';
+    pkImg.classList.toggle('portrait', !!img?.classList.contains('portrait'));
+    peek.classList.toggle('portrait', !!img?.classList.contains('portrait'));
+    pkTitle.textContent = a.querySelector('h3, .feat-txt h3')?.textContent || '';
+    const cat = a.querySelector('.cat')?.textContent || a.querySelector('.chip')?.textContent || '';
+    const yr  = a.querySelector('.yr')?.textContent || '';
+    pkMeta.textContent = [cat, yr].filter(Boolean).join(' · ');
+    peek.querySelector('.pk-cta').textContent = peek.querySelector('.pk-cta').dataset[LANG] || 'Click to play';
+    peek.classList.add('on');
+  });
+  document.addEventListener('mouseout', e => {
+    const a = e.target.closest('#features a.feat, #grid a.card, #ai-grid a.card');
+    if (a && !a.contains(e.relatedTarget)){ cur = null; peek.classList.remove('on'); }
+  });
+  document.addEventListener('mousemove', e => {
+    if (peek.classList.contains('on')) place(e.clientX, e.clientY);
+  }, {passive:true});
+}
+
 plPrev.addEventListener('click', () => { if (plIdx > 0){ plIdx--; showClip(); } });
 plNext.addEventListener('click', () => { if (plIdx < playlist.length - 1){ plIdx++; showClip(); } });
 document.addEventListener('keydown', e => {
