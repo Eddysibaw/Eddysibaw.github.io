@@ -35,43 +35,54 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* Apple dark: true black canvas, one elevated surface, one blue accent */
-    --bg:#000;
-    --bg-2:#0A0A0A;      /* alternating band */
-    --panel:#1D1D1F;     /* card surface */
-    --panel-2:#232325;   /* card surface, hovered */
-    --line:rgba(255,255,255,.09);
-    --line-2:rgba(255,255,255,.18);
-    --ink:#F5F5F7;
-    --ink-2:#D2D2D7;
-    --muted:#86868B;
-    --muted-2:#6E6E73;
+    /* Neon loft: matte graphite canvas (not pure black), a violet-tinted
+       elevated surface, and a neon violet→magenta prism that GLOWS. */
+    --bg:#0B0A0E;        /* matte loft graphite, faint violet */
+    --bg-2:#121017;      /* alternating band */
+    --panel:#19151F;     /* card surface — violet charcoal */
+    --panel-2:#221C2B;   /* card surface, hovered */
+    --line:rgba(206,170,255,.11);
+    --line-2:rgba(206,170,255,.22);
+    --ink:#F4F1F8;
+    --ink-2:#CEC6D8;
+    --muted:#948AA4;
+    --muted-2:#6A6379;
 
-    /* accent: a prism — refracted ice → violet → magenta.
+    /* accent: a NEON prism — periwinkle → violet → purple → magenta.
        --grad paints surfaces and clipped text; --blue is the solid tone used
-       wherever a gradient can't go (borders, glyph colour, box-shadow). */
-    --iris-1:#7CE7FF;    /* crystal ice */
-    --iris-2:#7B8CFF;    /* periwinkle */
-    --iris-3:#B478FF;    /* violet */
-    --iris-4:#FF7BD5;    /* magenta */
+       wherever a gradient can't go (borders, glyph colour, box-shadow).
+       --neon-glow / --neon-glow-2 drive the box/text shadows that sell "neon". */
+    --iris-1:#8B7BFF;    /* neon periwinkle */
+    --iris-2:#B478FF;    /* violet */
+    --iris-3:#E15CFF;    /* neon purple-magenta */
+    --iris-4:#FF5CC2;    /* neon magenta-pink */
     --grad:linear-gradient(100deg,var(--iris-1) 0%,var(--iris-2) 34%,var(--iris-3) 66%,var(--iris-4) 100%);
-    --glow:rgba(140,180,255,.22);
-    --glow-2:rgba(180,120,255,.34);
+    --glow:rgba(190,120,255,.30);
+    --glow-2:rgba(255,92,194,.34);
+    --neon-glow:0 0 18px rgba(208,123,255,.45), 0 0 42px rgba(208,123,255,.20);
+    --neon-glow-sm:0 0 10px rgba(208,123,255,.40);
 
-    --sand:#7CE7FF;      /* legacy name, kept so existing rules still resolve */
-    --sand-dim:rgba(124,231,255,.14);
-    --teal:#7CE7FF;
-    --teal-dim:rgba(124,231,255,.12);
-    --blue:#7CE7FF;
-    --blue-fill:#7B8CFF;
-    --blue-fill-h:#8F9DFF;
-    --on-blue:#06060A;   /* near-black ink: the prism fill is too bright for white */
+    --sand:#D07BFF;      /* legacy name, kept so existing rules still resolve */
+    --sand-dim:rgba(208,123,255,.15);
+    --teal:#D07BFF;
+    --teal-dim:rgba(208,123,255,.13);
+    --blue:#D07BFF;      /* neon violet — the solid accent */
+    --blue-fill:#B478FF;
+    --blue-fill-h:#C98FFF;
+    --on-blue:#0B0A0E;   /* near-black ink: the neon fill is too bright for white */
 
     /* SF Pro is licensed to Apple platforms only — Inter is its closest
        metric-compatible stand-in; Noto Sans Thai matches its unlooped tone */
     --serif:'Inter','Noto Sans Thai',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
     --sans:'Inter','Noto Sans Thai',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
     --mono:'Inter','Noto Sans Thai',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+
+    /* minimal category glyphs (filled, used as CSS masks) */
+    --ic-all:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Crect x='3' y='3' width='7.5' height='7.5' rx='1.6'/%3E%3Crect x='13.5' y='3' width='7.5' height='7.5' rx='1.6'/%3E%3Crect x='3' y='13.5' width='7.5' height='7.5' rx='1.6'/%3E%3Crect x='13.5' y='13.5' width='7.5' height='7.5' rx='1.6'/%3E%3C/svg%3E");
+    --ic-sport:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M13 2 4 14h6l-1 8 9-12h-6z'/%3E%3C/svg%3E");
+    --ic-beauty:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9z'/%3E%3C/svg%3E");
+    --ic-festival:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M9 18a3 3 0 1 1-2-2.8V4l11-2v11a3 3 0 1 1-2-2.8V4.4L9 6z'/%3E%3C/svg%3E");
+    --ic-ai:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M11 2l1.7 5.3L18 9l-5.3 1.7L11 16l-1.7-5.3L4 9l5.3-1.7z'/%3E%3Ccircle cx='18.5' cy='16.5' r='1.7'/%3E%3C/svg%3E");
 
     --r:18px;            /* card radius */
     --r-pill:980px;      /* Apple's button radius */
@@ -89,9 +100,45 @@
        scroll container. `clip` leaves overflow-y visible. */
     overflow-x:clip;
   }
-  /* the cinematic grade + film grain that used to live on body::before /
-     body::after are gone: Apple's dark canvas is flat, untextured black. */
+  /* loft ambience: neon violet glow bleeding from top-left and bottom-right */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(ellipse 70% 55% at 12% -8%,rgba(139,123,255,.10),transparent 60%),
+      radial-gradient(ellipse 70% 55% at 92% 108%,rgba(255,92,194,.09),transparent 60%);
+  }
+  /* matte film grain — the "loft" texture over the flat graphite */
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.045;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  /* keep real content above the ambience layers */
+  .nav,.hero .wrap,section,footer,.player,.mcta{position:relative;z-index:2}
   html[lang="th"] body{line-height:1.65}
+
+  /* ── NEON GLOW — the accents that should look lit ── */
+  .sec-head .idx{text-shadow:var(--neon-glow-sm)}
+  .nav nav a::after{box-shadow:var(--neon-glow-sm)}
+  .play{box-shadow:var(--neon-glow-sm)}
+  .chip,.epb,.pin{text-shadow:0 0 8px rgba(208,123,255,.55)}
+  .filters button.on{box-shadow:var(--neon-glow-sm)}
+  .cta:not(.ghost){box-shadow:var(--neon-glow)}
+  .cta:not(.ghost):hover{box-shadow:0 0 24px rgba(208,123,255,.6),0 0 60px rgba(208,123,255,.28)}
+  .mcta .m-line,.mcta .m-quote{box-shadow:0 -2px 24px rgba(208,123,255,.25)}
+
+  /* ── MINIMAL CATEGORY ICONS (CSS mask → inherits text colour, survives
+        the language swap that rewrites button innerHTML) ── */
+  .filters button{display:inline-flex;align-items:center;gap:7px}
+  .filters button::before{
+    content:"";width:13px;height:13px;flex:none;background:currentColor;
+    -webkit-mask:center/contain no-repeat;mask:center/contain no-repeat;
+  }
+  .filters button[data-f="all"]::before{-webkit-mask-image:var(--ic-all);mask-image:var(--ic-all)}
+  .filters button[data-f="sport"]::before{-webkit-mask-image:var(--ic-sport);mask-image:var(--ic-sport)}
+  .filters button[data-f="beauty"]::before{-webkit-mask-image:var(--ic-beauty);mask-image:var(--ic-beauty)}
+  .filters button[data-f="festival"]::before{-webkit-mask-image:var(--ic-festival);mask-image:var(--ic-festival)}
+  .filters button[data-f="ai"]::before{-webkit-mask-image:var(--ic-ai);mask-image:var(--ic-ai)}
+
   a{color:inherit;text-decoration:none}
   img{display:block;max-width:100%}
   ::selection{background:var(--blue);color:#FFF}
@@ -829,6 +876,37 @@
   .line-go:hover,.line-go:hover strong{color:var(--blue)}
   .ch .ch-v em{color:var(--blue)}
 
+  /* ── NEON HOVER FLOURISH on work cards (wins over the flat layer above) ── */
+  .card{transition:transform .5s cubic-bezier(.16,1,.3,1)}
+  .card:hover{transform:translateY(-6px)}
+  .thumb,.feat-img{transition:box-shadow .45s ease,transform .5s cubic-bezier(.16,1,.3,1)}
+  .card:hover .thumb{box-shadow:0 0 0 1px rgba(208,123,255,.55),0 16px 46px rgba(208,123,255,.24)}
+  .card:hover .thumb img,.feat:hover .feat-img img{transform:scale(1.06)}
+  .card:hover h3{color:var(--sand)}
+  .feat:hover .play,.card:hover .play{background:var(--blue-fill);color:#fff;box-shadow:var(--neon-glow)}
+  /* a light sheen sweeps across the cover on hover */
+  .thumb::before{
+    content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:linear-gradient(115deg,transparent 32%,rgba(255,255,255,.16) 48%,transparent 64%);
+    transform:translateX(-130%);transition:transform .75s cubic-bezier(.16,1,.3,1);
+  }
+  .card:hover .thumb::before{transform:translateX(130%)}
+
+  /* ── PRICE REVEAL — hidden until the button is tapped ── */
+  .price-reveal{
+    display:inline-flex;align-items:center;gap:9px;cursor:pointer;
+    margin:6px 0 2px;padding:11px 20px;border-radius:var(--r-pill);
+    border:1px solid var(--blue);background:transparent;color:var(--blue);
+    font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    transition:.3s cubic-bezier(.16,1,.3,1);
+  }
+  .price-reveal:hover{background:var(--blue-fill);border-color:var(--blue-fill);color:#fff;box-shadow:var(--neon-glow)}
+  .price-reveal .pr-caret{transition:transform .3s}
+  .price-wrap{display:none}
+  .pkg.revealed .price-reveal{display:none}
+  .pkg.revealed .price-wrap{display:block;animation:priceIn .5s cubic-bezier(.16,1,.3,1) both}
+  @keyframes priceIn{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+
   /* ═══════════════════════════════════════════════════════════════════
      PRISM LAYER — crystal-neon accent on the Apple dark canvas.
      A flat blue can be one CSS variable; a prism cannot, because a gradient
@@ -1182,8 +1260,13 @@
     <div class="pkgs solo">
       <article class="pkg feat rv">
         <div class="pkg-name" data-en="Starting rate" data-th="ราคาเริ่มต้น">Starting rate</div>
-        <div class="pkg-price">฿3,000</div>
-        <div class="pkg-per label" data-en="1 clip · 1–2 minutes" data-th="1 คลิป · ความยาว 1–2 นาที">1 clip · 1–2 minutes</div>
+        <button class="price-reveal" type="button" data-en="Tap to reveal the rate" data-th="แตะเพื่อดูราคา">
+          <span data-en="Tap to reveal the rate" data-th="แตะเพื่อดูราคา">Tap to reveal the rate</span><span class="pr-caret">↓</span>
+        </button>
+        <div class="price-wrap">
+          <div class="pkg-price">฿3,000</div>
+          <div class="pkg-per label" data-en="1 clip · 1–2 minutes" data-th="1 คลิป · ความยาว 1–2 นาที">1 clip · 1–2 minutes</div>
+        </div>
         <ul class="pkg-list">
           <li data-en="Edit + colour grade + sound mix" data-th="ตัดต่อ + เกรดสี + มิกซ์เสียง">Edit + colour grade + sound mix</li>
           <li data-en="TH or EN subtitles" data-th="ซับไทยหรืออังกฤษ">TH or EN subtitles</li>
@@ -1857,6 +1940,13 @@ document.querySelectorAll('[data-jump]').forEach(el => {
     applyFilter(f);
     document.getElementById('index').scrollIntoView({behavior:'smooth'});
   });
+});
+
+/* price reveal — the rate stays hidden until the button is tapped.
+   Inline styles beat any stylesheet rule, so the slide is bulletproof;
+   scrollHeight gives the exact content height for a clean open. */
+document.querySelectorAll('.price-reveal').forEach(btn => {
+  btn.addEventListener('click', () => btn.closest('.pkg').classList.add('revealed'));
 });
 
 /* ═══════════════════════════════════════════
